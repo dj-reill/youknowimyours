@@ -1,0 +1,7 @@
+*.html
+*.py
+*.js
+.vscode/launch.json
+.vscode/settings.json
+notes/template.json
+notes/all.json
