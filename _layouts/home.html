@@ -14,6 +14,9 @@ layout: default
     {{ content }}
   </section>
 
+  <section id="gallery">
+    {% include image-gallery.html folder="/img"%}
+  </section>
 
   {%- if site.posts.size > 0 -%}
     <p class="h4">{{ page.list_title | default: "Posts" }}</p>
