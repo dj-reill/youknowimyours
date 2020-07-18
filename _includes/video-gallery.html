@@ -1,1 +1,10 @@
-{% video {{ site.cdn }}/videos/clouds.mp4 %}
+
+<div class="video-gallery">
+    {% for file in site.static_files %}
+        {% if file.path contains include.folder %}
+            {% if file.extname == '.mp4' or file.extname == '.mov' %}
+                {% video {{ site.cdn }}/vid/ { file} %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
