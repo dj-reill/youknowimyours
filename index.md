@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Will You Marry Me?
+title: I'm Yours
 ---
 
 <section>
@@ -21,5 +21,4 @@ title: Will You Marry Me?
       {% endfor %}
     {% endfor%}-->
 </section>
-
 
