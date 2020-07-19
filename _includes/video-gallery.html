@@ -1,10 +1,14 @@
-
-<div class="video-gallery">
-    {% for file in site.static_files %}
-        {% if file.path contains include.folder %}
-            {% if file.extname == '.mp4' or file.extname == '.mov' %}
-                {% video {{ site.cdn }}/vid/ { file} %}
-            {% endif %}
+<!--
+<div id="video-gallery">
+{% for file in site.static_files %}
+    {% if file.path contains include.folder %}
+        {% if file.extname == '.mp4' or file.extname == '.mov' %}
+            <video>
+                <source src='{{ site.url }}/vid/ { file } type="video/mp4"; codecs="avc1.42E01E, mp4a.40.2"'>
+            </video>
+            <!--{% video {{ site.url }}/vid/ { file} %}--><!--
         {% endif %}
-    {% endfor %}
+    {% endif %}
+{% endfor %}
 </div>
+-->

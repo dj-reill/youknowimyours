@@ -28,6 +28,7 @@ repository: "dj-reill/youknowimyours"
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - octopress-video-tag
 
 # A list of the pages to display in the navigation bar
 header_pages:
