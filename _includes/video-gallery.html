@@ -1,14 +1,22 @@
-<!--
-<div id="video-gallery">
-{% for file in site.static_files %}
-    {% if file.path contains include.folder %}
-        {% if file.extname == '.mp4' or file.extname == '.mov' %}
-            <video>
-                <source src='{{ site.url }}/vid/ { file } type="video/mp4"; codecs="avc1.42E01E, mp4a.40.2"'>
-            </video>
-            <!--{% video {{ site.url }}/vid/ { file} %}--><!--
+<style>
+    .video-gallery {overflow: auto; margin-left: -1%!important;}
+    .video-gallery li {float: left; display: block; margin: 0 0 1% 1%; width: 19%;}
+    .video-gallery li a {text-align: center; text-decoration: none!important; color: #777;}
+    .video-gallery li a span {display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding: 3px 0;}
+    .video-gallery li a img {width: 100%; display: block;}
+</style>
+
+<ul class="video-gallery">
+    <h3>Video</h3>
+    {% for file in site.static_files %}
+        {% if file.path contains include.folder %}
+            {% if file.extname == '.MP4' or file.extname == '.mov' %}
+                {% assign filenameparts = file.path | split: "/" %}
+                {% assign filename = filenameparts | last | replace: file.extname,"" %}
+                <video width="320" height="240" controls>
+                    <source src="{{ site.url | replace: 'http://','' | replace: 'https://','' }}{{ file.path | relative_url }}" type="video/mp4">
+                </video>
+            {% endif %}
         {% endif %}
-    {% endif %}
-{% endfor %}
+    {% endfor %}
 </div>
--->

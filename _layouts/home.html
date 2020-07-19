@@ -13,13 +13,14 @@ layout: default
   <section>
     {{ content }}
   </section>
-{% comment %}
-  <section id="video-gallery">
-    {% include video-gallery.html folder='/vid'%}
-  </section>
-{% endcomment %}
+
+  
   <section id="gallery">
     {% include image-gallery.html folder="/img"%}
+  </section>
+
+  <section id="video-gallery">
+    {% include video-gallery.html folder="/vid"%}
   </section>
 
   {%- if site.posts.size > 0 -%}
