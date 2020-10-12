@@ -11,14 +11,5 @@ title: I'm Yours
     <h2>{{ promise['subject'] }}</h2>
     <p class="lead">{{ promise['content'] | markdownify }}</p>
   </div>
-  <!-- 
-      {% for g in promise %}
-      <h1>{{ g[0] }}</h1>
-      {% for item in g %}
-      <li>
-          {{ item }}
-      </li>
-      {% endfor %}
-    {% endfor%}-->
 </section>
 
