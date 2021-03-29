@@ -13,14 +13,14 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: You Know I'm Yours
+title: The Kirbeilly Wedding
 email: "davidjamesreilly19@gmail.com"
 description: >- # this means to ignore newlines until "baseurl:"
-  This is a website for the love of my life, and so that we can share our love with the world.
+Because just like open-source programming, True Love, knows no bounds.
 #baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
-#github_username:  jekyll
+twitter_username: kirbeillywedding
+github_username:  dj-reill
 
 repository: "dj-reill/youknowimyours"
 
@@ -32,6 +32,8 @@ plugins:
 
 # A list of the pages to display in the navigation bar
 header_pages:
+- about.md
+- index.md
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

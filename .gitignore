@@ -5,3 +5,6 @@
 .vscode/settings.json
 notes/template.json
 notes/all.json
+Gemfile.lock
+.gitignore
+_site/img/*.jpg
