@@ -12,4 +12,3 @@ title: I'm Yours
     <p class="lead">{{ promise['content'] | markdownify }}</p>
   </div>
 </section>
-
