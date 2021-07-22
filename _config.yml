@@ -16,8 +16,8 @@
 title: The Kirbeilly Wedding
 email: "davidjamesreilly19@gmail.com"
 description: >- # this means to ignore newlines until "baseurl:"
-  Because just like open-source programming, True Love knows no bounds.
-baseurl: "" # the subpath of your site, e.g. /blog
+  Because just like open-source programming, True Love, knows no bounds.
+#baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: kirbeillywedding
 github_username:  dj-reill

@@ -2,19 +2,24 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {%- include head.html -%}
+  <body class="landing is-preload"></body>
+  		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+        {%- include header.html -%}
 
-  <body>
+        {%- include banner.html -%}
 
-    {%- include header.html -%}
-
-    <div class="py-5">
-      <div class="container page-content">
-          {{ content }}
-      </div>
+        {%- include sections.html -%}
     </div>
-
- <!--   {%- include footer.html -%} -->
-
+    {%- include footer.html -%}
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
   </body>
 
 </html>
