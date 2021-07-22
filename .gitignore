@@ -8,3 +8,4 @@ notes/template.json
 notes/all.json
 Gemfile.lock
 .gitignore
+_site/*
