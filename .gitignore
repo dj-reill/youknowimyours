@@ -9,5 +9,5 @@ notes/all.json
 Gemfile.lock
 .gitignore
 _site/*
-_site/404.html
+_site/*.*
 _site/feed.xml
