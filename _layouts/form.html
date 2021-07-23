@@ -18,19 +18,19 @@ permalink: save-the-date.html
             <section class="wrapper style5">
                 <div class="inner">
                     <section>
-                        <form action="https://send.pageclip.co/Ny7mFKmAQzWy4a5ZQ5aJ5eVUHuEpsL5t" class="pageclip-form">
+                        <form action="https://send.pageclip.co/Ny7mFKmAQzWy4a5ZQ5aJ5eVUHuEpsL5t" class="pageclip-form" onsubmit="myFunction()">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
-                                    <input type=”text” size=”19″ name="fistName" id=”firstName” value="" placeholder="First Name"><br><br>
+                                    <input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" placeholder="First Name"><br><br>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type=”text” size=”19″ name="lastName" id="lastName" value="" placeholder="Last Name"><br><br>
+                                    <input type="text" class="form-control"  size=”19″ name="lastName" id="lastName" value="" placeholder="Last Name"><br><br>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="email" name="email" id="email" value="" placeholder="Email" /><br><br>
+                                    <input type="email" class="form-control"  name="email" id="email" value="" placeholder="Email" /><br><br>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="phone" name="phone" id="phone" value="" placeholder="Phone Number" /><br><br>
+                                    <input type="tel" title="Enter numbers only [000 323 3928]" class="form-control" id="phone" type="tel" name="tel" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" maxlength="12" value="" placeholder="Phone Number" required="'required'"/><br><br>
                                 </div>
                             </div> 
                             <div class="col-12">
@@ -101,5 +101,12 @@ permalink: save-the-date.html
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
+
+    <script>
+        function myFunction() {
+          alert("The form was submitted").show();
+        }
+    </script>
+
   </body>
 </html>
