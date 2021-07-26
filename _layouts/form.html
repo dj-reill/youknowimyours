@@ -5,6 +5,8 @@ permalink: save-the-date.html
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {%- include head.html -%}
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 		<div id="page-wrapper">
@@ -21,18 +23,25 @@ permalink: save-the-date.html
                         <form action="https://send.pageclip.co/Ny7mFKmAQzWy4a5ZQ5aJ5eVUHuEpsL5t" class="pageclip-form" onsubmit="myFunction()">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" placeholder="First Name"><br><br>
+                                    <input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" required placeholder="First Name*"><br>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" class="form-control"  size=”19″ name="lastName" id="lastName" value="" placeholder="Last Name"><br><br>
+                                    <input type="text" class="form-control"  size=”19″ name="lastName" id="lastName" value="" required placeholder="Last Name*"><br>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="email" class="form-control"  name="email" id="email" value="" placeholder="Email" /><br><br>
+                                    <input type="email" class="form-control"  name="email" id="email" value="" required placeholder="Email*" /><br><br>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="tel" title="Enter numbers only [000 323 3928]" class="form-control" id="phone" type="tel" name="tel" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" maxlength="12" value="" placeholder="Phone Number" required="'required'"/><br><br>
+                                    <input type="tel" title="Enter numbers only [000 323 3928]" class="form-control" id="phone" type="tel" name="tel" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" maxlength="12" value="" placeholder="Phone Number*" required="'required'"/><br><br>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" name="street-address" autocomplete="home street-address" required placeholder="Street Address*"/><br>
+                                    <input type="text" class="form-control" name="address-level2" autocomplete="home address-level2" required placeholder="City*"/><br>
+                                    <input type="text" class="form-control" name="address-level1" autocomplete="home address-level1" required placeholder="State*"/><br>
+                                    <input type="text" class="form-control" name="postal-code" autocomplete="home postal-code" required placeholder="Postal Code*"/><br><br><br>
                                 </div>
                             </div> 
+                            <div class="row gtr-uniform">
                             <div class="col-12">
                                 <textarea name="demo-message" id="sendMessage" placeholder="Send us a message!" rows="6"></textarea><br><br>
                             </div>
@@ -100,6 +109,5 @@ permalink: save-the-date.html
           alert("The form was submitted").show();
         }
     </script>
-
   </body>
 </html>
