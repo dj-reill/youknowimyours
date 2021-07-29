@@ -5,7 +5,6 @@ permalink: save-the-date.html
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {%- include head.html -%}
-  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
 
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
@@ -20,7 +19,7 @@ permalink: save-the-date.html
             <section class="wrapper style5">
                 <div class="inner">
                     <section>
-                        <form id="saveTheDate" action="https://send.pageclip.co/Ny7mFKmAQzWy4a5ZQ5aJ5eVUHuEpsL5t" class="pageclip-form">
+                        <form id="saveTheDate">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
                                     <input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" required placeholder="First Name*"><br>
@@ -47,7 +46,7 @@ permalink: save-the-date.html
                             </div>
                             <div class="col-12">
                                 <ul class="actions">
-                                    <li><input type="submit" value="Submit" class="primary button pageclip-form_submit" /></li>
+                                    <li><input type="submit" value="Submit" class="form_submit primary button" /></li>
                                     <li><input type="reset" value="Reset" /></li>
                                 </ul>
                             </div>

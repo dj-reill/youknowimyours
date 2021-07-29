@@ -4,16 +4,15 @@ function handleSubmit(event) {
     const data = new FormData(event.target);
   
    formData = Object.fromEntries(data.entries());
-  
+
     // console.log({ value });
 
     firebase.database().ref('save-the-date')
         .push()
         .set(formData)
         .then(function(snapshot) {
-            $('#saveTheDate').html('<div>Thank you!</div>');
-            //success(); // some success methods
-            // console.log(formData)
+            $('#saveTheDate').addClass('form--success')
+            $('#saveTheDate').append('<div class="form_success"><div class="form_success_message"> Thanks :)</div></div>');
         }, function(error) {
             console.log('error' + error);
             //error(); // some error method
