@@ -5,7 +5,7 @@ permalink: save-the-date.html
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {%- include head.html -%}
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
 
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
@@ -20,7 +20,7 @@ permalink: save-the-date.html
             <section class="wrapper style5">
                 <div class="inner">
                     <section>
-                        <form action="https://send.pageclip.co/Ny7mFKmAQzWy4a5ZQ5aJ5eVUHuEpsL5t" class="pageclip-form" onsubmit="myFunction()">
+                        <form action="https://send.pageclip.co/Ny7mFKmAQzWy4a5ZQ5aJ5eVUHuEpsL5t" class="pageclip-form">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
                                     <input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" required placeholder="First Name*"><br>
@@ -55,22 +55,14 @@ permalink: save-the-date.html
                     </section>
                 </div>
             </section>
-
-                
-            <section id="one" class="wrapper style1 special">
-           
-                </section>
-
         </div>
         
     {%- include footer.html -%}
 
-    {%- include scripts.html -%}
+    {%- include scripts.html -%}    \
 
-    <script>
-        function myFunction() {
-          alert("The form was submitted").show();
-        }
-    </script>
+    {%- include firebase.html -%}
+    
+    <script type="text/javascript" src= {{ "/assets/js/submitListener.js" | relative_url }}></script>
   </body>
 </html>
