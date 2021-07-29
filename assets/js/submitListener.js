@@ -11,6 +11,7 @@ function handleSubmit(event) {
         .push()
         .set(formData)
         .then(function(snapshot) {
+            $('#saveTheDate').html('<div>Thank you!</div>');
             //success(); // some success methods
             // console.log(formData)
         }, function(error) {
