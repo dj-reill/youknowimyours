@@ -13,15 +13,16 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: The Kirbeilly Wedding
+title: You Know I'm Yours
+tagline: Carrie Kirby and David Reilly's Wedding Website 
 email: "davidjamesreilly19@gmail.com"
 description: >- # this means to ignore newlines until "baseurl:"
-  Because just like open-source programming, True Love, knows no bounds.
+author: David Reilly
+  Wedding website for Caroline Kirby and David Reilly
 #baseurl: "" # the subpath of your site, e.g. /blog
-#url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: https://youknowimyours.com # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: kirbeillywedding
 github_username:  dj-reill
-
 repository: "dj-reill/youknowimyours"
 
 # Build settings
@@ -29,6 +30,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - octopress-video-tag
+  - jekyll-seo
 
 # A list of the pages to display in the navigation bar
 header_pages:
