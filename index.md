@@ -1,6 +1,6 @@
 ---
 layout: default
-title: You Know I'm Yours
+title: Reilly & Kirby Wedding
 ---
 
   
