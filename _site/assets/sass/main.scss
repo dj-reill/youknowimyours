@@ -45,6 +45,28 @@
 		vertical-align: baseline;
 	}
 
+	div.form_success {
+		position: absolute;
+		top: -1px;
+		left: -1px;
+		right: -1px;
+		bottom: -1px;
+		text-align: center;
+		background: hsla(0,0%,100%,.8);
+		background-image: initial;
+		background-position-x: initial;
+		background-position-y: initial;
+		background-size: initial;
+		background-attachment: initial;
+		background-origin: initial;
+		background-clip: initial;
+		background-color: rgba(255, 255, 255, 0.8);
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
 	article, aside, details, figcaption, figure,
 	footer, header, hgroup, menu, nav, section {
 		display: block;
