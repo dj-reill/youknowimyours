@@ -16,7 +16,7 @@ permalink: rsvp.html
                 <h2>RSVP Page</h2>
                 <p>Please RSVP Below</p>
             </header>
-            <section class="wrapper style5">
+            <section class="wrapper style3">
                 <div class="inner">
                     <section>
                         <form id="rsvp">
@@ -26,53 +26,25 @@ permalink: rsvp.html
                                     <th>Last Name</th>
                                     <th>Food Selection</th>
                                     <th>Allergies</th>
+                                    <th>Require Hotel</th>
                                     <th>Add/Remove</th>
                                 </tr>
                                 <tr id="person1">
-                                    <div class="col-6 col-12-xsmall">
-                                        <td><input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" required placeholder="First Name*"></td>
-                                        <td><input type="text" class="form-control"  size=”19″ name="lastName" id="lastName" value="" required placeholder="Last Name*"></td>
-                                        <td><select class="form-control" id="foodSelection"></td>
-                                        <td><select class="form-control" id="foodSelection"></td>
-                                        <td><button id="addPerson">+</button></td>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <div class="col-6 col-12-xsmall">
-                                        <td><input type="checkbox" class="form-control" id="hotelReservation" value="value"><label for="hotelReservation">Require Hotel Reservation?</label></td>
+                                    <div class="row" style="flex-flow: row wrap;" >
+                                        <td><input type="text" class="form-control" size=”19″ name="fistName" id=”firstName.1” value="" required placeholder="First Name*"></td>
+                                        <td><input type="text" class="form-control"  size=”19″ name="lastName" id="lastName.1" value="" required placeholder="Last Name*"></td>
+                                        <td><select class="form-control" required id="foodSelection.1"></td>
+                                        <td><input type="text" class="form-control" id="allergies.1" placeholder="Enter allergies" maxlength="256"></td>
+                                        <td>
+                                            <select class="form-control" required id="hotel.1">
+                                                <option value="yes">Yes, I will book a hotel.</option>
+                                                <option value="No" selected>No, I do not require a room.</option>
+                                            </select>
+                                        </td>
+                                        <td><button name="addRemove" id="addPerson">+</button></td>
                                     </div>
                                 </tr>
                             </table>
-                            <div class="row gtr-uniform" id=itemRows>
-                                <row>
-                                    <div class="col-6 col-12-xsmall">
-                                        <input type="text" class="form-control" size=”19″ name="fistName" id=”firstName” value="" required placeholder="First Name*"><br>
-                                    </div>
-                                    <div class="col-6 col-12-xsmall">
-                                        <input type="text" class="form-control"  size=”19″ name="lastName" id="lastName" value="" required placeholder="Last Name*"><br>
-                                    </div>
-                                </row>
-                                <button class ="btn btn-white btn-plus col-12-xsmall">+</button>
-                            </div>
-
-                            <div class="row gtr-uniform">
-                                <div class="col-6 col-12-xsmall">
-                                    <input type="email" class="form-control"  name="email" id="email" value="" required placeholder="Email*" /><br><br>
-                                </div>
-                                <div class="col-6 col-12-xsmall">
-                                    <input type="tel" title="Enter numbers only [000 323 3928]" class="form-control" id="phone" type="tel" name="tel" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" maxlength="12" value="" placeholder="Phone Number*" required="'required'"/><br><br>
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" class="form-control" name="street-address" autocomplete="home street-address" required placeholder="Street Address*"/><br>
-                                    <input type="text" class="form-control" name="address-level2" autocomplete="home address-level2" required placeholder="City*"/><br>
-                                    <input type="text" class="form-control" name="address-level1" autocomplete="home address-level1" required placeholder="State*"/><br>
-                                    <input type="text" class="form-control" name="postal-code" autocomplete="home postal-code" required placeholder="Postal Code*"/><br><br><br>
-                                </div>
-                            </div> 
-                            <div class="row gtr-uniform">
-                            <div class="col-12">
-                                <textarea name="demo-message" id="sendMessage" placeholder="Send us a message!" rows="6"></textarea><br><br>
-                            </div>
                             <div class="col-12">
                                 <ul class="actions">
                                     <li><input type="submit" value="Submit" class="form_submit primary button" /></li>
@@ -91,25 +63,29 @@ permalink: rsvp.html
 
     {%- include firebase.html -%}
     
-    <script type="text/javascript" src= {{ "/assets/js/submitListener.js" | relative_url }}></script>
+    <script type="text/javascript" src= {{ "/assets/js/rsvpListener.js" | relative_url }}></script>
     <script type=text/javascript>
+        $("#addPerson").on('click', (function() {
+            var $tr = $('tr[id^="person"]:last');
 
-        $("#addPerson")on('click', (function() {
-            var $tr = $('div[id^="person"]:last');
             // Read the Number from that DIV's ID (i.e: 3 from "klon3")
             // And increment that number by 1
-            var num = parseInt( $tr.prop("id").match(/\d+/g), 10 ) +1;
-            $tr.clone(true).prop('id', 'person'+ num ).insertAfter('#reservationTable tbody>tr#person1');
+            var num = parseInt( $tr.prop("id").match(/\d+/g), 10 )+1;
+            // disable previous button
+            var $button = $tr.find('button[name="addRemove"]:not(:disabled)').prop('disabled', true);
+            $tr.clone(true, true).prop('id', 'person'+ num );
+                // .insertAfter('#reservationTable tbody>tr:nth-last-child(2)');
+            fixProps($tr, num);
+            $tr.appendTo("#reservationTable");
             return false;
-        });
+        }));
 
-        $('.btn-minus').on('click', function(){            
-            $(this).parent().siblings('input').val(parseInt($(this).parent().siblings('input').val()) - 1)
-        })
-
-        $('.btn-plus').on('click', function(){            
-            $(this).parent().siblings('input').val(parseInt($(this).parent().siblings('input').val()) + 1)
-        })
+        function fixProps(elem, cntr) {
+            $(elem).find("[id]").add(elem).each(function(prop) {
+                console.log(this.id);
+                this.id = this.id.replace(/\d+$/, '') + cntr;
+            });
+        }
     </script>
   </body>
 </html>
