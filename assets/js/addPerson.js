@@ -1,4 +1,4 @@
-function addPerson() {
+function addPerson(event) {
     var root = document.getElementById('reservationTable').getElementsByTagName('tbody')[0];
     var rows = root.getElementsByTagName('tr');
     var clone = rows[rows.length - 1].cloneNode(true);
@@ -14,6 +14,7 @@ function addPerson() {
     const newAdd = document.querySelector('[name=add]');
     newAdd.addEventListener('click', addPerson);
     renumberRows()
+    event.preventDefault();
 }
 
 function removePerson(event) {
