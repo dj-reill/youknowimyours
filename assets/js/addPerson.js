@@ -31,11 +31,11 @@ function renumberRows() {
 }
 
 function fixProps(elem, cntr) {
-    elem.setAttribute('name', elem.getAttribute('name').replace(/\d+$/, cntr));
-    elem.id = elem.id.replace(/\d+$/, cntr);
+    elem.setAttribute('name', elem.getAttribute('name').replace(/\d+/, cntr));
+    elem.id = elem.id.replace(/\d+/, cntr);
     elem.querySelectorAll('td>[id]').forEach((e) => {
-        e.id = e.id.replace(/\d+$/, cntr);
-        e.setAttribute('name', e.getAttribute('name').replace(/\d+$/, cntr));
+        e.id = e.id.replace(/\d+/, cntr);
+        e.setAttribute('name', e.getAttribute('name').replace(/\d+/, cntr));
     })
     return elem;
 };
