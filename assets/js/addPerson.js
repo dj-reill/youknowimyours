@@ -49,5 +49,5 @@ var nodes = document.querySelectorAll('button[name="add"]');
 const add = nodes[nodes.length- 1];
 add.addEventListener('click', addPerson);
 
-const reset = document.querySelectorAll('input[type="reset"]');
-reset.addEventListener('click', reset);
+const resetEl = document.querySelectorAll('input[type="reset"]');
+resetEl.addEventListener('click', reset);
