@@ -1,20 +1,51 @@
-export function addPerson() {
-    var $tr = $('tr[id^="person"]:last');
+function addPerson() {
+    var root = document.getElementById('reservationTable').getElementsByTagName('tbody')[0];
+    var rows = root.getElementsByTagName('tr');
+    var clone = rows[rows.length - 1].cloneNode(true);
+    const prevAdd = rows[rows.length - 1].querySelector('[name=add]');
+    var num = parseInt( prevAdd.id.match(/\d+/g), 10) ;
+    clone = fixProps(clone, num + 1);
+    root.appendChild(clone);
+    // fix previous row / buttons
+    prevAdd.name = 'remove';
+    prevAdd.id = `removePerson.${num}`
+    prevAdd.textContent = '-';
+    prevAdd.addEventListener('click', removePerson(prevAdd));
+}
 
-    // Read the Number from that DIV's ID (i.e: 3 from "klon3")
-    // And increment that number by 1
-    var num = parseInt( $tr.prop("id").match(/\d+/g), 10 )+1;
-    // disable previous button
-    var $button = $($tr).find('button[name="addRemove"]:not(:disabled)').prop('disabled', true);
-    $tr.clone(true).prop('id', 'person'+ num )
-        .insertAfter('#reservationTable tbody>tr:nth-last-child(2)');
-    fixProps($('tr[id^="person"]:last'), 'id', num);
-    fixProps($('tr[id^="person"]:last'), 'for', num);
-    return false;
+function removePerson($row) {
+    try {
+        var table = document.getElementById(reservationTable);
+        var rowCount = table.rows.length;
+        for (var i = 0; i < rowCount; i++) {
+            var row = table.rows[i];
+            /*var chkbox = row.cells[0].childNodes[0];*/
+            /*if (null != chkbox && true == chkbox.checked)*/
+
+            if (row==$row) {
+                if (rowCount <= 1) {
+                    alert("Cannot delete all the rows.");
+                    break;
+                }
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+            }
+        }
+    } catch (e) {
+        alert(e);
+    }
+    //getValues();
 };
 
-function fixProps(elem, prop, cntr) {
-    $(elem).find(`[${prop}]`).add(elem).each(function() {
-        this[`"${prop}"`] =  this[`"${prop}"`].replace(/\d+$/, "") + cntr;
+function fixProps(elem, cntr) {
+    elem.id = elem.id.replace(/\d+$/, cntr);
+    elem.querySelectorAll('td>[id]').forEach((e) => {
+        e.id = e.id.replace(/\d+$/, cntr);
     })
-}
+    return elem;
+};
+
+var nodes = document.querySelectorAll('button[name="add"]');
+const add = nodes[nodes.length- 1];
+add.addEventListener('click', addPerson);
