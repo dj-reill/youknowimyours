@@ -31,9 +31,11 @@ function renumberRows() {
 }
 
 function fixProps(elem, cntr) {
+    elem.name = elem.name.replace(/\d+$/, cntr);
     elem.id = elem.id.replace(/\d+$/, cntr);
     elem.querySelectorAll('td>[id]').forEach((e) => {
         e.id = e.id.replace(/\d+$/, cntr);
+        e.name = e.name.replace(/\d+$/, cntr);
     })
     return elem;
 };
