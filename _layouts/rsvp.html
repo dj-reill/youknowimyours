@@ -20,14 +20,14 @@ permalink: rsvp.html
                 <div class="inner">
                     <section>
                         <form id="rsvp">
-                            <table class="table" id="reservationTable">
+                            <table class="table nowrap" text-align="center" id="reservationTable">
                                 <thead>
                                     <tr>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Food Selection</th>
                                         <th>Allergies</th>
-                                        <th>Require Hotel</th>
+                                        <th>Lodging</th>
                                         <th>Add/Remove</th>
                                     </tr>
                                 </thead>
@@ -46,8 +46,8 @@ permalink: rsvp.html
                                             <td><input type="text" class="form-control" id="allergies.1" placeholder="Enter allergies" maxlength="256"></td>
                                             <td>
                                                 <select class="form-control" required id="hotel.1">
-                                                    <option value="yes">Yes, I will book a hotel.</option>
-                                                    <option value="No" selected>No, I do not require a room.</option>
+                                                    <option value="yes">Yes, I plan to stay at the Hotel.</option>
+                                                    <option value="No" selected>No, I have other accommodations.</option>
                                                 </select>
                                             </td>
                                             <td><button name="add" id="addPerson.1">+</button></td>
