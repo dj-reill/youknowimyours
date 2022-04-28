@@ -37,7 +37,7 @@ function fixProps(elem, cntr) {
     return elem;
 };
 
-function reset() {
+function resetTable() {
     var rows = root.getElementsByTagName('tr');
     rows[rows.length - 1].forEach((row, index) => {
         if (index === 0) return;
@@ -50,4 +50,4 @@ const add = nodes[nodes.length- 1];
 add.addEventListener('click', addPerson);
 
 const resetEl = document.querySelectorAll('input[type="reset"]');
-resetEl.addEventListener('click', reset);
+resetEl.addEventListener('click', resetTable);
