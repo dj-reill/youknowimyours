@@ -2,8 +2,10 @@ function handleSubmit(event) {
     event.preventDefault();
   
     const data = new FormData(event.target);
+    const now = new Date().toISOString();
   
-   formData = Object.fromEntries(data.entries());
+    formData = Object.fromEntries(data.entries());
+    formData['timestamp'] = now;
 
     // console.log({ value });
 
