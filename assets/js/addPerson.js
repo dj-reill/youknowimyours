@@ -10,32 +10,23 @@ function addPerson() {
     prevAdd.name = 'remove';
     prevAdd.id = `removePerson.${num}`
     prevAdd.textContent = '-';
-    prevAdd.addEventListener('click', removePerson(prevAdd));
+    prevAdd.removeEventListener('click', addPerson);
+    prevAdd.addEventListener('click', removePerson);
+    //reset event listener
+    var rows = root.getElementsByTagName('tr');
+    const newAdd = rows[rows.length - 1].querySelector('[name=add]');
+    newAdd.addEventListener('click', addPerson);
 }
 
-function removePerson($row) {
-    try {
-        var table = document.getElementById(reservationTable);
-        var rowCount = table.rows.length;
-        for (var i = 0; i < rowCount; i++) {
-            var row = table.rows[i];
-            /*var chkbox = row.cells[0].childNodes[0];*/
-            /*if (null != chkbox && true == chkbox.checked)*/
-
-            if (row==$row) {
-                if (rowCount <= 1) {
-                    alert("Cannot delete all the rows.");
-                    break;
-                }
-                table.deleteRow(i);
-                rowCount--;
-                i--;
-            }
-        }
-    } catch (e) {
-        alert(e);
-    }
-    //getValues();
+function removePerson(event) {
+    event.target.parentNode.parentNode.remove();
+    event.preventDefault();
+    var root = document.getElementById('reservationTable').getElementsByTagName('tbody')[0];
+    var rows = root.getElementsByTagName('tr');
+    var clone = rows[rows.length - 1].cloneNode(true);
+    const prevAdd = rows[rows.length - 1].querySelector('[name=add]');
+    var num = parseInt( prevAdd.id.match(/\d+/g), 10) ;
+    clone = fixProps(clone, num + 1);
 };
 
 function fixProps(elem, cntr) {
@@ -46,6 +37,17 @@ function fixProps(elem, cntr) {
     return elem;
 };
 
+function reset() {
+    var rows = root.getElementsByTagName('tr');
+    rows[rows.length - 1].forEach((row, index) => {
+        if (index === 0) return;
+        row.remove();
+    });
+}
+
 var nodes = document.querySelectorAll('button[name="add"]');
 const add = nodes[nodes.length- 1];
 add.addEventListener('click', addPerson);
+
+const reset = document.querySelectorAll('input[type="reset"]');
+reset.addEventListener('click', reset);
