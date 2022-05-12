@@ -20,38 +20,34 @@ permalink: rsvp.html
                 <div class="inner">
                     <section>
                         <form id="rsvp">
-                            <table class="table nowrap" text-align="center" id="reservationTable">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Food Selection</th>
-                                        <th>Allergies</th>
-                                        <th>Lodging</th>
-                                        <th>Add/Remove</th>
-                                    </tr>
+                            <table class="table-container" role="table" text-align="center" id="reservationTable">
+                                <thead class="flex-table header">
+                                    <td class="flex-row first" role="columnheader">First Name</div>
+                                    <td class="flex-row" role="columnheader">Last Name</div>
+                                    <td class="flex-row" role="columnheader">Food Selection</div>
+                                    <td class="flex-row" role="columnheader">Allergies</div>
+                                    <td class="flex-row" role="columnheader">Lodging</div>
+                                    <td class="flex-row" role="columnheader">Add/Remove</div>
                                 </thead>
                                 <tbody>
-                                    <tr name="person_1" id="person_1">
-                                        <div class="row flex" style="flex-flow: row wrap;" >
-                                            <td><input type="text" class="form-control" size=”19″ name="person1_firstName" id="person1_firstName" value="" required placeholder="First Name*"></td>
-                                            <td><input type="text" class="form-control"  size=”19″ name="person1_lastName" id="person1_lastName" value="" required placeholder="Last Name*"></td>
-                                            <td>
-                                                <select class="form-control" required name="person1_foodSelection" id="person1_foodSelection">
-                                                    <option>Chicken</option>
-                                                    <option>Fish</option>
-                                                    <option>Vegetarian</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="person1_allergies" id="person1_allergies" placeholder="Enter allergies" maxlength="256"></td>
-                                            <td>
-                                                <select class="form-control" required name="person1_hotel" id="person1_hotel">
-                                                    <option value="yes">Yes, I plan to stay at the Hotel.</option>
-                                                    <option value="No" selected>No, I have other accommodations.</option>
-                                                </select>
-                                            </td>
-                                            <td><button name="add" id="addPerson_1">+</button></td>
-                                        </div>
+                                    <tr class="flex-table row" role="rowgroup" name="person_1" id="person_1">
+                                        <td class="flex-row first" role="cell"><input type="text" class="form-control" size=”19″ name="person1_firstName" id="person1_firstName" value="" required placeholder="First Name*"></td>
+                                        <td class="flex-row" role="cell"><input type="text" class="form-control"  size=”19″ name="person1_lastName" id="person1_lastName" value="" required placeholder="Last Name*"></td>
+                                        <td class="flex-row" role="cell">
+                                            <select class="form-control" required name="person1_foodSelection" id="person1_foodSelection">
+                                                <option>Chicken</option>
+                                                <option>Fish</option>
+                                                <option>Vegetarian</option>
+                                            </select>
+                                        </td>
+                                        <td class="flex-row" role="cell"> <input type="text" class="form-control" name="person1_allergies" id="person1_allergies" placeholder="Enter allergies" maxlength="256"></td>
+                                        <td class="flex-row" role="cell">
+                                            <select class="form-control" required name="person1_hotel" id="person1_hotel">
+                                                <option value="yes">Yes, I plan to stay at the Hotel.</option>
+                                                <option value="No" selected>No, I have other accommodations.</option>
+                                            </select>
+                                        </td>
+                                        <td class="flex-cell" role="cell"><button name="add" id="addPerson_1">+</button></td>
                                     </tr>
                                 </tbody>
                             </table>
