@@ -33,7 +33,7 @@ permalink: rsvp.html
                                 </thead>
                                 <tbody>
                                     <tr name="person_1" id="person_1">
-                                        <div class="row" style="flex-flow: row wrap;" >
+                                        <div class="row flex" style="flex-flow: row wrap;" >
                                             <td><input type="text" class="form-control" size=”19″ name="person1_firstName" id="person1_firstName" value="" required placeholder="First Name*"></td>
                                             <td><input type="text" class="form-control"  size=”19″ name="person1_lastName" id="person1_lastName" value="" required placeholder="Last Name*"></td>
                                             <td>
@@ -75,6 +75,12 @@ permalink: rsvp.html
     
     <script type="text/javascript" src= {{ "/assets/js/rsvpListener.js" | relative_url }}></script>
     <script type="text/javascript" src={{ "/assets/js/addPerson.js" | relative_url }}></script>
+    <script type="text/javascript">
+        // initialize popovers
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
     <!-- <script type=text/javascript>
         $("#addPerson").on('click', (function() {
             var $tr = $('tr[id^="person"]:last');
