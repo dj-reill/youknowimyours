@@ -12,7 +12,7 @@
     display: block;
     margin: 2em auto;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
   }
   
 
@@ -25,12 +25,15 @@
     &:first-of-type .flex-row {
     color: white;
     }
+
+    max-width: none;
 }
 
 .flex-row {
-    width: calc(100% / 4);
+    width: calc(100% / 3);
     text-align: center;
     padding: 0.5em 0.5em;
+    align-items: flex-start;
   }
 
   .rowspan {
@@ -43,6 +46,8 @@
   .column {
     display: flex;
     flex-flow: column wrap;
+    align-items: flex-start;
+    text-align: center;
     width: 75%;
     padding: 0;
     .flex-row {
@@ -53,7 +58,7 @@
       border: 0;
       &:hover {
         background: #F5F5F5;
-        transition: 500ms;
+        transition: .5s;
       }
     }
   }

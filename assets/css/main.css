@@ -2158,7 +2158,6 @@ input, select, textarea {
 			.image.fit img {
 				width: 100%;
 			}
-
 /* List */
 
 	ol {
@@ -2357,6 +2356,22 @@ input, select, textarea {
 
 /* Table */
 
+	.flex-table {
+		display: flex;
+		flex-flow: row wrap;
+		border-left: solid 1px $table-border;
+		transition: 0.5s;
+		&:first-of-type {
+		border-top: solid 1px $table-header-border;
+		border-left: solid 1px $table-header-border;
+		}
+		&:first-of-type .flex-row {
+		background: $table-header;
+		color: white;
+		border-color: $table-header-border;
+		}
+	}
+
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
 		overflow-x: auto;
@@ -2513,7 +2528,7 @@ input, select, textarea {
 		input[type="button"].primary,
 		button.primary,
 		.button.primary {
-			background-color: #ed4933;
+			background-color: #406f7d;
 			box-shadow: none !important;
 			color: #ffffff !important;
 		}
@@ -2523,7 +2538,7 @@ input, select, textarea {
 			input[type="button"].primary:hover,
 			button.primary:hover,
 			.button.primary:hover {
-				background-color: #ef5e4a !important;
+				background-color: #182a38 !important;
 			}
 
 			input[type="submit"].primary:active,
@@ -2531,7 +2546,7 @@ input, select, textarea {
 			input[type="button"].primary:active,
 			button.primary:active,
 			.button.primary:active {
-				background-color: #eb341c !important;
+				background-color: #182a38 !important;
 			}
 
 		input[type="submit"].disabled, input[type="submit"]:disabled,
@@ -2681,8 +2696,17 @@ input, select, textarea {
 					.features li:first-child {
 						border-top: 0;
 					}
+					
+				.table .container {
+						  flex-direction: column;
+						}
+				.table .group {
+						  flex-direction: row;
+						}
+					  
+				}
 
-			}
+			
 
 /* Spotlight */
 
@@ -2843,7 +2867,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style1 {
-			background-color: #21b2a6;
+			background-color: #406f7d;
 			color: #c8ece9;
 		}
 
@@ -3007,7 +3031,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style3 {
-			background-color: #505393;
+			background-color: #406f7d;
 			color: #d3d4e4;
 		}
 
@@ -3380,7 +3404,7 @@ input, select, textarea {
 		-ms-transition: -ms-transform 0.5s ease;
 		transition: transform 0.5s ease;
 		-webkit-overflow-scrolling: touch;
-		background: #21b2a6;
+		background: #4B7C89;
 		color: #ffffff;
 		height: 100%;
 		max-width: 80%;
@@ -3843,15 +3867,14 @@ input, select, textarea {
 
 	#main > header {
 		padding: 12em 0 10em 0 ;
-		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.pngg");
-		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
+		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
+		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
+		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
+		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
+		background-position: calc(10%) calc(80%);
 		background-attachment: fixed;
-		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: cover;
-		text-align: center;
 	}
 
 		#main > header h2 {
@@ -3993,12 +4016,13 @@ input, select, textarea {
 /* Landing */
 
 	body.landing #page-wrapper {
-		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
+		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
+		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
+		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
+		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
+		background-position: calc(50%) calc(30%); 
+		z-index: -9;
 		background-attachment: fixed;
-		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: cover;
 		padding-top: 0;
@@ -4018,7 +4042,6 @@ input, select, textarea {
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.png");
-		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
