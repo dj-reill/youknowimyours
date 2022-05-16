@@ -2355,23 +2355,6 @@ input, select, textarea {
 				}
 
 /* Table */
-
-	.flex-table {
-		display: flex;
-		flex-flow: row wrap;
-		border-left: solid 1px $table-border;
-		transition: 0.5s;
-		&:first-of-type {
-		border-top: solid 1px $table-header-border;
-		border-left: solid 1px $table-header-border;
-		}
-		&:first-of-type .flex-row {
-		background: $table-header;
-		color: white;
-		border-color: $table-header-border;
-		}
-	}
-
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
 		overflow-x: auto;
@@ -2528,7 +2511,7 @@ input, select, textarea {
 		input[type="button"].primary,
 		button.primary,
 		.button.primary {
-			background-color: #406f7d;
+			background-color: #0a4152;
 			box-shadow: none !important;
 			color: #ffffff !important;
 		}
