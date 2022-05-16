@@ -3413,7 +3413,7 @@ input, select, textarea {
 		position: fixed;
 		right: 0;
 		top: 0;
-		width: 20em;
+		width: 10em;
 		z-index: 10002;
 	}
 
@@ -3871,7 +3871,7 @@ input, select, textarea {
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
-		background-position: calc(10%) calc(80%);
+		background-position: 10% 60%;
 		background-attachment: fixed;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -4020,12 +4020,12 @@ input, select, textarea {
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/landing-banner.jpg");
-		background-position: calc(50%) calc(30%); 
 		z-index: -9;
 		background-attachment: fixed;
 		background-repeat: no-repeat;
 		background-size: cover;
 		padding-top: 0;
+		background-position: 10% 40%;
 	}
 
 	body.landing #footer {
@@ -4033,7 +4033,7 @@ input, select, textarea {
 	}
 
 	body.is-mobile.landing #page-wrapper {
-		background: none;
+/*		background: none; */
 	}
 
 	body.is-mobile.landing #banner,
