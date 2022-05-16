@@ -3871,10 +3871,10 @@ input, select, textarea {
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/rsvp-banner.png");
-		background-position: 10% 60%;
-		background-attachment: fixed;
+		background-position: calc(40%) calc(60%);
+		background-attachment: local;
 		background-repeat: no-repeat;
-		background-size: cover;
+		background-size: initial;
 	}
 
 		#main > header h2 {
