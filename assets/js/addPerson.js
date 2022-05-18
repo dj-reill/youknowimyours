@@ -64,6 +64,33 @@ function resetTable() {
     button.addEventListener('click', addPerson);
 }
 
+function updateAttendance(select) {
+    replaceSelection(select);
+    const tr = $(select).closest('[role="rowgroup"]')[0];
+    if ($(select).val() === 'No') {
+        $(tr).find('[required] :not([role=name])').each((i, e) => {
+            $(e).removeAttr('required');
+            e.required=false;
+        })
+    } else {
+        $(tr).find('[required] :not([role=name])').each((i, e) => {
+            $(e).attr('required', true);
+            e.required=true;
+        })
+    }
+}
+
+function replaceSelection(select) {
+    var value = $(select).val();
+    $(select).find('option').each(function(i, item) {
+        if(item.value !== value) {
+            $(item).removeAttr('selected');
+        } else {
+            $(item).attr('selected','true');
+        }
+    })
+}
+
 var nodes = document.querySelectorAll('button[name="add"]');
 const add = nodes[nodes.length- 1];
 add.addEventListener('click', addPerson);
