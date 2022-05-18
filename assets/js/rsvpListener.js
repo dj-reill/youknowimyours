@@ -12,10 +12,13 @@ function handleSubmit(event) {
         .set(formData)
         .then(function(snapshot) {
             $('#rsvp').addClass('form--success')
-            $('#rsvp').append('<div class="form_success"><div class="form_success_message"> Thanks</div></div>');
+            $('#rsvp').append('<div class="form_success"><div class="form_success_message"> Thanks! Hope to see you soon!</div><br><br></div>');
         }, function(error) {
             console.log('error' + error);
             //error(); // some error method
+    });
+    $(this).children().each((i, e) => {
+        e.remove();
     });
 }   
 
