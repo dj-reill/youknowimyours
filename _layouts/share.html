@@ -21,13 +21,14 @@ permalink: share.html
                     <section>
                         <form id="upload">
                             <div class="row gtr-uniform">
-                                <div id="filesubmit" class="col-12">
-                                    <input type="file" class="file-select" accept="image/* video/*"/>
-                                    <button type="file" value="Submit" class="file-submit primary button" >Submit</button>
+                                <div id="filesubmit" class="col-6">
+                                    <input type="file" class="file-select" accept="image/*,video/*"/> <br>
                                 </div>
                                 <div class="col-12">
-                                    <textarea name="demo-message" id="fileCaption" placeholder="Send us a caption for your file!" rows="6"></textarea><br><br>
-                                    <input required id="uploader" type="text" placeholder="Who are you?"/><br>
+                                    <input type="text" id="fileCaption" placeholder="Send us a caption for your file!" rows="6"></textarea><br><br>
+                                    <textarea required id="uploader" type="text" placeholder="Who are you?"></textarea>
+                                    <br>
+                                    <button type="file" value="Submit" class="file-submit primary button" >Submit</button>
                                 </div>
                             </div>
                         </form>
