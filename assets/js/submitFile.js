@@ -8,7 +8,10 @@ function handleFileUploadChange(event){
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
     document.querySelector('.form_success').remove();
-    document.querySelector('upload').classList.remove('form--success');
+    document.querySelector('#upload').classList.remove('form--success');
+    document.querySelector('#fileCaption').value='';
+    document.querySelector('#uploader').value='';
+    document.querySelector('.file-select').value ='';
     event.preventDefault();
 }
 
