@@ -1,0 +1,47 @@
+---
+permalink: share.html
+---
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body class="landing is-preload"></body>
+  		<!-- Page Wrapper -->
+		<div id="page-wrapper">
+            {%- include header.html -%}
+        <!-- Main -->
+        <article id="main">
+            <header>
+                <h2>Share the Love With Us</h2>
+                <p>Please Send Any Messages, Photos, or Videos from our wedding to us here!</p>
+            </header>
+            <section class="wrapper style2">
+                <div class="wrapper">
+                    <section>
+                        <form id="upload">
+                            <div class="row gtr-uniform">
+                                <div id="filesubmit" class="col-12">
+                                    <input type="file" class="file-select" accept="image/* video/*"/>
+                                    <button type="file" value="Submit" class="file-submit primary button" >Submit</button>
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="demo-message" id="fileCaption" placeholder="Send us a caption for your file!" rows="6"></textarea><br><br>
+                                    <input required id="uploader" type="text" placeholder="Who are you?"/><br>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </section>
+        </div>
+        
+    {%- include footer.html -%}
+
+    {%- include scripts.html -%}    
+
+    {%- include firebase.html -%}
+
+    <script type="text/javascript" src={{ "/assets/js/submitFile.js" | relative_url }}></script>
+  </body>
+</html>
