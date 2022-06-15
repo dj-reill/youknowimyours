@@ -2,11 +2,13 @@ let selectedFile;
 
 function handleFileUploadChange(event){
   selectedFile = event.target.files[0];
+  event.preventDefault();
 }
 
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
     document.querySelector('form--success').remove();
+    event.preventDefault();
 }
 
 function handleFileUploadSubmit(event){
@@ -20,8 +22,8 @@ function handleFileUploadSubmit(event){
         console.log(snapshot);
     }, (error) => {
         $('#upload').addClass('form--failure')
-        $('#upload').append('<div class="form_failure"><div class="form_failure_message"> Oh no! Something went wrong! Abandon ship! </div><br><br></div>');
-        $('#upload').append('<div><button class="dismiss primary button">Dismiss</button></div>');
+        $('#upload').append('<div class="form_failure"><div class="form_failure_message"> Oh no! Something went wrong! Abandon ship! </div><br><br><button class="dismiss primary button">Dismiss</button></div>');
+        document.querySelector('.dismiss').addEventListener('click', dismissMessage);
         console.log(error);
     }, () => {
         console.log('file successfully uploaded');
@@ -31,15 +33,17 @@ function handleFileUploadSubmit(event){
             .set(data)
             .then(function(s) {
                 $('#upload').addClass('form--success')
-                $('#upload').append('<div class="form_success"><div class="form_success_message"> Thank you for sharing this wonderful day with us</div><br><br></div>');
-                $('#upload').append('<div><button class="dismiss primary button">Dismiss</button></div>');
+                $('#upload').append('<div class="form_success"><div class="form_success_message"> Thank you for sharing this wonderful day with us</div><br><br><button class="dismiss primary button">Dismiss</button></div>');
                 document.querySelector('.dismiss').addEventListener('click', dismissMessage);
             }, function(error) {
                 console.log('error' + error);
                 //error(); // some error method
-            }); 
+            });
+        return true;
         });
     }
+    event.preventDefault();
+    return true;
 }
 
 const fileSelect = document.querySelector('.file-select');
