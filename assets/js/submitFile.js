@@ -19,7 +19,7 @@ function handleFileUploadSubmit(event){
     var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
 
     uploadTask.on('state_changed', (snapshot) => {
-        console.log(snapshot);
+        // console.log(snapshot);
     }, (error) => {
         $('#upload').addClass('form--failure')
         $('#upload').append('<div class="form_failure"><div class="form_failure_message"> Oh no! Something went wrong! Abandon ship! </div><br><br><button class="dismiss primary button">Dismiss</button></div>');
