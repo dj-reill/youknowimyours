@@ -7,7 +7,8 @@ function handleFileUploadChange(event){
 
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
-    document.querySelector('form--success').remove();
+    document.querySelector('.form_success').remove();
+    document.querySelector('upload').classList.remove('form--success');
     event.preventDefault();
 }
 
@@ -20,26 +21,28 @@ function handleFileUploadSubmit(event){
 
     uploadTask.on('state_changed', (snapshot) => {
         // console.log(snapshot);
-    }, (error) => {
-        $('#upload').addClass('form--failure')
-        $('#upload').append('<div class="form_failure"><div class="form_failure_message"> Oh no! Something went wrong! Abandon ship! </div><br><br><button class="dismiss primary button">Dismiss</button></div>');
-        document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-        console.log(error);
-    }, () => {
-        console.log('file successfully uploaded');
-        const data = {'location': `images/${selectedFile.name}`, 'caption': caption.value, 'uploadedBy': uploadedBy.value};
-        firebase.database().ref('shared')
-            .push()
-            .set(data)
-            .then(function(s) {
-                $('#upload').addClass('form--success')
-                $('#upload').append('<div class="form_success"><div class="form_success_message"> Thank you for sharing this wonderful day with us</div><br><br><button class="dismiss primary button">Dismiss</button></div>');
-                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-            }, function(error) {
-                console.log('error' + error);
-                //error(); // some error method
-            });
-        return true;
+        }, (error) => {
+            $('#upload').addClass('form--failure')
+            $('#upload').append('<div class="form_failure"><div class="form_failure_message col-12"> Oh no! Something went wrong! Abandon ship! </div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
+            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+            console.log(error);
+        }, () => {
+            console.log('file successfully uploaded');
+            storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
+                const data = {'url': url, 'fileName': selectedFile.name, 'caption': caption.value, 'uploadedBy': uploadedBy.value};
+                firebase.database().ref('shared')
+                    .push()
+                    .set(data)
+                    .then(function(s) {
+                        $('#upload').addClass('form--success');
+                        $('#upload').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
+                        document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                    }, function(error) {
+                        console.log('error' + error);
+                        //error(); // some error method
+                    });
+                });
+            return true;
         });
     }
     event.preventDefault();
