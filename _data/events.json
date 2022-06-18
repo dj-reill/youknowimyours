@@ -1,0 +1,38 @@
+[
+    {
+        "time": "July 3, 2022 at 3:00 pm",
+        "icon": "fa-bus",
+        "heading": "Shuttle Service from Hotel to Venue Begins",
+        "description": "The distance from the Hotel to the Venue is approximately 15 minutes."
+    },
+    {
+        "time": "July 3, 2022 at 4:15 pm",
+        "icon": "fa-exclamation",
+        "heading": "Last Shuttle to Venue",
+        "description": "The Last shuttle departs at 4:15pm"
+    },
+    {
+        "time": "July 3, 2022 at 4:30 pm",
+        "icon": "fa-ring",
+        "heading": "Wedding Ceremony Begins",
+        "description": ""
+    },
+    {
+        "time": "July 3, 2022 at 5:00 pm",
+        "icon": "fa-champagne-glasses",
+        "heading": "Cocktail hour",
+        "description": "Pop the champagne!"
+    },
+    {
+        "time": "July 3, 2022 at 6:00 pm",
+        "icon": "fa-plate-utensils",
+        "heading": "Dinner",
+        "description": "Pass the salt, please."
+    },
+    {
+        "time": "July 3, 2022 at 7:30 pm",
+        "icon": "fa-plate-utensils",
+        "heading": "Dancing",
+        "description": "Pass the salt, please."
+    }   
+]
