@@ -1,0 +1,49 @@
+---
+permalink: dayof.html
+---
+
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: " en " }}">
+    {%- include head.html -%}
+    <body class="landing is-preload"></body>
+  		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+        {%- include header.html -%}
+          <!-- Main -->
+        <article id="main">
+          <header>
+            <h1>{{ page.title | escape }}</h1>
+          </header>
+
+          <section id="three" class="wrapper style3">
+                <div class="inner">
+                    <header class="minor">
+                    <h4>Time Until Our Ceremony Begins</h4>
+                    </header>
+                    <div class="simply-countdown simply-countdown-one"></div>
+                    <br>
+                </div>
+                <div class="inner">
+                    {%- include schedule.html -%}
+                </div>
+            </section>
+        </article>
+    </div>
+    {%- include footer.html -%}
+   
+    <script src= {{ "/assets/js/simplyCountdown.js" | relative_url }}></script>
+    <script>
+      var d = new Date(1656880200000);
+  
+      // default example
+      simplyCountdown('.simply-countdown-one', {
+          year: d.getFullYear(),
+          month: d.getMonth() + 1,
+          day: d.getDate()
+      });
+
+  </script>
+  </body>  
+  
+</html>
+    
