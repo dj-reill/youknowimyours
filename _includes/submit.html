@@ -4,7 +4,7 @@
 <!-- Modal -->
 <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content wrapper style5">
+        <div class="modal-content wrapper style2">
             <div class="modal-header">
                 <header>
                     <h3 id="exampleModalLongTitle">Upload A File to the Timeline</h5>
@@ -15,22 +15,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="floating-div" id="upload">
+                <form id="upload">
                     <div id="filesubmit" class="col-6">
-                        <input type="file" class="file-select" accept="image/*,video/*"/> <br>
+                        <input type="file" class="file-select" accept="image/*,video/*"/>
                     </div>
-                    <br>
-                    <div class="col-12-medium">
-                        <div class="inner">
-                            <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="2"></textarea><br><br>
-                            <input required id="uploader" type="text" placeholder="Enter your name"></input>
-                            <br>
-                            <select name="timeline_category">
-                                {% for event in events %}
-                                    <option value="{{ event.heading }}">{{ event.heading }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                    <div class="col-12 row-gtr">
+                        <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="2"></textarea>
+                        <input required id="uploader" type="text" placeholder="Enter your name"></input>
+                        <select name="timeline_category">
+                            {% for event in events %}
+                                <option value="{{ event.heading }}">{{ event.heading }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </form>
             </div>
