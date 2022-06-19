@@ -5,7 +5,6 @@
 notes/template.json
 notes/all.json
 Gemfile.lock
-.gitignore
 _site
 _site/*.xml
 _site/*.html
@@ -19,3 +18,6 @@ _site/*.xml
 *.old
 _site/assets/css/images
 _site/
+_site/404.html
+_site/404.html
+_site/feed.xml
