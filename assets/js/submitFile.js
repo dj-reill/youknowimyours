@@ -60,6 +60,7 @@ fileSubmit.addEventListener('click', handleFileUploadSubmit);
 
 const floatingDiv = document.querySelector('#floating-div');
 function showDiv(event) {
+    $('body').removeClass('is-menu-visible');
     $('#submitModal').modal('show');
 }
 const menuFileUpload = document.querySelector('a#uploadForm');
