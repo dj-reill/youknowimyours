@@ -4,7 +4,6 @@
 .vscode/settings.json
 notes/template.json
 notes/all.json
-Gemfile.lock
 _site/*
 *.old
 _site/404.html
