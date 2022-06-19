@@ -11,39 +11,75 @@ permalink: share.html
 		<div id="page-wrapper">
             {%- include header.html -%}
         <!-- Main -->
+        
+
         <article id="main">
+
             <header>
-                <h2>Share the Love With Us</h2>
-                <p>Please Send Any Messages, Photos, or Videos from our wedding to us here!</p>
+                <h2>Day-of Timeline</h2>
+                <p>The Day-of Timeline and Real-time Wedding Album</p>
+                <p>Come here for updates on the day-of and to upload photos and videos of the day!</p>
             </header>
-            <section class="wrapper style1 special">
-                <div class="inner">
-                    <section>
-                        <div class="row gtr-uniform">
-                            <form id="upload">
-                                <div id="filesubmit" class="col-6">
-                                    <input type="file" class="file-select" accept="image/*,video/*"/> <br>
-                                </div>
-                                <br>
-                                <div class="col-12">
-                                    <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="2"></textarea><br><br>
-                                    <input required id="uploader" type="text" placeholder="Who are you?"></input>
-                                    <br>
-                                    <button type="file" value="Submit" class="file-submit primary button" >Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-                </div>
-            </section>
-            <section class="wrapper style3 special">
+            <div>
 
-                <div class="box alt">
-                    <div id="gallery" class="row gtr-50 gtr-uniform">
+                <section class="wrapper style1 special">
+                    <div class="inner">
+                        <section>
 
+                        </section>
                     </div>
-                </div>
-            </section>
+
+                <!-- <section class="wrapper style3 special">
+
+                    <div class="box alt">
+                        <div id="gallery" class="row gtr-50 gtr-uniform">
+
+                        </div>
+                    </div>
+
+                    
+                </section> -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                    Launch demo modal
+                  </button>
+                
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          ...
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                    <div class="modal" tabindex="-1" role="dialog">
+                        <form id="floating-div" id="upload" class="floating wrapper style5">
+                            <div id="filesubmit" class="col-6">
+                                <input type="file" class="file-select" accept="image/*,video/*"/> <br>
+                            </div>
+                            <br>
+                            <div class="col-12">
+                                <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="2"></textarea><br><br>
+                                <input required id="uploader" type="text" placeholder="Enter your name"></input>
+                                <br>
+                                <button type="file" value="Submit" class="file-submit primary button" >Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+     
         </article>
         
     {%- include footer.html -%}
