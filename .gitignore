@@ -7,3 +7,9 @@ notes/all.json
 Gemfile.lock
 _site/*
 *.old
+_site/404.html
+_site/feed.xml
+_site/index.html
+_site/sitemap.xml
+_site/assets/css/main.css
+_site/img/placeholder.txt
