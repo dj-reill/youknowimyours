@@ -2,31 +2,40 @@
 {% assign events = site.data.events %}
 
 <!-- Modal -->
-<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content wrapper style2">
+<div class="modal fade modal" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px">
+    <div class="modal-dialog modal-dialog-centered modal-med">
+        <div class="modal-content">
             <div class="modal-header">
                 <header>
-                    <h3 id="exampleModalLongTitle">Upload A File to the Timeline</h5>
-                    <p>Choose a file from any moment during the day to upload. Files will display on our timeline page</p>
+                    <h3 id="title" style="color:#2E3842">Upload A File to the Timeline</h5>
                 </header>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button class="close" data-dismiss="modal" aria-label="Close" style="box-shadow:none">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="upload">
-                    <div id="filesubmit" class="col-6">
-                        <input type="file" class="file-select" accept="image/*,video/*"/>
+                <p class="inner" style="color:#2E3842">Choose a file from <a href="" class="tooltip" title="Photos/Videos will be visible in the timeline page.">any moment during the day</a> to upload.</p>
+                <form id="upload" class="row gtr-uniform">
+                    <div class="col-12 aln-right">
+                        <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="1"></textarea>
                     </div>
-                    <div class="col-12 row-gtr">
-                        <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="2"></textarea>
+                    <div class="col-12 aln-right">
                         <input required id="uploader" type="text" placeholder="Enter your name"></input>
-                        <!-- <select name="timeline_category">
-                            {% for event in events %}
-                                <option value="{{ event.heading }}">{{ event.heading }}</option>
-                            {% endfor %}
-                        </select> -->
+                    </div>
+                    <!-- <div> 
+                    <div class="col-6 col-12-small">
+                        <input type="checkbox" id="specify-time" name="specify-time" checked="">
+                        <label for="specify-time">Specify a Time for Upload</label>
+                    </div>
+                        <select name="timeline_category" class="disabled">
+                        {% for event in events %}
+                            <option value="{{ event.heading }}">{{ event.heading }}</option>
+                        {% endfor %}
+                    </select></div> -->
+                    <div class="col-12 row aln-left">
+                        <div id="filesubmit" type="submit">
+                            <input type="file" class="file-select" accept="image/*,video/*" style="color:#2E3842"/>
+                        </div>
                     </div>
                 </form>
             </div>

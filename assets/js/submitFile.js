@@ -16,10 +16,10 @@ function dismissMessage(event){
 }
 
 function handleFileUploadSubmit(event){
-  const storageBucket = firebase.storage().ref();
-  var caption = document.querySelector('#fileCaption');
   var uploadedBy = document.querySelector('#uploader');
   if (uploadedBy.value.length > 0){
+    const storageBucket = firebase.storage().ref();
+    var caption = document.querySelector('#fileCaption');
     var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
 
     uploadTask.on('state_changed', (snapshot) => {
@@ -38,7 +38,7 @@ function handleFileUploadSubmit(event){
                     .set(data)
                     .then(function(s) {
                         $('#upload').addClass('form--success');
-                        $('#upload').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
+                        $('#upload').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><div class="wrapper"><input value="Dismiss" class="dismiss primary button"/></div></div>');
                         document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                     }, function(error) {
                         console.log('error' + error);
@@ -58,19 +58,10 @@ fileSelect.addEventListener('change', handleFileUploadChange);
 const fileSubmit = document.querySelector('.file-submit');
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
 
-const floatingDiv = document.querySelector('#floating-div');
-function showDiv(event) {
+function showModal(event) {
     $('body').removeClass('is-menu-visible');
     $('#submitModal').modal('show');
 }
 const menuFileUpload = document.querySelector('a#uploadForm');
-menuFileUpload.addEventListener('click', showDiv);
-// const closeDiv = document.querySelector('#hideDiv');
-// function hideDiv(event) {
-//     floatingDiv.style.display = 'none';
-//     event.preventDefault();
-// }
-// closeDiv.addEventListener('click', hideDiv);
-
-
+menuFileUpload.addEventListener('click', showModal);
 
