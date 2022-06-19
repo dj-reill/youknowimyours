@@ -60,15 +60,14 @@ fileSubmit.addEventListener('click', handleFileUploadSubmit);
 
 const floatingDiv = document.querySelector('#floating-div');
 function showDiv(event) {
-    floatingDiv.style.display = 'block';
-    event.preventDefault();
+    $('#exampleModalCenter').modal('show');
 }
 const menuFileUpload = document.querySelector('a#uploadForm');
 menuFileUpload.addEventListener('click', showDiv);
 
 $('#exampleModalCenter').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
-})
+})    
 
 // const closeDiv = document.querySelector('#hideDiv');
 // function hideDiv(event) {
