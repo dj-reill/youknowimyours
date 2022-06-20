@@ -52,9 +52,9 @@ permalink: timeline.html
                                         <div class="row">
                                             <div class="col-12 col-md-6 col-lg-4">
                                                 <div>
-                                                    <div class="single-timeline-content" epoch="{{ event.eventTime | date: "%s" }}">
+                                                    <div class="single-timeline-content" epoch={{ event.eventTime | date: "%s" }}>
                                                         <h6>{{ event.eventName }}</h6>
-                                                        <div id="carousel{{ forloop.index  }}" class="carousel slide" data-ride="carousel" aria-hidden="true" hidden>
+                                                        <div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
                                                             <div class="carousel-inner" id="gallery{{ forloop.index }}">    
                                         
                                                             </div>
