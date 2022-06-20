@@ -8,7 +8,7 @@ function handleFileUploadChange(event){
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
     document.querySelector('.form_success').remove();
-    document.querySelector('#upload').classList.remove('form--success');
+    document.querySelector('#splash').classList.remove('form--success');
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     document.querySelector('.file-select').value ='';
@@ -32,13 +32,21 @@ function handleFileUploadSubmit(event){
         }, () => {
             console.log('file successfully uploaded');
             storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
-                const data = {'url': url, 'fileName': selectedFile.name, 'caption': caption.value, 'uploadedBy': uploadedBy.value};
+                const data = {
+                    url, 
+                    'fileName': selectedFile.name, 
+                    'caption': caption.value, 
+                    'uploadedBy': uploadedBy.value,
+                    'dateModified': selectedFile.lastModifiedDate,
+                    'lastModified': selectedFile.lastModified,
+                    'size': selectedFile.size
+                };
                 firebase.database().ref('shared')
                     .push()
                     .set(data)
                     .then(function(s) {
-                        $('#upload').addClass('form--success');
-                        $('#upload').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><div class="wrapper"><input value="Dismiss" class="dismiss primary button"/></div></div>');
+                        $('#splash').addClass('form--success');
+                        $('#splash').append('<div class="form_success"><div class="form_success_message"> <p>Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
                         document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                     }, function(error) {
                         console.log('error' + error);
@@ -46,7 +54,7 @@ function handleFileUploadSubmit(event){
                     });
                 });
             return true;
-        });
+        }); 
     }
     event.preventDefault();
     return true;
