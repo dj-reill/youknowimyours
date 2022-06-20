@@ -4248,11 +4248,6 @@ input, select, textarea {
 	display:block;
 	clear:both;
 }
-
-.timeline_area {
-    position: relative;
-    z-index: 1;
-}
 .single-timeline-area {
     position: relative;
     z-index: 1;
@@ -4366,7 +4361,6 @@ input, select, textarea {
 .single-timeline-area .single-timeline-content:focus .timeline-text h6 {
     color: #3f43fd;
 }
-
 .modal.content {
 	color: #dfdfdf;
 	background-color: #21b2a6;
