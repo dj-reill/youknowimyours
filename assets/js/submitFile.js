@@ -18,12 +18,14 @@ function dismissMessage(event){
 }
 
 function handleFileUploadSubmit(event){
+  var progress = document.querySelector('[role*=progressbar]');
   var uploadedBy = document.querySelector('#uploader');
   if (uploadedBy.value.length > 0){
     const storageBucket = firebase.storage().ref();
     var caption = document.querySelector('#fileCaption');
     var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-    var progress = document.querySelector('[role*=progressbar]');
+    progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
+    progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
     uploadTask.on('state_changed', (snapshot) => {
         progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
         progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
