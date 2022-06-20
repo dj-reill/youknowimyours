@@ -6,6 +6,8 @@ permalink: timeline.html
 
   {%- include head.html -%}
 
+  {% assign detailedEvents = site.data.detailedEvents %}
+
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 		<div id="page-wrapper">
@@ -20,23 +22,71 @@ permalink: timeline.html
                 <p>The Day-of Timeline and Real-time Wedding Album</p>
                 <p>Come here for updates on the day-of and to upload photos and videos of the day!</p>
             </header>
-            <div>
-                <section class="wrapper style1 special">
-                    <!--
-                        / checkbox: Images only, Videos, Text Only
-                        / all: (checks all three)
-                    -->
-                    <div class="box alt">
-                        <div class="row gtr-50 gtr-uniform" id="gallery">
-                            <div class="col-4">
-                                <span class="image fit">
-                                    <img src="images/pic01.jpg" alt="">
-                                </span>
+            <!-- <section class="wrapper style1 special" > -->
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div id="content">
+                            <ul class="timeline">
+                                {% for event in detailedEvents %}
+                                    <li class="event" data-date="{{ event.eventTime | date: "%I:%M %P" }}" epoch="{{ event.eventTime | date: "%s" }}">
+                                        <h5>{{ event.eventName }}</h3>
+                                        <p>{{ event.description }}</p> -->
+                                    <!-- </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>  -->
+
+                <section class="timeline_area section_padding_130">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    {% for event in detailedEvents %}
+                                    <div class="single-timeline-area">
+                                        <div class="timeline-date">
+                                            <p>{{ event.eventTime | date: "%I:%M %P" }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-4">
+                                                <div>
+                                                    <div class="single-timeline-content" epoch="{{ event.eventTime | date: "%s" }}">
+                                                        <h6>{{ event.eventName }}</h6>
+                                                        <div id="carousel{{ forloop.index  }}" class="carousel slide" data-ride="carousel" aria-hidden="true" hidden>
+                                                            <div class="carousel-inner" id="gallery{{ forloop.index }}">    
+                                        
+                                                            </div>
+                                                            <a class="carousel-control-prev" href="#carousel{{ forloop.index  }}" role="button" data-slide="prev">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                            <a class="carousel-control-next" href="#carousel{{ forloop.index  }}" role="button" data-slide="next">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>                      
+                        </div>
                     </div>
                 </section>
-            </div>
+
+                <!--  -->
+
+                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+            <!-- </section> -->
+
+
      
         </article>
         
