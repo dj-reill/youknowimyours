@@ -8,52 +8,38 @@ function handleFileUploadChange(event){
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
     document.querySelector('.form_success').remove();
-    document.querySelector('#splash').classList.remove('form--success');
+    document.querySelector('#upload').classList.remove('form--success');
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     document.querySelector('.file-select').value ='';
-    document.querySelector('[role*=progressbar]').ariaValueNow="0";
-    document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
+    $('#submitModal').modal('hide');
     event.preventDefault();
 }
 
 function handleFileUploadSubmit(event){
-  var progress = document.querySelector('[role*=progressbar]');
+  const storageBucket = firebase.storage().ref();
+  var caption = document.querySelector('#fileCaption');
   var uploadedBy = document.querySelector('#uploader');
   if (uploadedBy.value.length > 0){
-    const storageBucket = firebase.storage().ref();
-    var caption = document.querySelector('#fileCaption');
     var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-    progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
-    progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
+
     uploadTask.on('state_changed', (snapshot) => {
-        progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
-        progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
+        // console.log(snapshot);
         }, (error) => {
             $('#upload').addClass('form--failure')
             $('#upload').append('<div class="form_failure"><div class="form_failure_message col-12"> Oh no! Something went wrong! Abandon ship! </div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
             console.log(error);
         }, () => {
-            console.log('file successfully uploaded')
-            progress.ariaValueNow = "100";
-            progress.clientWidth  = `width: 100%`;
+            console.log('file successfully uploaded');
             storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
-                const data = {
-                    url, 
-                    'fileName': selectedFile.name, 
-                    'caption': caption.value, 
-                    'uploadedBy': uploadedBy.value,
-                    'dateModified': selectedFile.lastModifiedDate,
-                    'lastModified': selectedFile.lastModified,
-                    'size': selectedFile.size
-                };
+                const data = {'url': url, 'fileName': selectedFile.name, 'caption': caption.value, 'uploadedBy': uploadedBy.value};
                 firebase.database().ref('shared')
                     .push()
                     .set(data)
                     .then(function(s) {
-                        $('#splash').addClass('form--success');
-                        $('#splash').append('<div class="form_success"><div class="form_success_message"> <p>Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+                        $('#upload').addClass('form--success');
+                        $('#upload').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
                         document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                     }, function(error) {
                         console.log('error' + error);
@@ -61,7 +47,7 @@ function handleFileUploadSubmit(event){
                     });
                 });
             return true;
-        }); 
+        });
     }
     event.preventDefault();
     return true;
@@ -73,10 +59,19 @@ fileSelect.addEventListener('change', handleFileUploadChange);
 const fileSubmit = document.querySelector('.file-submit');
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
 
-function showModal(event) {
-    $('body').removeClass('is-menu-visible');
+const floatingDiv = document.querySelector('#floating-div');
+function showDiv(event) {
+    $('#menu').hide();
     $('#submitModal').modal('show');
 }
 const menuFileUpload = document.querySelector('a#uploadForm');
-menuFileUpload.addEventListener('click', showModal);
+menuFileUpload.addEventListener('click', showDiv);
+// const closeDiv = document.querySelector('#hideDiv');
+// function hideDiv(event) {
+//     floatingDiv.style.display = 'none';
+//     event.preventDefault();
+// }
+// closeDiv.addEventListener('click', hideDiv);
+
+
 
