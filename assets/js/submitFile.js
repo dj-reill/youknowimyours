@@ -12,6 +12,8 @@ function dismissMessage(event){
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     document.querySelector('.file-select').value ='';
+    document.querySelector('[role*=progressbar]').ariaValueNow="0";
+    document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
     event.preventDefault();
 }
 
@@ -21,16 +23,19 @@ function handleFileUploadSubmit(event){
     const storageBucket = firebase.storage().ref();
     var caption = document.querySelector('#fileCaption');
     var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-
+    var progress = document.querySelector('[role*=progressbar]');
     uploadTask.on('state_changed', (snapshot) => {
-        // console.log(snapshot);
+        progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
+        progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
         }, (error) => {
             $('#upload').addClass('form--failure')
             $('#upload').append('<div class="form_failure"><div class="form_failure_message col-12"> Oh no! Something went wrong! Abandon ship! </div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
             console.log(error);
         }, () => {
-            console.log('file successfully uploaded');
+            console.log('file successfully uploaded')
+            progress.ariaValueNow = "100";
+            progress.clientWidth  = `width: 100%`;
             storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                 const data = {
                     url, 
