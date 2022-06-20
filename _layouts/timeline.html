@@ -21,63 +21,19 @@ permalink: timeline.html
                 <p>Come here for updates on the day-of and to upload photos and videos of the day!</p>
             </header>
             <div>
-
                 <section class="wrapper style1 special">
-                    <div class="inner">
-                        <section>
-
-                        </section>
-                    </div>
-
-                <!-- <section class="wrapper style3 special">
-
+                    <!--
+                        / checkbox: Images only, Videos, Text Only
+                        / all: (checks all three)
+                    -->
                     <div class="box alt">
-                        <div id="gallery" class="row gtr-50 gtr-uniform">
-
-                        </div>
-                    </div>
-
-                    
-                </section> -->
-                  <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        Launch demo modal
-                    </button>
-                    
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="row gtr-50 gtr-uniform" id="gallery">
+                            <div class="col-4">
+                                <span class="image fit">
+                                    <img src="images/pic01.jpg" alt="">
+                                </span>
                             </div>
-                            <div class="modal-body">
-                            ...
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                  
-                    <div class="modal" tabindex="-1" role="dialog">
-                        <form id="floating-div" id="upload" class="floating wrapper style5">
-                            <div id="filesubmit" class="col-6">
-                                <input type="file" class="file-select" accept="image/*,video/*"/> <br>
-                            </div>
-                            <br>
-                            <div class="col-12">
-                                <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="2"></textarea><br><br>
-                                <input required id="uploader" type="text" placeholder="Enter your name"></input>
-                                <br>
-                                <button type="file" value="Submit" class="file-submit primary button" >Submit</button>
-                            </div>
-                        </form>
+                        </div>                      
                     </div>
                 </section>
             </div>
@@ -90,6 +46,7 @@ permalink: timeline.html
 
     {%- include firebase.html -%}
 
-    <script type="text/javascript" src={{ "/assets/js/submitFile.js" | relative_url }}></script>
+    <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
+
   </body>
 </html>
