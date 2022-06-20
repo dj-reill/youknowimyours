@@ -27,11 +27,11 @@ ref.on('child_added', (snapshot, prevChildKey) => {
 });
 
 function setActiveItem(group){
-    const carouselItems = Array($(group).find('.carousel-item'));
+    const carouselItems = $(group).find('.carousel-item');
     carouselItems.forEach((item) => {
-        item.className = 'carousel-item';
+        item[0].removeClass('active');
     })
-    carouselItems[carouselItems.length - 1].className = 'carousel-item active';
+    carouselItems[carouselItems.length - 1].addClass('active');
 }
 
 function appendImage(target, imageData){
