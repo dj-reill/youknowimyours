@@ -13,14 +13,17 @@ ref.on('child_added', (snapshot, prevChildKey) => {
     const image = snapshot.val();
     let beforeImage; 
     beforeImage = Array.from(slices).filter(function(d) {
-        return d.epoch - image.lastModified < 0;
+        return (Number.parseInt(d.getAttribute('epoch')) * 1000) - image.lastModified < 0;
     });
     if (beforeImage.length === 0) {
         beforeImage = [slices[0]];
     }
-    const carousel = $(Array(beforeImage).at(-1)).find('.carousel-inner')[0];
-    appendImage(carousel, image);
-    setActiveItem(carousel);
+    const parentDiv = $(beforeImage[beforeImage.length - 1]);
+    const carousel = parentDiv.find('.carousel')[0];
+    const carouselInner = parentDiv.find('.carousel-inner')[0];
+    appendImage(carouselInner, image);
+    setActiveItem(carouselInner);
+    carousel.removeAttribute("hidden");
 });
 
 function setActiveItem(group){
@@ -28,7 +31,7 @@ function setActiveItem(group){
     carouselItems.forEach((item) => {
         item.className = 'carousel-item';
     })
-    Array(carouselItems.at(-1))[0].className = 'carousel-item active';
+    carouselItems[carouselItems.length - 1].className = 'carousel-item active';
 }
 
 function appendImage(target, imageData){
