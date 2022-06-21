@@ -4069,7 +4069,6 @@ input, select, textarea {
 		background-repeat: no-repeat;
 		background-size: cover;
 		padding-top: 0;
-		background-position: 10% 40%;
 	}
 
 	body.landing #footer {
@@ -4088,7 +4087,8 @@ input, select, textarea {
 		background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/20210123_003032.png");
 		background-repeat: no-repeat;
 		background-size: cover;
-		background-position: 30% 40%;
+		background-position: 50% 40%;
+		padding-top:10%;
 	}
 
 	body.is-mobile.landing #footer {
