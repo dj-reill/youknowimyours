@@ -42,10 +42,13 @@ function appendImage(target, imageData){
     // div.innerHTML = `<img src=${imageData.url} className="img-fluid d-block w-100" alt=${imageData.fileName}><div class="carousel-caption d-none d-md-block"><h5>${imageData.caption}</h5><p>Uploaded By: ${imageData.uploadedBy}</p></div>`;
     let item = document.createElement('div');
     item.className = 'carousel-item active';
+    let a = document.createElement('a');
+    a.href = imageData.url;
     let img = document.createElement('img');
     img.src = imageData.url;
     img.className = 'img-fluid d-block w-100';
     img.alt = imageData.fileName;
+    a.appendChild(img);
     let caption = document.createElement('div');
     caption.className = "carousel-caption d-none d-md-block";
     let h= document.createElement('h5');
@@ -54,7 +57,7 @@ function appendImage(target, imageData){
     p.innerText = `Uploaded by: ${imageData.uploadedBy}`;
     caption.appendChild(h);
     caption.appendChild(p)
-    item.appendChild(img);
+    item.appendChild(a);
     item.appendChild(caption);
     target.appendChild(item);
 }
