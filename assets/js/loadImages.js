@@ -59,7 +59,7 @@ function appendImage(target, imageData){
     if(isVideo(imageData.fileName)){
         img = document.createElement('video');
     } else {
-        let img = document.createElement('img');
+        img = document.createElement('img');
     }
     img.src = imageData.url;
     img.className = 'img-fluid d-block w-100';
