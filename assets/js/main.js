@@ -11,6 +11,9 @@
 		$wrapper = $('#page-wrapper'),
 		$banner = $('#banner'),
 		$header = $('#header');
+		if ($header.length === 0) {
+			$header = $('#timeline');
+		}
 
 	// Breakpoints.
 		breakpoints({
