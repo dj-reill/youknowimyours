@@ -36,14 +36,15 @@ function appendImage(target, imageData){
     item.className = 'carousel-item active';
     let a = document.createElement('a');
     a.href = imageData.url;
-    a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
+    // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
     let img = document.createElement('img');
     img.src = imageData.url;
     img.className = 'img-fluid d-block w-100';
     img.alt = imageData.fileName;
     a.appendChild(img);
     let caption = document.createElement('div');
-    caption.className = "carousel-caption d-none d-md-block";
+    caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
+    caption.style = "position: relative; left: 0; top: 0;"
     let h= document.createElement('h5');
     h.innerText = imageData.caption;
     let p = document.createElement('p');
