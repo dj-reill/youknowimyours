@@ -1,14 +1,6 @@
 const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
-const detailedEvents = window.detailedEvents;
-// ref.on('value', (snapshot) => {
-//     console.log(snapshot.val());
-//     const timeline = document.querySelector('#imageTimeline');
-//     appendImage(timeline, snapshot.val());
-// }, (errorObject) => {
-//     console.log('The read failed: ' + errorObject.name);
-// }); 
 
 ref.on('child_added', (snapshot, prevChildKey) => {
     const image = snapshot.val();
@@ -44,6 +36,7 @@ function appendImage(target, imageData){
     item.className = 'carousel-item active';
     let a = document.createElement('a');
     a.href = imageData.url;
+    a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
     let img = document.createElement('img');
     img.src = imageData.url;
     img.className = 'img-fluid d-block w-100';
