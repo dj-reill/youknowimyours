@@ -10,65 +10,65 @@ permalink: timeline.html
 
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
-		<div id="page-wrapper">
-            {%- include header.html -%}
-        <!-- Main -->
-        <article id="main">
-            <header id="timeline">
-                <h2>Timeline</h2>
-                <p>Help Us Make a Real-time Wedding Album</p>
-                <p>Pictures and Videos uploaded via the menu and home page display here!</p>
-            </header>
-            <section class="timeline_area section_padding_130">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- Timeline Area-->
-                            <div class="apland-timeline-area">
-                                <!-- Single Timeline Content-->
-                                {% for event in detailedEvents %}
-                                <div class="single-timeline-area" hidden>
-                                    <div class="timeline-date">
-                                        <h2>{{ event.eventTime | date: "%I:%M %P" }}</p>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <div>
-                                                <div class="single-timeline-content" epoch={{ event.eventTime | date: "%s" }}>
-                                                    <h6>{{ event.eventName }}</h6>
-                                                    <div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
-                                                        <div class="carousel-inner" id="gallery{{ forloop.index }}">    
-                                    
+		<div class="page-wrapper">
+            {%- include timeline_header.html -%}
+            <!-- Main -->
+            <article id="main">
+                <header class="timeline">
+                    <h2>Timeline</h2>
+                    <p>Help Us Make a Real-time Wedding Album</p>
+                    <p>Pictures and Videos uploaded via the menu and home page display here!</p>                
+                </header>
+                <section class="timeline_area section_padding_130">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area">
+                                    <!-- Single Timeline Content-->
+                                    {% for event in detailedEvents %}
+                                    <div class="single-timeline-area" hidden>
+                                        <div class="timeline-date">
+                                            <h2>{{ event.eventTime | date: "%I:%M %P" }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-4">
+                                                <div>
+                                                    <div class="single-timeline-content" epoch={{ event.eventTime | date: "%s" }}>
+                                                        <h6>{{ event.eventName }}</h6>
+                                                        <div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
+                                                            <div class="carousel-inner" id="gallery{{ forloop.index }}">    
+                                        
+                                                            </div>
+                                                            <a class="carousel-control-prev" href="#carousel{{ forloop.index  }}" role="button" data-slide="prev">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                            <a class="carousel-control-next" href="#carousel{{ forloop.index  }}" role="button" data-slide="next">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
                                                         </div>
-                                                        <a class="carousel-control-prev" href="#carousel{{ forloop.index  }}" role="button" data-slide="prev">
-                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                            <span class="sr-only">Previous</span>
-                                                        </a>
-                                                        <a class="carousel-control-next" href="#carousel{{ forloop.index  }}" role="button" data-slide="next">
-                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                            <span class="sr-only">Next</span>
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
-                                {% endfor %}
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>     
-        </article>
-        
-    {%- include footer.html -%}
+                </section>     
+            </article>
+            
+        {%- include footer.html -%}
 
-    {%- include scripts.html -%}    
+        {%- include scripts.html -%}    
 
-    {%- include firebase.html -%}
+        {%- include firebase.html -%}
 
-    <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
-
+        <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
+    </div>
   </body>
 </html>
