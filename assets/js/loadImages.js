@@ -28,6 +28,11 @@ function setActiveItem(group){
     $(carouselItems[carouselItems.length - 1]).addClass('active');
 }
 
+function getExtension(filename) {
+    var parts = filename.split('.');
+    return parts[parts.length - 1];
+  }
+
 function isVideo(filename) {
     var ext = getExtension(filename);
     switch (ext.toLowerCase()) {
