@@ -1,6 +1,7 @@
 const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
+const detailedEvents = window.detailedEvents;
 // ref.on('value', (snapshot) => {
 //     console.log(snapshot.val());
 //     const timeline = document.querySelector('#imageTimeline');
@@ -23,15 +24,16 @@ ref.on('child_added', (snapshot, prevChildKey) => {
     const carouselInner = parentDiv.find('.carousel-inner')[0];
     appendImage(carouselInner, image);
     setActiveItem(carouselInner);
+    carousel.closest('.single-timeline-area').removeAttribute('hidden');
     carousel.removeAttribute("hidden");
 });
 
 function setActiveItem(group){
-    const carouselItems = $(group).find('.carousel-item');
+    const carouselItems = group.querySelectorAll('.carousel-item');
     carouselItems.forEach((item) => {
-        item[0].removeClass('active');
+        $(item).removeClass('active');
     })
-    carouselItems[carouselItems.length - 1].addClass('active');
+    $(carouselItems[carouselItems.length - 1]).addClass('active');
 }
 
 function appendImage(target, imageData){
