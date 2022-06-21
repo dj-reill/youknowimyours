@@ -7,9 +7,7 @@ permalink: timeline.html
   {%- include head.html -%}
 
   {% assign detailedEvents = site.data.detailedEvents %}
-  <script>
-    window.detailedEvents = "{{ site.data.detailedEvents | json}}"
-  </script>
+
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 		<div id="page-wrapper">
@@ -69,8 +67,6 @@ permalink: timeline.html
     {%- include scripts.html -%}    
 
     {%- include firebase.html -%}
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
 
