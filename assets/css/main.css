@@ -3907,7 +3907,7 @@ input, select, textarea {
 		background-repeat: no-repeat;
 		background-size: initial;
 	}
-	
+
 	#main > header#timeline {
 		padding: 12em 0 10em 0 ;
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.png");
@@ -3917,7 +3917,7 @@ input, select, textarea {
 		background-position: calc(40%) calc(60%);
 		background-attachment: local;
 		background-repeat: no-repeat;
-		background-size: initial;
+		background-size: cover;
 	}
 
 
