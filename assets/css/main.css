@@ -3644,6 +3644,16 @@ input, select, textarea {
 				pointer-events: none;
 				opacity: 0;
 			}
+		
+		#timeline.alt {
+			background: transparent;
+		}
+
+			#timeline.alt h1 {
+				pointer-events: none;
+				opacity: 0;
+			}
+
 
 /* Banner */
 
