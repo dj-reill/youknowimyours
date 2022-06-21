@@ -61,17 +61,10 @@ fileSubmit.addEventListener('click', handleFileUploadSubmit);
 
 const floatingDiv = document.querySelector('#floating-div');
 function showDiv(event) {
-    $('#menu').hide();
+    $('body').removeClass('is-menu-visible');
     $('#submitModal').modal('show');
+    event.preventDefault();
 }
 const menuFileUpload = document.querySelector('a#uploadForm');
 menuFileUpload.addEventListener('click', showDiv);
-// const closeDiv = document.querySelector('#hideDiv');
-// function hideDiv(event) {
-//     floatingDiv.style.display = 'none';
-//     event.preventDefault();
-// }
-// closeDiv.addEventListener('click', hideDiv);
-
-
 
