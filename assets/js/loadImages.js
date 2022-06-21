@@ -28,6 +28,19 @@ function setActiveItem(group){
     $(carouselItems[carouselItems.length - 1]).addClass('active');
 }
 
+function isVideo(filename) {
+    var ext = getExtension(filename);
+    switch (ext.toLowerCase()) {
+      case 'm4v':
+      case 'avi':
+      case 'mpg':
+      case 'mp4':
+        // etc
+        return true;
+    }
+    return false;
+  }
+
 function appendImage(target, imageData){
     // let div = document.createElement('div');
     // div.className = 'carousel-item';
@@ -37,7 +50,12 @@ function appendImage(target, imageData){
     let a = document.createElement('a');
     a.href = imageData.url;
     // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
-    let img = document.createElement('img');
+    let img;
+    if(isVideo(imageData.fileName)){
+        img = document.createElement('video');
+    } else {
+        let img = document.createElement('img');
+    }
     img.src = imageData.url;
     img.className = 'img-fluid d-block w-100';
     img.alt = imageData.fileName;
