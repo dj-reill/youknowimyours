@@ -35,15 +35,15 @@ permalink: dayof.html
    
     <script src= {{ "/assets/js/simplyCountdown.js" | relative_url }}></script>
     <script>
-      var d = new Date(1656880200000);
+      var d=new Date(Date.UTC(2022,6,3,22,30,0,0));
   
       // default example
       simplyCountdown('.simply-countdown-one', {
           year: d.getFullYear(),
           month: d.getMonth() + 1,
-          day: d.getDate()
+          day: d.getDate(),
+          enableUtc: true,
       });
-
   </script>
   </body>  
   
