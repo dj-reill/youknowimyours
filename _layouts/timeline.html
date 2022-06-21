@@ -7,7 +7,9 @@ permalink: timeline.html
   {%- include head.html -%}
 
   {% assign detailedEvents = site.data.detailedEvents %}
-
+  <script>
+    window.detailedEvents = "{{ site.data.detailedEvents | json}}"
+  </script>
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 		<div id="page-wrapper">
@@ -18,9 +20,9 @@ permalink: timeline.html
         <article id="main">
 
             <header>
-                <h2>Day-of Timeline</h2>
-                <p>The Day-of Timeline and Real-time Wedding Album</p>
-                <p>Come here for updates on the day-of and to upload photos and videos of the day!</p>
+                <h2>Timeline</h2>
+                <p>Help Us Make a Real-time Wedding Album</p>
+                <p>Pictures and Videos uploaded via the menu and home page display here!</p>
             </header>
             <!-- <section class="wrapper style1 special" > -->
                 <!-- <div class="row">
@@ -45,7 +47,7 @@ permalink: timeline.html
                                 <div class="apland-timeline-area">
                                     <!-- Single Timeline Content-->
                                     {% for event in detailedEvents %}
-                                    <div class="single-timeline-area">
+                                    <div class="single-timeline-area" hidden>
                                         <div class="timeline-date">
                                             <p>{{ event.eventTime | date: "%I:%M %P" }}</p>
                                         </div>
