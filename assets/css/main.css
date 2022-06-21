@@ -3645,11 +3645,11 @@ input, select, textarea {
 				opacity: 0;
 			}
 		
-		#timeline.alt {
+		#header.timeline.alt {
 			background: transparent;
 		}
 
-			#timeline.alt h1 {
+		#header.timeline.alt h1 {
 				pointer-events: none;
 				opacity: 0;
 			}
@@ -3906,7 +3906,7 @@ input, select, textarea {
 
 /* Main */
 
-	#main > header {
+	#main > header.rsvp {
 		padding: 12em 0 10em 0 ;
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/rsvp-banner.png");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/rsvp-banner.png");
@@ -3918,7 +3918,7 @@ input, select, textarea {
 		background-size: initial;
 	}
 
-	#main > header#timeline {
+	#main > header.timeline {
 		padding: 12em 0 10em 0 ;
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.png");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.png");
