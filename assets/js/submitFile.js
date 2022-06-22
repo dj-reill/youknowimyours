@@ -45,19 +45,24 @@ function handleFileUploadSubmit(event){
     var progressBar = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
     var status = document.querySelector('[role*=alert]');
+    const successful = true;
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
-        Array.from(selectedFile).map((file, i) => {
-            uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length).then((success)=>{
+        Array.from(selectedFile).forEach((file, i) => {
+            uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length).catch((reason) => {
+                console.log(reason);
+                successful = false;
+            }).then((success)=>{
                 status.textContent = `${i} of ${selectedFile.length} files uploaded`
             });
-        }).then(() =>{
+        });
+        if(successful){
             $('#splash').addClass('form--success');
             $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-        });
+        }
     }
 }
 
