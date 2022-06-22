@@ -4104,7 +4104,7 @@ input, select, textarea {
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: 50% 40%;
-		padding-top:10%;
+		padding-top:40%;
 	}
 
 	body.is-mobile.landing #footer {
