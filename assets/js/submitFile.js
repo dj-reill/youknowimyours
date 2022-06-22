@@ -39,7 +39,7 @@ function handleFileUploadSubmit(event){
             }, () => {
                 console.log('file successfully uploaded')
                 progress.ariaValueNow = "100";
-                progress.clientWidth  = `width: 100%`;
+                progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
                 storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     const data = {
                         url, 
@@ -55,7 +55,7 @@ function handleFileUploadSubmit(event){
                         .set(data)
                         .then(function(s) {
                             $('#splash').addClass('form--success');
-                            $('#splash').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
+                            $('#splash').append('<div class="form_success"><div class="form_success_message"> <p>Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
                             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                         }, function(error) {
                             console.log('error' + error);
