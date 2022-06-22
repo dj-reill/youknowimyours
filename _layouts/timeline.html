@@ -1,5 +1,5 @@
 ---
-permalink: timeline.html
+permalink: gallery.html
 ---
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
@@ -15,7 +15,7 @@ permalink: timeline.html
             <!-- Main -->
             <article id="main">
                 <header class="timelineBanner">
-                    <h2>Timeline</h2>
+                    <h2>Gallery</h2>
                     <p>Help Us Make a Real-time Wedding Album</p>
                     <p>Pictures and Videos uploaded via the menu and home page display here!</p>                
                 </header>
@@ -36,7 +36,7 @@ permalink: timeline.html
                                                 <div>
                                                     <div class="single-timeline-content" epoch={{ event.eventTime | date: "%s" }}>
                                                         <h6>{{ event.eventName }}</h6>
-                                                        <div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
+                                                        <div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" role="listbox" aria-hidden="true" hidden>
                                                             <div class="carousel-inner" role="listbox" id="gallery{{ forloop.index }}">    
                                         
                                                             </div>
