@@ -49,30 +49,20 @@ function handleFileUploadSubmit(event){
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
-            // Array of "Promises"
-            Promise.all(Array.from(selectedFile).map((file, i) => 
-                uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length)))
-            .catch((failure)=>{
-                $('#splash').addClass('form--failure')
-                $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
-                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-                console.log(error);
-            }).then((success)=>{      
-                $('#splash').addClass('form--success');
-                $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
-                fileSubmit.setAttribute('disabled', '');
-                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-            });
-        // Array.from(selectedFile).forEach((file, i) => {
-        //     uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length).catch((reason) => {
-        //         console.log(reason);
-        //     }).then((success)=>{
-        //         successful=true;
-        //     });
-        // });
-        // if(successful){
-
-        // }
+        // Array of "Promises"
+        Promise.all(Array.from(selectedFile).map((file, i) => 
+            uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length)))
+        .catch((failure)=>{
+            $('#splash').addClass('form--failure')
+            $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
+            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+            console.log(error);
+        }).then((success)=>{      
+            $('#splash').addClass('form--success');
+            $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+            fileSubmit.setAttribute('disabled', '');
+            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+        });
     }
 }
 
@@ -116,6 +106,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                         .set(data)
                         .then(function(s) {
                             console.log('db updated');
+                            return true;
                             // do nothing
                         }, function(error) {
                             console.log(error);
@@ -125,11 +116,11 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                             // document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                         });
                     });
-                }
-            );
-        }
-    );
-};
+                return true;
+             }
+        );
+    });
+}
 
 
 function showModal(event) {
