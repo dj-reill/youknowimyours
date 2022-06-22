@@ -8,27 +8,29 @@ function handleFileUploadChange(event){
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
     document.querySelector('.form_success').remove();
-    document.querySelector('#upload').classList.remove('form--success');
+    document.querySelector('#splash').classList.remove('form--success');
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     document.querySelector('.file-select').value ='';
-    $('#submitModal').modal('hide');
     document.querySelector('[role*=progressbar]').ariaValueNow="0";
     document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
+    $('#submitModal').modal('hide');
     event.preventDefault();
 }
 
 function handleFileUploadSubmit(event){
+    var progress = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
     if (uploadedBy.value.length > 0){
         const storageBucket = firebase.storage().ref();
         var caption = document.querySelector('#fileCaption');
         var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-        var progress = document.querySelector('[role*=progressbar]');
+        progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
+        progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
 
         uploadTask.on('state_changed', (snapshot) => {
             progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
-            progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
+            progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);        
             }, (error) => {
                 $('#upload').addClass('form--failure')
                 $('#upload').append('<div class="form_failure"><div class="form_failure_message col-12"> Oh no! Something went wrong! Abandon ship! </div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
@@ -39,13 +41,21 @@ function handleFileUploadSubmit(event){
                 progress.ariaValueNow = "100";
                 progress.clientWidth  = `width: 100%`;
                 storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
-                    const data = {'url': url, 'fileName': selectedFile.name, 'caption': caption.value, 'uploadedBy': uploadedBy.value};
+                    const data = {
+                        url, 
+                        'fileName': selectedFile.name, 
+                        'caption': caption.value, 
+                        'uploadedBy': uploadedBy.value,
+                        'dateModified': selectedFile.lastModifiedDate,
+                        'lastModified': selectedFile.lastModified,
+                        'size': selectedFile.size
+                    };
                     firebase.database().ref('shared')
                         .push()
                         .set(data)
                         .then(function(s) {
-                            $('#upload').addClass('form--success');
-                            $('#upload').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
+                            $('#splash').addClass('form--success');
+                            $('#splash').append('<div class="form_success"><div class="form_success_message col-12"> Thank you for sharing this wonderful day with us</div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
                             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                         }, function(error) {
                             console.log('error' + error);
@@ -66,11 +76,11 @@ const fileSubmit = document.querySelector('.file-submit');
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
 
 const floatingDiv = document.querySelector('#floating-div');
-function showDiv(event) {
+function showModal(event) {
     $('body').removeClass('is-menu-visible');
     $('#submitModal').modal('show');
     event.preventDefault();
 }
 const menuFileUpload = document.querySelector('a#uploadForm');
-menuFileUpload.addEventListener('click', showDiv);
+menuFileUpload.addEventListener('click', showModal);
 
