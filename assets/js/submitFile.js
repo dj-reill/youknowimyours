@@ -23,7 +23,7 @@ function getImageData({url, selectedFile, caption, uploader}){
     return  {
         url, 
         'fileName': selectedFile.name, 
-        'caption': caption.value, 
+        'caption': caption, 
         'uploadedBy': uploader,
         'dateModified': selectedFile.lastModifiedDate,
         'lastModified': selectedFile.lastModified,
@@ -44,32 +44,42 @@ function handleFileUploadChange(event){
 function handleFileUploadSubmit(event){
     var progressBar = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
-    var status = document.querySelector('[role*=alert]');
-    const successful = true;
+
+    const successful = false;
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
-        Array.from(selectedFile).forEach((file, i) => {
-            uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length).catch((reason) => {
-                console.log(reason);
-                successful = false;
-            }).then((success)=>{
-                status.textContent = `${i} of ${selectedFile.length} files uploaded`
+            // Array of "Promises"
+            Promise.all(Array.from(selectedFile).map((file, i) => 
+                uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length)))
+            .catch((failure)=>{
+                $('#splash').addClass('form--failure')
+                $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
+                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                console.log(error);
+            }).then((success)=>{      
+                $('#splash').addClass('form--success');
+                $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+                fileSubmit.setAttribute('disabled', '');
+                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
             });
-        });
-        if(successful){
-            $('#splash').addClass('form--success');
-            $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
-            fileSubmit.setAttribute('disabled', '');
-            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-        }
+        // Array.from(selectedFile).forEach((file, i) => {
+        //     uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length).catch((reason) => {
+        //         console.log(reason);
+        //     }).then((success)=>{
+        //         successful=true;
+        //     });
+        // });
+        // if(successful){
+
+        // }
     }
 }
 
 //Handle waiting to upload each file using promise
 function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total) {
     var progressBar = document.querySelector('[role*=progressbar]');
-
+    var status = document.querySelector('[role*=alert]');
     return new Promise(function (resolve, reject) {
         var storageRef = firebase.storage().ref(`images/${selectedFile.name}`);
 
@@ -86,15 +96,18 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
             },
             function error(err){
-                $('#splash').addClass('form--failure')
-                $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
-                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                 console.log(error);
+                return false;
+                // $('#splash').addClass('form--failure')
+                // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
+                // document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                // console.log(error);
             },
             function complete(){
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total)* 100);
+                    status.textContent = `${fileNumber} of ${total} files uploaded`
+                    progressBar.ariaValueNow = String(fileNumber / total * 100);
                     progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
                     const data = getImageData({url, selectedFile, caption, uploader});
                 
@@ -102,11 +115,14 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                         .push()
                         .set(data)
                         .then(function(s) {
+                            console.log('db updated');
                             // do nothing
                         }, function(error) {
-                            $('#splash').addClass('form--failure')
-                            $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');        
-                            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                            console.log(error);
+                            return false;
+                            // $('#splash').addClass('form--failure')
+                            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');        
+                            // document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                         });
                     });
                 }
