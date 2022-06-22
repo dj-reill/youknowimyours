@@ -54,11 +54,15 @@ div.form_failure {
 	right:-1px;
 	bottom:-1px;
 	text-align:center;
-	background: palevioletred;
+	background: #FFD2D2;
 	z-index:1;
 	display:flex;
 	flex-direction:column;
 	justify-content:center
+}
+
+div.fform_failure > p {
+	color: #D8000C;
 }
 
 div.form_failure_message {

@@ -38,7 +38,7 @@ function handleFileUploadSubmit(event){
             progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);        
             }, (error) => {
                 $('#upload').addClass('form--failure')
-                $('#upload').append('<div class="form_failure"><div class="form_failure_message col-12"> Oh no! Something went wrong! Abandon ship! </div><br><br><input value="Dismiss" class="dismiss primary button"/></div>');
+                $('#upload').append('<div class="form_failure"><div class="form_failure_message"><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
                 document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                 console.log(error);
             }, () => {
