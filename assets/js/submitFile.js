@@ -3,11 +3,7 @@ let selectedFile;
 const fileSelect = document.querySelector('.file-select');
 const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelector('a#uploadForm');
-
-function handleFileUploadChange(event){
-    selectedFile = event.target.files;
-    event.preventDefault();
-}
+const storageBucket = firebase.storage().ref();
 
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
@@ -34,12 +30,12 @@ function getImageData({url, selectedFile, caption, uploader}){
         'size': selectedFile.size
     };
 }
-function handleFileUploadSubmit(event){
-    var progress = document.querySelector('[role*=progressbar]');
-    var uploadedBy = document.querySelector('#uploader');
-    const uploader = uploadedBy.value;
-    if (uploader.length > 0){
-        var caption = document.querySelector('#fileCaption');
+
+function handleFileUploadChange(event){
+    selectedFile = event.target.files;
+    event.preventDefault();
+}
+
 function handleFileUploadSubmit(event){
     var progress = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
@@ -86,9 +82,9 @@ function handleFileUploadSubmit(event){
 }
 
 //Handle waiting to upload each file using promise
-function uploadImageAsPromise (imageFile) {
+function uploadImageAsPromise (selectedFile) {
     return new Promise(function (resolve, reject) {
-        var storageRef = firebase.storage().ref(fullDirectory+"/"+imageFile.name);
+        var storageRef = firebase.storage().ref(`images/${selectedFile.name});
 
         //Upload file
         var task = storageRef.put(imageFile);
