@@ -4,11 +4,6 @@ const fileSelect = document.querySelector('.file-select');
 const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelector('a#uploadForm');
 
-function handleFileUploadChange(event){
-  selectedFile = event.target.files[0];
-  event.preventDefault();
-}
-
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
     document.querySelector('.form_success').remove();
@@ -18,62 +13,105 @@ function dismissMessage(event){
     document.querySelector('.file-select').value ='';
     document.querySelector('[role*=progressbar]').ariaValueNow="0";
     document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
+    document.querySelector('[role*=alert]').setAttribute('hidden', '');
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
 }
 
-function handleFileUploadSubmit(event){
-    var progress = document.querySelector('[role*=progressbar]');
-    var uploadedBy = document.querySelector('#uploader');
-    if (uploadedBy.value.length > 0){
-        const storageBucket = firebase.storage().ref();
-        var caption = document.querySelector('#fileCaption');
-        var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-        progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
-        progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
+function getImageData({url, selectedFile, caption, uploader}){
+    return  {
+        url, 
+        'fileName': selectedFile.name, 
+        'caption': caption, 
+        'uploadedBy': uploader,
+        'dateModified': selectedFile.lastModifiedDate,
+        'lastModified': selectedFile.lastModified,
+        'size': selectedFile.size
+    };
+}
 
-        uploadTask.on('state_changed', (snapshot) => {
-            progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
-            progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);        
-            }, (error) => {
-                $('#upload').addClass('form--failure')
-                $('#upload').append('<div class="form_failure"><div class="form_failure_message"><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
-                document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-                console.log(error);
-            }, () => {
-                console.log('file successfully uploaded')
-                progress.ariaValueNow = "100";
-                progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
-                storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
-                    const data = {
-                        url, 
-                        'fileName': selectedFile.name, 
-                        'caption': caption.value, 
-                        'uploadedBy': uploadedBy.value,
-                        'dateModified': selectedFile.lastModifiedDate,
-                        'lastModified': selectedFile.lastModified,
-                        'size': selectedFile.size
-                    };
-                    firebase.database().ref('shared')
-                        .push()
-                        .set(data)
-                        .then(function(s) {
-                            $('#splash').addClass('form--success');
-                            $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
-                            fileSubmit.setAttribute('disabled', '');
-                            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-                        }, function(error) {
-                            console.log('error' + error);
-                            //error(); // some error method
-                        });
-                    });
-                return true;
-            });
+function handleFileUploadChange(event){
+    selectedFile = event.target.files;
+    if (selectedFile.length>1){
+        var status = document.querySelector('[role*=alert]');
+        status.removeAttribute('hidden');
+        status.textContent = `${selectedFile.length} files to upload`
+    }
+    event.preventDefault();
+}
+
+function handleFileUploadSubmit(event){
+    var progressBar = document.querySelector('[role*=progressbar]');
+    var uploadedBy = document.querySelector('#uploader');
+
+    const uploader = uploadedBy.value;
+    if (uploader.length > 0){
+        var caption = document.querySelector('#fileCaption');
+        // Array of "Promises"
+        const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
+        Promise.all(Array.from(selectedFile).map((file, i) => 
+            uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length, totalBytes)))
+        .catch((failure)=>{
+            $('#splash').addClass('form--failure')
+            $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
+            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+            console.log(failure);
+        }).then((success)=>{      
+            progressBar.ariaValueNow = 100;
+            progressBar.setAttribute('style',  `width: 100%`);
+            $('#splash').addClass('form--success');
+            $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+            fileSubmit.setAttribute('disabled', '');
+            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+        });
     }
     event.preventDefault();
     return true;
 }
+
+//Handle waiting to upload each file using promise
+function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total, totalBytes) {
+    var progressBar = document.querySelector('[role*=progressbar]');
+    var status = document.querySelector('[role*=alert]');
+    const storageBucket = firebase.storage().ref();
+    return new Promise(function (resolve, reject) {
+        var task = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
+
+        //Update progress bar
+        task.on('state_changed',
+            (snapshot)=> {
+                var percentage = snapshot.bytesTransferred / totalBytes * 100;
+                progressBar.ariaValueNow = percentage;
+                progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
+            }, (error) => {
+                console.log(error);
+                reject(error);
+                //return error;
+            }, () => {
+                firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
+                    console.log('file successfully uploaded')
+                    status.textContent = `${fileNumber} of ${total} files uploaded`
+                    const data = getImageData({url, selectedFile, caption, uploader});
+                
+                    firebase.database().ref('shared')
+                        .push()
+                        .set(data)
+                        .then(function(s) {
+                            console.log('db updated');
+                           // return true;
+                            // do nothing
+                        }, function(error) {
+                            console.log(error);
+                           // return false;
+                        });
+                    });
+                resolve(true);
+            }
+        );
+    });
+}
+
 
 function showModal(event) {
     $('body').removeClass('is-menu-visible');
