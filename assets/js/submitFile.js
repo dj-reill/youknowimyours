@@ -55,7 +55,8 @@ function handleFileUploadSubmit(event){
                         .set(data)
                         .then(function(s) {
                             $('#splash').addClass('form--success');
-                            $('#splash').append('<div class="form_success"><div class="form_success_message"> <p>Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+                            $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+                            fileSubmit.setAttribute('disabled', '');
                             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                         }, function(error) {
                             console.log('error' + error);
