@@ -1,5 +1,9 @@
 let selectedFile;
 
+const fileSelect = document.querySelector('.file-select');
+const fileSubmit = document.querySelector('.file-submit');
+const menuFileUpload = document.querySelector('a#uploadForm');
+
 function handleFileUploadChange(event){
   selectedFile = event.target.files[0];
   event.preventDefault();
@@ -14,6 +18,7 @@ function dismissMessage(event){
     document.querySelector('.file-select').value ='';
     document.querySelector('[role*=progressbar]').ariaValueNow="0";
     document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
+    fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
 }
@@ -70,18 +75,13 @@ function handleFileUploadSubmit(event){
     return true;
 }
 
-const fileSelect = document.querySelector('.file-select');
-fileSelect.addEventListener('change', handleFileUploadChange);
-
-const fileSubmit = document.querySelector('.file-submit');
-fileSubmit.addEventListener('click', handleFileUploadSubmit);
-
-const floatingDiv = document.querySelector('#floating-div');
 function showModal(event) {
     $('body').removeClass('is-menu-visible');
     $('#submitModal').modal('show');
     event.preventDefault();
 }
-const menuFileUpload = document.querySelector('a#uploadForm');
+
+fileSelect.addEventListener('change', handleFileUploadChange);
+fileSubmit.addEventListener('click', handleFileUploadSubmit);
 menuFileUpload.addEventListener('click', showModal);
 
