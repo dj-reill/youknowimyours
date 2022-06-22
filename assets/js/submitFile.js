@@ -48,10 +48,11 @@ function handleFileUploadSubmit(event){
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
-        Array.from(selectedFile).forEach((file, i) => {
-            uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length);
-            status.textContent = `${i} of ${selectedFile.length} files uploaded`
-        }).then((result)=> {
+        Array.from(selectedFile).map((file, i) => {
+            uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length).then((success)=>{
+                status.textContent = `${i} of ${selectedFile.length} files uploaded`
+            });
+        }).then(() =>{
             $('#splash').addClass('form--success');
             $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
@@ -86,7 +87,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 console.log(error);
             },
             function complete(){
-                storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
+                firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
                     progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total)* 100);
                     progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
