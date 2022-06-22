@@ -5,8 +5,8 @@ const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelector('a#uploadForm');
 
 function handleFileUploadChange(event){
-  selectedFile = event.target.files[0];
-  event.preventDefault();
+    selectedFile = event.target.files;
+    event.preventDefault();
 }
 
 function dismissMessage(event){
@@ -73,6 +73,30 @@ function handleFileUploadSubmit(event){
     }
     event.preventDefault();
     return true;
+}
+
+//Handle waiting to upload each file using promise
+function uploadImageAsPromise (imageFile) {
+    return new Promise(function (resolve, reject) {
+        var storageRef = firebase.storage().ref(fullDirectory+"/"+imageFile.name);
+
+        //Upload file
+        var task = storageRef.put(imageFile);
+
+        //Update progress bar
+        task.on('state_changed',
+            function progress(snapshot){
+                var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+                uploader.value = percentage;
+            },
+            function error(err){
+
+            },
+            function complete(){
+                var downloadURL = task.snapshot.downloadURL;
+            }
+        );
+    });
 }
 
 function showModal(event) {
