@@ -23,11 +23,28 @@ function dismissMessage(event){
     event.preventDefault();
 }
 
+function getImageData({url, selectedFile, caption, uploader}){
+    return  {
+        url, 
+        'fileName': selectedFile.name, 
+        'caption': caption.value, 
+        'uploadedBy': uploader,
+        'dateModified': selectedFile.lastModifiedDate,
+        'lastModified': selectedFile.lastModified,
+        'size': selectedFile.size
+    };
+}
 function handleFileUploadSubmit(event){
     var progress = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
-    if (uploadedBy.value.length > 0){
-        const storageBucket = firebase.storage().ref();
+    const uploader = uploadedBy.value;
+    if (uploader.length > 0){
+        var caption = document.querySelector('#fileCaption');
+function handleFileUploadSubmit(event){
+    var progress = document.querySelector('[role*=progressbar]');
+    var uploadedBy = document.querySelector('#uploader');
+    const uploader = uploadedBy.value;
+    if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         var uploadTask = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
         progress.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
@@ -46,15 +63,8 @@ function handleFileUploadSubmit(event){
                 progress.ariaValueNow = "100";
                 progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
                 storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
-                    const data = {
-                        url, 
-                        'fileName': selectedFile.name, 
-                        'caption': caption.value, 
-                        'uploadedBy': uploadedBy.value,
-                        'dateModified': selectedFile.lastModifiedDate,
-                        'lastModified': selectedFile.lastModified,
-                        'size': selectedFile.size
-                    };
+                    const data = getImageData({url, selectedFile, caption, uploader});
+                    
                     firebase.database().ref('shared')
                         .push()
                         .set(data)
