@@ -49,14 +49,14 @@ function handleFileUploadSubmit(event){
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         Array.from(selectedFile).forEach((file, i) => {
-            uploadImageAsPromise(caption.value, uploader, file);
+            uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length);
             status.textContent = `${i} of ${selectedFile.length} files uploaded`
         });
     }
 }
 
 //Handle waiting to upload each file using promise
-function uploadImageAsPromise (caption, uploader, selectedFile) {
+function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total) {
     var progressBar = document.querySelector('[role*=progressbar]');
     var caption = document.querySelector('#fileCaption');
 
@@ -65,15 +65,15 @@ function uploadImageAsPromise (caption, uploader, selectedFile) {
 
         //Upload file
         var task = storageRef.put(selectedFile);
-        progressBar.ariaValueNow = String(Number.parseInt(progress.ariaValueNow) + 10);
-        progressBar.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
+        progressBar.ariaValueNow = String(Number.parseInt(progressBar.ariaValueNow) + 10);
+        progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
 
         //Update progress bar
         task.on('state_changed',
             function progress(snapshot){
                 var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-                progressBar.ariaValueNow = String(Number.parseInt(percentage) + 10);
-                progressBar.setAttribute('style',  `width: ${percentage}%`);
+                progressBar.ariaValueNow = percentage / total;
+                progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
             },
             function error(err){
                 $('#splash').addClass('form--failure')
@@ -84,8 +84,8 @@ function uploadImageAsPromise (caption, uploader, selectedFile) {
             function complete(){
                 var url = task.snapshot.downloadURL;
                 console.log('file successfully uploaded')
-                progress.ariaValueNow = "100";
-                progress.setAttribute('style',  `width: ${progress.ariaValueNow}%`);
+                progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total));
+                progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
                 const data = getImageData({url, selectedFile, caption, uploader});
                 
                 firebase.database().ref('shared')
