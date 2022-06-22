@@ -51,6 +51,11 @@ function handleFileUploadSubmit(event){
         Array.from(selectedFile).forEach((file, i) => {
             uploadImageAsPromise(caption.value, uploader, file, i, selectedFile.length);
             status.textContent = `${i} of ${selectedFile.length} files uploaded`
+        }).then((result)=> {
+            $('#splash').addClass('form--success');
+            $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
+            fileSubmit.setAttribute('disabled', '');
+            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
         });
     }
 }
@@ -58,7 +63,6 @@ function handleFileUploadSubmit(event){
 //Handle waiting to upload each file using promise
 function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total) {
     var progressBar = document.querySelector('[role*=progressbar]');
-    var caption = document.querySelector('#fileCaption');
 
     return new Promise(function (resolve, reject) {
         var storageRef = firebase.storage().ref(`images/${selectedFile.name}`);
@@ -84,7 +88,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
             function complete(){
                 var url = task.snapshot.downloadURL;
                 console.log('file successfully uploaded')
-                progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total));
+                progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total)* 100);
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
                 const data = getImageData({url, selectedFile, caption, uploader});
                 
@@ -92,10 +96,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                     .push()
                     .set(data)
                     .then(function(s) {
-                        $('#splash').addClass('form--success');
-                        $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
-                        fileSubmit.setAttribute('disabled', '');
-                        document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                        // do nothing
                     }, function(error) {
                         $('#splash').addClass('form--failure')
                         $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');        
