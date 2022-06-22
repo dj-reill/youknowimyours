@@ -13,6 +13,7 @@ function dismissMessage(event){
     document.querySelector('.file-select').value ='';
     document.querySelector('[role*=progressbar]').ariaValueNow="0";
     document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
+    document.querySelector('[role*=alert]').setAttribute('hidden', '');
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
@@ -33,7 +34,7 @@ function getImageData({url, selectedFile, caption, uploader}){
 function handleFileUploadChange(event){
     selectedFile = event.target.files;
     if (selectedFile.length>1){
-        var status = document.querySelector('[role*=status]');
+        var status = document.querySelector('[role*=alert]');
         status.removeAttribute('hidden');
         status.textContent = `${selectedFile.length} files to upload`
     }
@@ -41,13 +42,13 @@ function handleFileUploadChange(event){
 }
 
 function handleFileUploadSubmit(event){
-    var progress = document.querySelector('[role*=progressbar]');
+    var progressBar = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
-    var status = document.querySelector('[role*=status]');
+    var status = document.querySelector('[role*=alert]');
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
-        selectedFile.forEach((file, i) => {
+        Array.from(selectedFile).forEach((file, i) => {
             uploadImageAsPromise(caption.value, uploader, file);
             status.textContent = `${i} of ${selectedFile.length} files uploaded`
         });
