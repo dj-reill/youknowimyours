@@ -1,5 +1,5 @@
 
-{% assign events = site.data.events %}
+{% assign events = site.data.detailedEvents %}
 
 <!-- Modal -->
 <div class="modal fade modal" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px">
@@ -17,13 +17,13 @@
                 </button>
             </div>
             <div class="alert alert-light" role="alert" hidden></div>
-            <div id="splash" class="modal-body wrapper style5 inner" style="padding:4em 3em 2em 3em">
-                <p style="color:#2E3842">Select a file to upload to the <a href="https://youknowimyours.com/timeline.html" title="Photos/Videos will be visible in the timeline page.">timeline page</a>.</p>
-                <form id="upload" class="row gtr-uniform">
-                    <div class="col-12 aln-right">
+            <div id="splash" class="modal-body wrapper style5 inner" style="padding:1em 1em 1em 1em">
+                <p style="color:#2E3842; text-align: center;">Select a file to upload to the <a href="https://youknowimyours.com/timeline.html" title="Photos/Videos will be visible in the timeline page.">timeline page</a>.</p>
+                <form id="upload" class="row gtr-uniform aln-center">
+                    <div class="col-10">
                         <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="1"></textarea>
                     </div>
-                    <div class="col-12 aln-right">
+                    <div class="col-10">
                         <input required id="uploader" type="text" placeholder="Enter your name"></input>
                     </div>
                     <!-- <div> 
@@ -36,7 +36,7 @@
                             <option value="{{ event.heading }}">{{ event.heading }}</option>
                         {% endfor %}
                     </select></div> -->
-                    <div class="col-12 row aln-left">
+                    <div class="col-10">
                         <div id="filesubmit" type="submit">
                             <input type="file" class="file-select" accept="image/*,video/*" style="color:#2E3842" multiple="multiple"/>
                         </div>
