@@ -1,6 +1,6 @@
 ---
 layout: timeline
-title: Timeline - Share The Love
+title: Gallery - Share The Love
 ---
 
 <body class="landing is-preload">
