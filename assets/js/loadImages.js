@@ -56,6 +56,29 @@ function isVideo(filename) {
     return false;
   }
 
+function launchCarousel(event){
+    const inner = $(event.target).closest('[role=root]');
+    const carousel = document.createElement('div');
+    
+    div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
+                                                        <div class="carousel-inner" id="gallery{{ forloop.index }}">    
+    const anchors = inner.querySelectorAll('a');
+    anchors.forEach((a) => {
+        const img = $(a).find('img');
+        const item = document.createElement('div');
+        item.className = 'carousel-item active';
+        const caption = document.createElement('div');
+        caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
+        caption.style = "position: relative; left: 0; top: 0;"
+        const h= document.createElement('h5');
+        h.innerText = img.caption;
+        const p = document.createElement('p');
+        p.innerText = `Uploaded by: ${img.uploadedBy}`;
+    });
+    const root = $('[role=root]');
+    root.appendChild()
+}
+
 function appendImage(target, imageData, type='carousel'){
     if (type==='carousel') {
         // let div = document.createElement('div');
@@ -101,6 +124,8 @@ function appendImage(target, imageData, type='carousel'){
         img.src = imageData.url;
         img.className = 'img-fluid d-block w-100';
         img.alt = imageData.fileName;
+        img.caption = imageData.caption;
+        img.uploadedBy = imageData.uploadedBy;
         a.appendChild(img);
         let span = document.createElement('span');
         span.className = 'image fit';
@@ -109,6 +134,7 @@ function appendImage(target, imageData, type='carousel'){
         let div = document.createElement('div');
         div.className = 'col-3';
         div.appendChild(span);
+        div.addEventListener('click', launchCarousel);
         target.appendChild(div);
     }    
 }
