@@ -3,7 +3,6 @@ let selectedFile;
 const fileSelect = document.querySelector('.file-select');
 const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelector('a#uploadForm');
-const storageBucket = firebase.storage().ref();
 
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
