@@ -49,7 +49,7 @@ function handleFileUploadSubmit(event){
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
-        const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((parialSum, a)=> partialSum+a, 0);
+        const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
         Promise.all(Array.from(selectedFile).map((file, i) => 
             uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length, totalBytes)))
         .catch((failure)=>{
