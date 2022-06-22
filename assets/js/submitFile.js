@@ -56,7 +56,7 @@ function handleFileUploadSubmit(event){
             $('#splash').addClass('form--failure')
             $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
-            console.log(error);
+            console.log(failure);
         }).then((success)=>{      
             progressBar.ariaValueNow = 100;
             progressBar.setAttribute('style',  `width: 100%`);
@@ -66,16 +66,17 @@ function handleFileUploadSubmit(event){
             document.querySelector('.dismiss').addEventListener('click', dismissMessage);
         });
     }
+    event.preventDefault();
+    return true;
 }
 
 //Handle waiting to upload each file using promise
 function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total, totalBytes) {
     var progressBar = document.querySelector('[role*=progressbar]');
     var status = document.querySelector('[role*=alert]');
+    const storageBucket = firebase.storage().ref();
     return new Promise(function (resolve, reject) {
-        var storageRef = firebase.storage().ref(`images/${selectedFile.name}`);
-        //Upload file
-        var task = storageRef.put(selectedFile);
+        var task = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
 
         //Update progress bar
         task.on('state_changed',
@@ -85,7 +86,8 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
             }, (error) => {
                 console.log(error);
-                return error;
+                reject(error);
+                //return error;
             }, () => {
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
@@ -97,12 +99,14 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                         .set(data)
                         .then(function(s) {
                             console.log('db updated');
+                           // return true;
                             // do nothing
                         }, function(error) {
                             console.log(error);
+                           // return false;
                         });
                     });
-                return true;
+                resolve(true);
             }
         );
     });
