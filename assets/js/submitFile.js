@@ -45,7 +45,6 @@ function handleFileUploadSubmit(event){
     var progressBar = document.querySelector('[role*=progressbar]');
     var uploadedBy = document.querySelector('#uploader');
 
-    const successful = false;
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
@@ -80,20 +79,18 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
 
         //Update progress bar
         task.on('state_changed',
-            function progress(snapshot){
+            (snapshot)=> {
                 var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
                 progressBar.ariaValueNow = percentage / total;
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
-            },
-            function error(err){
+            }, (error) => {
                 console.log(error);
-                return false;
+                return error;
                 // $('#splash').addClass('form--failure')
                 // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
                 // document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                 // console.log(error);
-            },
-            function complete(){
+            }, () => {
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
                     status.textContent = `${fileNumber} of ${total} files uploaded`
@@ -106,18 +103,16 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                         .set(data)
                         .then(function(s) {
                             console.log('db updated');
-                            return true;
                             // do nothing
                         }, function(error) {
                             console.log(error);
-                            return false;
                             // $('#splash').addClass('form--failure')
                             // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');        
                             // document.querySelector('.dismiss').addEventListener('click', dismissMessage);
                         });
                     });
                 return true;
-             }
+            }
         );
     });
 }
