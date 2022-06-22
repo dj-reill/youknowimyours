@@ -86,21 +86,22 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 console.log(error);
             },
             function complete(){
-                var url = task.snapshot.downloadURL;
-                console.log('file successfully uploaded')
-                progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total)* 100);
-                progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
-                const data = getImageData({url, selectedFile, caption, uploader});
+                storageBucket.child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
+                    console.log('file successfully uploaded')
+                    progressBar.ariaValueNow = String(Number.parseInt(fileNumber / total)* 100);
+                    progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
+                    const data = getImageData({url, selectedFile, caption, uploader});
                 
-                firebase.database().ref('shared')
-                    .push()
-                    .set(data)
-                    .then(function(s) {
-                        // do nothing
-                    }, function(error) {
-                        $('#splash').addClass('form--failure')
-                        $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');        
-                        document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                    firebase.database().ref('shared')
+                        .push()
+                        .set(data)
+                        .then(function(s) {
+                            // do nothing
+                        }, function(error) {
+                            $('#splash').addClass('form--failure')
+                            $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');        
+                            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+                        });
                     });
                 }
             );
