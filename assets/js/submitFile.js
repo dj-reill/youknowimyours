@@ -53,6 +53,7 @@ function handleFileUploadChange(event){
 function handleFileUploadSubmit(event){
     var uploadedBy = document.querySelector('#uploader');
     let uploadedBytes;
+    const dismiss = $('<button id="dismiss-alert" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'); 
 
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
@@ -65,30 +66,31 @@ function handleFileUploadSubmit(event){
         })).catch((failure)=>{
             // add alert/warning
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
-            const dismiss = $('<i class="bi bi-exclamation-triangle"></i>Oh no! Something went wrong! Abandon Ship!<button id="dismiss-alert" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+            const msg = $('<i class="bi bi-exclamation-triangle"></i>Oh no! Something went wrong! Abandon Ship!');
+            alertBar.appendChild(msg[0])
             alertBar.appendChild(dismiss[0])
             alertBar.removeAttribute('hidden');
            // $('#splash').addClass('form--failure')
            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
-            console.log(failure);
+           console.log(failure);
         }).then((success)=>{      
             progressBar.ariaValueNow = 100;
             progressBar.setAttribute('style',  `width: 100%`);
             progressBar.classList.remove('progress-bar-striped');
             // show success alert.
-            const dismiss = $('<i class="bi bi-question-circle"></i>Upload success! Thank you for sharing this wonderful day with us!<button id="dismiss-alert" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+            const msg = $('<i class="bi bi-question-circle"></i>Upload success! Thank you for sharing this wonderful day with us!');
+            alertBar.appendChild(msg[0])
             alertBar.appendChild(dismiss[0])
             alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
-            document.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
+            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
         });
     }
     event.preventDefault();
-    return true;
 }
 
 //Handle waiting to upload each file using promise
