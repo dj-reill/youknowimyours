@@ -5,8 +5,8 @@ const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
+const closeAlert = document.querySelector('#dismiss-alert');
 var icon;
-var dismiss;
 var msg;
 
 function dismissMessage(event){
@@ -14,10 +14,6 @@ function dismissMessage(event){
     const caption = document.querySelector('#fileCaption');
     const uploader = document.querySelector('#uploader');
     document.removeEventListener('click', dismissMessage);
-    if (document.querySelector('.form_success')) {
-        document.querySelector('.form_success').remove();
-    }
-    document.querySelector('#splash').classList.remove('form--success');
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     fileSelect.value ='';
@@ -26,7 +22,7 @@ function dismissMessage(event){
     progressBar.classList.add('progress-bar-striped');
     alertBar.setAttribute('hidden', '');
     alertBar.className = 'alert alert-light';
-    alertBar.querySelector('button').remove();
+    alertBar.querySelector('#dismiss-alert').remove();
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
@@ -86,7 +82,6 @@ function handleFileUploadSubmit(event){
             msg.innerText = 'Oh no! Something went wrong! Abandon Ship!';
             alertBar.appendChild(icon);
             alertBar.appendChild(msg);
-            alertBar.appendChild(dismiss);
             alertBar.removeAttribute('hidden');
            // $('#splash').addClass('form--failure')
            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
@@ -105,12 +100,10 @@ function handleFileUploadSubmit(event){
             msg.innerText = 'Upload success! Thank you for sharing this wonderful day with us!';
             alertBar.appendChild(icon)
             alertBar.appendChild(msg);
-            alertBar.appendChild(dismiss)
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
-            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
         });
     }
     event.preventDefault();
@@ -167,3 +160,4 @@ fileSelect.addEventListener('change', handleFileUploadChange);
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
 menuFileUpload.forEach((el) => el.addEventListener('click', showModal));
 modalClose.addEventListener('click',dismissMessage);
+closeAlert.addEventListener('click', dismissMessage);
