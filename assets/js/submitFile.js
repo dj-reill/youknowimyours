@@ -1,11 +1,10 @@
 let selectedFile;
-const modalClose = document.querySelector('#closeModal');
+const dismiss = document.querySelectorAll('.close');
 const fileSelect = document.querySelector('.file-select');
 const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
-const closeAlert = document.querySelector('#dismiss-alert');
 var icon;
 var msg;
 
@@ -157,5 +156,4 @@ function showModal(event) {
 fileSelect.addEventListener('change', handleFileUploadChange);
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
 menuFileUpload.forEach((el) => el.addEventListener('click', showModal));
-modalClose.addEventListener('click',dismissMessage);
-closeAlert.addEventListener('click', dismissMessage);
+dismiss.forEach((el) => el.addEventListener('click', dismissMessage));
