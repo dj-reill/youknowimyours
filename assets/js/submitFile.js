@@ -18,7 +18,7 @@ function dismissMessage(event){
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     fileSelect.value ='';
-    progressBar.ariaValueNow="0";
+    progressBar.ariaValueNow=0;
     progressBar.setAttribute('style', 'width: 0%');
     progressBar.classList.add('progress-bar-striped');
     alertBar.setAttribute('hidden', '');
