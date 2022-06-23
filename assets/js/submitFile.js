@@ -49,7 +49,6 @@ function handleFileUploadChange(event){
 }
 
 function handleFileUploadSubmit(event){
-    const fileSelect = document.querySelector('.file-select');
     const fileSubmit = document.querySelector('.file-submit');
     const progressBar = document.querySelector('[role*=progressbar]');
     const alertBar = document.querySelector('[role*=alert]');
@@ -85,9 +84,7 @@ function handleFileUploadSubmit(event){
             alertBar.innerText = '\tOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
-           // $('#splash').addClass('form--failure')
-           // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
-           alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
+            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
            console.log(failure);
         }).then((success)=>{      
             progressBar.ariaValueNow = 100;
@@ -100,9 +97,7 @@ function handleFileUploadSubmit(event){
             alertBar.innerText = '\tUpload success! Thank you for sharing this wonderful day with us!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
-            // $('#splash').addClass('form--success');
-            // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
-            fileSubmit.setAttribute('disabled', '');
+          fileSubmit.setAttribute('disabled', '');
         });
     }
     event.preventDefault();
