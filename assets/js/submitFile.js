@@ -64,9 +64,10 @@ function handleFileUploadSubmit(event){
             uploadedBytes =+ selectedFile.size;
         })).catch((failure)=>{
             // add alert/warning
-            alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade show');
+            alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
             const dismiss = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
             alertBar.appendChild(dismiss[0])
+            alertBar.removeAttribute('hidden');
            // $('#splash').addClass('form--failure')
            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
            alertBar.querySelector('button').addEventListener('click', dismissMessage);
@@ -77,7 +78,9 @@ function handleFileUploadSubmit(event){
             progressBar.classList.remove('progress-bar-striped');
             // show success alert.
             const dismiss = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-            alertBar.classList.add('alert-success', 'alert-dismissible', 'fade show');
+            alertBar.appendChild(dismiss[0])
+            alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
+            alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
