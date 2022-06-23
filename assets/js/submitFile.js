@@ -22,7 +22,7 @@ function dismissMessage(event){
     event.preventDefault();
 }
 
-function getImageData({url, selectedFile, caption, uploader}){
+function getImageData(url, selectedFile, caption, uploader){
     return  {
         url, 
         'fileName': selectedFile.name, 
@@ -96,7 +96,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
                     status.textContent = `${fileNumber} of ${total} files uploaded`
-                    const data = getImageData({url, selectedFile, caption, uploader});
+                    const data = getImageData(url, selectedFile, caption, uploader);
                 
                     firebase.database().ref('shared')
                         .push()
