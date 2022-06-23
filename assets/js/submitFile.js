@@ -1,5 +1,5 @@
 let selectedFile;
-
+const modalClose = document.querySelector('#closeModal');
 const fileSelect = document.querySelector('.file-select');
 const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelectorAll('a#uploadForm');
@@ -124,4 +124,4 @@ function showModal(event) {
 fileSelect.addEventListener('change', handleFileUploadChange);
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
 menuFileUpload.forEach((el) => el.addEventListener('click', showModal));
-
+modalClose.addEventListener('click',dismissMessage);
