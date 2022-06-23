@@ -12,7 +12,6 @@ function dismissMessage(event){
     // locals
     const caption = document.querySelector('#fileCaption');
     const uploader = document.querySelector('#uploader');
-    document.removeEventListener('click', dismissMessage);
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     fileSelect.value ='';
@@ -39,6 +38,7 @@ function getImageData(url, selectedFile, caption, uploader){
 }
 
 function handleFileUploadChange(event){
+    const alertBar = document.querySelector('[role*=alert]');
     selectedFile = event.target.files;
     if (selectedFile.length>1){
         alertBar.removeAttribute('hidden');
@@ -48,6 +48,10 @@ function handleFileUploadChange(event){
 }
 
 function handleFileUploadSubmit(event){
+    const fileSelect = document.querySelector('.file-select');
+    const fileSubmit = document.querySelector('.file-submit');
+    const progressBar = document.querySelector('[role*=progressbar]');
+    const alertBar = document.querySelector('[role*=alert]');
     var uploadedBy = document.querySelector('#uploader');
     let uploadedBytes;
     // set up dismiss button as element
@@ -70,12 +74,13 @@ function handleFileUploadSubmit(event){
         Promise.all(Array.from(selectedFile).map((file, i) => {
             uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length, uploadedBytes, totalBytes);
             uploadedBytes =+ selectedFile.size;
+            alertBar.textContent = `${i+ 1} of ${selectedFile.length} files uploaded`
         })).catch((failure)=>{
             // add alert/warning
             alertBar.classList.remove('alert-light');
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
             const icon = document.createElement('i');
-            icon.className = 'bi bi-exclamation-triangle';
+            icon.className = 'fa fa-exclamation-triangle';
             const msg = document.createElement('p');
             msg.innerText = 'Oh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(msg);
@@ -93,7 +98,7 @@ function handleFileUploadSubmit(event){
             alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             // show success alert.
             const icon = document.createElement('i');
-            icon.className = 'bi bi-question-circle';
+            icon.className = 'fa fa-check';
             const msg = document.createElement('p');
             msg.innerText = 'Upload success! Thank you for sharing this wonderful day with us!';
             alertBar.prepend(msg);
@@ -127,7 +132,6 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
             }, () => {
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    alertBar.textContent = `${fileNumber} of ${total} files uploaded`
                     const data = getImageData(url, selectedFile, caption, uploader);
                     dbRef.push()
                         .set(data)
