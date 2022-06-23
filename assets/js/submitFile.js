@@ -6,14 +6,16 @@ const menuFileUpload = document.querySelectorAll('a#uploadForm');
 
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
-    document.querySelector('.form_success').remove();
+    if (document.querySelector('.form_success')) {
+        document.querySelector('.form_success').remove();
+    }
     document.querySelector('#splash').classList.remove('form--success');
     document.querySelector('#fileCaption').value='';
     document.querySelector('#uploader').value='';
     document.querySelector('.file-select').value ='';
     document.querySelector('[role*=progressbar]').ariaValueNow="0";
     document.querySelector('[role*=progressbar]').setAttribute('style', 'width: 0%');
-    document.querySelector('[role*=progressbar]').classList.add('progress-bar-striped').add('progress-bar-animated');
+    document.querySelector('[role*=progressbar]').classList.add('progress-bar-striped');
     document.querySelector('[role*=alert]').setAttribute('hidden', '');
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
@@ -61,7 +63,7 @@ function handleFileUploadSubmit(event){
         }).then((success)=>{      
             progressBar.ariaValueNow = 100;
             progressBar.setAttribute('style',  `width: 100%`);
-            progressBar.classList.remove('progress-bar-striped').remove('progress-bar-animated');
+            progressBar.classList.remove('progress-bar-striped');
             $('#splash').addClass('form--success');
             $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
