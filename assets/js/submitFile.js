@@ -52,15 +52,17 @@ function handleFileUploadChange(event){
 
 function handleFileUploadSubmit(event){
     var uploadedBy = document.querySelector('#uploader');
+    let uploadedBytes;
 
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
         const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
-        Promise.all(Array.from(selectedFile).map((file, i) => 
-            uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length, totalBytes)))
-        .catch((failure)=>{
+        Promise.all(Array.from(selectedFile).map((file, i) => {
+            uploadImageAsPromise(caption.value, uploader, file, i + 1, selectedFile.length, uploadedBytes, totalBytes);
+            uploadedBytes =+ selectedFile.size;
+        })).catch((failure)=>{
             // add alert/warning
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade show');
             const dismiss = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
@@ -87,7 +89,7 @@ function handleFileUploadSubmit(event){
 }
 
 //Handle waiting to upload each file using promise
-function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total, totalBytes) {
+function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total, uploadedBytes, totalBytes) {
     const storageBucket = firebase.storage().ref();
     return new Promise(function (resolve, reject) {
         var task = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
@@ -95,7 +97,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
         //Update progress bar
         task.on('state_changed',
             (snapshot)=> {
-                var percentage = snapshot.bytesTransferred / totalBytes * 100;
+                var percentage = (snapshot.bytesTransferred + uploadedBytes) / (totalBytes * 100);
                 progressBar.ariaValueNow = percentage;
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
             }, (error) => {
