@@ -113,7 +113,7 @@ function handleFileUploadSubmit(event){
                 icon.className = 'fa fa-triangle-exclamation'
                 alertBar.classList.remove('alert-light');
                 alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
-                alertBar.innerText = $(this)[0].validationMessage;
+                alertBar.innerText = 'Please type your name.' // $(this)[0].validationMessage;
                 alertBar.removeAttribute('hidden');
                 // break
                 return false;
