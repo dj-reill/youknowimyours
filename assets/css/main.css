@@ -4417,3 +4417,9 @@ input, select, textarea {
 	font-size: 12pt;
     color: #721c24;
 }
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}

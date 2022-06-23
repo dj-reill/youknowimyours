@@ -53,6 +53,7 @@ function handleFileUploadSubmit(event){
     const fileSubmit = document.querySelector('.file-submit');
     const progressBar = document.querySelector('[role*=progressbar]');
     const alertBar = document.querySelector('[role*=alert]');
+    const icon = document.createElement('i');
     var uploadedBy = document.querySelector('#uploader');
     let uploadedBytes;
     // set up dismiss button as element
@@ -80,8 +81,7 @@ function handleFileUploadSubmit(event){
             // add alert/warning
             alertBar.classList.remove('alert-light');
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
-            const icon = document.createElement('i');
-            icon.className = 'fa fa-exclamation-triangle';
+            icon.className = 'fa fa-solid-xmark';
             alertBar.innerText = '\tOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
@@ -96,7 +96,6 @@ function handleFileUploadSubmit(event){
             alertBar.classList.remove('alert-light');
             alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             // show success alert.
-            const icon = document.createElement('i');
             icon.className = 'fa fa-check';
             alertBar.innerText = '\tUpload success! Thank you for sharing this wonderful day with us!';
             alertBar.prepend(icon);
@@ -107,6 +106,19 @@ function handleFileUploadSubmit(event){
         });
     }
     event.preventDefault();
+    $('#upload :input:visible[required="required"]').each(function()
+        {
+            if(!this.validity.valid)
+            {
+                icon.className = 'fa fa-triangle-exclamation'
+                alertBar.classList.remove('alert-light');
+                alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
+                alertBar.innerText = $(this)[0].validationMessage;
+                alertBar.removeAttribute('hidden');
+                // break
+                return false;
+            }
+        });
 }
 
 //Handle waiting to upload each file using promise
