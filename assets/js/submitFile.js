@@ -115,16 +115,18 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
         task.on('state_changed',
             (snapshot)=> {
                 var percentage = (snapshot.bytesTransferred + uploadedBytes) / (totalBytes * 100);
-                if (percentage === NaN) {
+                if (isNaN(percentage)) {
                     percentage = 100;
                 }
-                progressBar.ariaValueNow = percentage;
+                progressBar.ariaValueNow = String(percentage);
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
             }, (error) => {
                 console.log(error);
                 reject(error);
                 //return error;
             }, () => {
+                progressBar.ariaValueNow = "100";
+                progressBar.setAttribute('style',  `width: ${100}%`);
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
                     const data = {url,'fileName':selectedFile.name,'caption':caption,'uploadedBy':uploader,'dateModified':selectedFile.lastModifiedDate,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
