@@ -80,8 +80,8 @@ function handleFileUploadSubmit(event){
             icon.className = 'bi bi-exclamation-triangle';
             const msg = document.createElement('p');
             msg.innerText = 'Oh no! Something went wrong! Abandon Ship!';
-            alertBar.appendChild(icon);
-            alertBar.appendChild(msg);
+            alertBar.prepend(msg);
+            alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
            // $('#splash').addClass('form--failure')
            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
@@ -98,8 +98,8 @@ function handleFileUploadSubmit(event){
             icon.className = 'bi bi-question-circle';
             const msg = document.createElement('p');
             msg.innerText = 'Upload success! Thank you for sharing this wonderful day with us!';
-            alertBar.appendChild(icon)
-            alertBar.appendChild(msg);
+            alertBar.prepend(msg);
+            alertBar.prepend(icon)
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
