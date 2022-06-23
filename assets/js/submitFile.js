@@ -5,6 +5,7 @@ const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
+var msg;
 var icon;
 
 function dismissMessage(event){
@@ -81,8 +82,7 @@ function handleFileUploadSubmit(event){
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
             const icon = document.createElement('i');
             icon.className = 'fa fa-exclamation-triangle';
-            const msg = document.createElement('p');
-            alertBar.innerText += '\nOh no! Something went wrong! Abandon Ship!';
+            alertBar.innerText = '\tOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
            // $('#splash').addClass('form--failure')
@@ -90,16 +90,16 @@ function handleFileUploadSubmit(event){
            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
            console.log(failure);
         }).then((success)=>{      
-            // progressBar.ariaValueNow = 100;
-            // progressBar.setAttribute('style',  `width: 100%`);
+            progressBar.ariaValueNow = 100;
+            progressBar.setAttribute('style',  `width: ${100}%`)
             progressBar.classList.remove('progress-bar-striped');
             alertBar.classList.remove('alert-light');
             alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             // show success alert.
             const icon = document.createElement('i');
             icon.className = 'fa fa-check';
-            alertBar.innerText = 'Upload success! Thank you for sharing this wonderful day with us!'
-            alertBar.prepend(icon)
+            alertBar.innerText = '\tUpload success! Thank you for sharing this wonderful day with us!';
+            alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
@@ -127,8 +127,6 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 reject(error);
                 //return error;
             }, () => {
-                progressBar.ariaValueNow = 100;
-                progressBar.setAttribute('style',  `width: ${100}%`)
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
                     const data = getImageData(url, selectedFile, caption, uploader);
