@@ -26,18 +26,6 @@ function dismissMessage(event){
     event.preventDefault();
 }
 
-function getImageData(url, selectedFile, caption, uploader){
-    return  {
-        url, 
-        'fileName': selectedFile.name, 
-        'caption': caption, 
-        'uploadedBy': uploader,
-        'dateModified': selectedFile.lastModifiedDate,
-        'lastModified': selectedFile.lastModified,
-        'size': selectedFile.size
-    };
-}
-
 function handleFileUploadChange(event){
     const alertBar = document.querySelector('[role*=alert]');
     selectedFile = event.target.files;
@@ -139,7 +127,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
             }, () => {
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    const data = getImageData(url, selectedFile, caption, uploader);
+                    const data = {url,'fileName':selectedFile.name,'caption':caption,'uploadedBy':uploader,'dateModified':selectedFile.lastModifiedDate,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
                     dbRef.push()
                         .set(data)
                         .then(function(s) {
