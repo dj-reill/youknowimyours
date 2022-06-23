@@ -22,7 +22,6 @@ function dismissMessage(event){
     progressBar.classList.add('progress-bar-striped');
     alertBar.setAttribute('hidden', '');
     alertBar.className = 'alert alert-light';
-    alertBar.querySelector('#dismiss-alert').remove();
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
@@ -112,6 +111,7 @@ function handleFileUploadSubmit(event){
 //Handle waiting to upload each file using promise
 function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, total, uploadedBytes, totalBytes) {
     const storageBucket = firebase.storage().ref();
+    const dbRef = firebase.database().ref('shared');
     return new Promise(function (resolve, reject) {
         var task = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
 
@@ -130,9 +130,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                     console.log('file successfully uploaded')
                     alertBar.textContent = `${fileNumber} of ${total} files uploaded`
                     const data = getImageData(url, selectedFile, caption, uploader);
-                
-                    firebase.database().ref('shared')
-                        .push()
+                    dbRef.push()
                         .set(data)
                         .then(function(s) {
                             console.log('db updated');
