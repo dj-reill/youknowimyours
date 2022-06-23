@@ -5,6 +5,9 @@ const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
+var icon;
+var dismiss;
+var msg;
 
 function dismissMessage(event){
     // locals
@@ -62,7 +65,7 @@ function handleFileUploadSubmit(event){
     dismiss.id = 'dismiss-alert';
     const span = document.createElement('span');
     span.setAttribute('aria-hidden', "true");
-    span.textContent = '&times;'
+    span.innerText = '\u00D7';
     dismiss.appendChild(span);
 
     const uploader = uploadedBy.value;
@@ -75,13 +78,16 @@ function handleFileUploadSubmit(event){
             uploadedBytes =+ selectedFile.size;
         })).catch((failure)=>{
             // add alert/warning
+            alertBar.classList.remove('alert-light');
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
             const icon = document.createElement('i');
             icon.className = 'bi bi-exclamation-triangle';
-            alertBar.appendChild(icon)
-            alertBar.appendChild(dismiss)
+            const msg = document.createElement('p');
+            msg.innerText = 'Oh no! Something went wrong! Abandon Ship!';
+            alertBar.appendChild(icon);
+            alertBar.appendChild(msg);
+            alertBar.appendChild(dismiss);
             alertBar.removeAttribute('hidden');
-            alertBar.textContent = 'Oh no! Something went wrong! Abandon Ship!';
            // $('#splash').addClass('form--failure')
            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
@@ -90,13 +96,16 @@ function handleFileUploadSubmit(event){
             progressBar.ariaValueNow = 100;
             progressBar.setAttribute('style',  `width: 100%`);
             progressBar.classList.remove('progress-bar-striped');
+            alertBar.classList.remove('alert-light');
+            alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             // show success alert.
             const icon = document.createElement('i');
             icon.className = 'bi bi-question-circle';
+            const msg = document.createElement('p');
+            msg.innerText = 'Upload success! Thank you for sharing this wonderful day with us!';
             alertBar.appendChild(icon)
+            alertBar.appendChild(msg);
             alertBar.appendChild(dismiss)
-            alertBar.textContent ='Upload success! Thank you for sharing this wonderful day with us!';
-            alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
