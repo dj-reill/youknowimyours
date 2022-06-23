@@ -53,7 +53,17 @@ function handleFileUploadChange(event){
 function handleFileUploadSubmit(event){
     var uploadedBy = document.querySelector('#uploader');
     let uploadedBytes;
-    const dismiss = $('<button id="dismiss-alert" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'); 
+    // set up dismiss button as element
+    const dismiss = document.createElement('button');
+    dismiss.setAttribute('data-dismiss', 'alert');
+    dismiss.setAttribute('aria-label', 'Close');
+    dismiss.type = 'button';
+    dismiss.className = 'close';
+    dismiss.id = 'dismiss-alert';
+    const span = document.createElement('span');
+    span.setAttribute('aria-hidden', "true");
+    span.textContent = '&times;'
+    dismiss.appendChild(span);
 
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
@@ -66,10 +76,12 @@ function handleFileUploadSubmit(event){
         })).catch((failure)=>{
             // add alert/warning
             alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
-            const msg = $('<i class="bi bi-exclamation-triangle"></i>Oh no! Something went wrong! Abandon Ship!');
-            alertBar.appendChild(msg[0])
-            alertBar.appendChild(dismiss[0])
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-exclamation-triangle';
+            alertBar.appendChild(icon)
+            alertBar.appendChild(dismiss)
             alertBar.removeAttribute('hidden');
+            alertBar.textContent = 'Oh no! Something went wrong! Abandon Ship!';
            // $('#splash').addClass('form--failure')
            // $('#splash').append('<div class="form_failure"><div class="form_failure_message"><i class="fa fa-times-circle"></i><p> Oh no! Something went wrong! Abandon ship! </p></div><input type="button" value="Dismiss" class="dismiss primary button"/></div>');
            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
@@ -79,9 +91,11 @@ function handleFileUploadSubmit(event){
             progressBar.setAttribute('style',  `width: 100%`);
             progressBar.classList.remove('progress-bar-striped');
             // show success alert.
-            const msg = $('<i class="bi bi-question-circle"></i>Upload success! Thank you for sharing this wonderful day with us!');
-            alertBar.appendChild(msg[0])
-            alertBar.appendChild(dismiss[0])
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-question-circle';
+            alertBar.appendChild(icon)
+            alertBar.appendChild(dismiss)
+            alertBar.textContent ='Upload success! Thank you for sharing this wonderful day with us!';
             alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
