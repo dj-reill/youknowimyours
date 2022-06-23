@@ -84,7 +84,7 @@ function handleFileUploadSubmit(event){
             // $('#splash').addClass('form--success');
             // $('#splash').append('<div class="form_success" style="background=#355c78"><div class="form_success_message"> <p style="color: #090d12">Thank you for sharing this wonderful day with us!</p> <input type="button" value="Dismiss" class="button small dismiss"/></div>');
             fileSubmit.setAttribute('disabled', '');
-            document.querySelector('.dismiss').addEventListener('click', dismissMessage);
+            document.querySelector('button').addEventListener('click', dismissMessage);
         });
     }
     event.preventDefault();
