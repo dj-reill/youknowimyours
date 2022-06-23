@@ -6,7 +6,6 @@ const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
 var icon;
-var msg;
 
 function dismissMessage(event){
     // locals
@@ -20,6 +19,7 @@ function dismissMessage(event){
     progressBar.classList.add('progress-bar-striped');
     alertBar.setAttribute('hidden', '');
     alertBar.className = 'alert alert-light';
+    alertBar.innerText = '';
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
@@ -82,8 +82,7 @@ function handleFileUploadSubmit(event){
             const icon = document.createElement('i');
             icon.className = 'fa fa-exclamation-triangle';
             const msg = document.createElement('p');
-            msg.innerText = 'Oh no! Something went wrong! Abandon Ship!';
-            alertBar.prepend(msg);
+            alertBar.innerText += '\nOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
            // $('#splash').addClass('form--failure')
@@ -91,17 +90,15 @@ function handleFileUploadSubmit(event){
            alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
            console.log(failure);
         }).then((success)=>{      
-            progressBar.ariaValueNow = 100;
-            progressBar.setAttribute('style',  `width: 100%`);
+            // progressBar.ariaValueNow = 100;
+            // progressBar.setAttribute('style',  `width: 100%`);
             progressBar.classList.remove('progress-bar-striped');
             alertBar.classList.remove('alert-light');
             alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
             // show success alert.
             const icon = document.createElement('i');
             icon.className = 'fa fa-check';
-            const msg = document.createElement('p');
-            msg.innerText = 'Upload success! Thank you for sharing this wonderful day with us!';
-            alertBar.prepend(msg);
+            alertBar.innerText = 'Upload success! Thank you for sharing this wonderful day with us!'
             alertBar.prepend(icon)
             alertBar.removeAttribute('hidden');
             // $('#splash').addClass('form--success');
@@ -130,6 +127,8 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 reject(error);
                 //return error;
             }, () => {
+                progressBar.ariaValueNow = 100;
+                progressBar.setAttribute('style',  `width: ${100}%`)
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
                     const data = getImageData(url, selectedFile, caption, uploader);
