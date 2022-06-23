@@ -120,6 +120,9 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
         task.on('state_changed',
             (snapshot)=> {
                 var percentage = (snapshot.bytesTransferred + uploadedBytes) / (totalBytes * 100);
+                if (percentage === NaN) {
+                    percentage = 100;
+                }
                 progressBar.ariaValueNow = percentage;
                 progressBar.setAttribute('style',  `width: ${progressBar.ariaValueNow}%`);
             }, (error) => {
