@@ -2,7 +2,7 @@ let selectedFile;
 
 const fileSelect = document.querySelector('.file-select');
 const fileSubmit = document.querySelector('.file-submit');
-const menuFileUpload = document.querySelector('a#uploadForm');
+const menuFileUpload = document.querySelectorAll('a#uploadForm');
 
 function dismissMessage(event){
     document.removeEventListener('click', dismissMessage);
@@ -123,5 +123,5 @@ function showModal(event) {
 
 fileSelect.addEventListener('change', handleFileUploadChange);
 fileSubmit.addEventListener('click', handleFileUploadSubmit);
-menuFileUpload.addEventListener('click', showModal);
+menuFileUpload.forEach((el) => el.addEventListener('click', showModal));
 
