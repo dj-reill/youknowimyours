@@ -5,52 +5,44 @@
 <div class="modal fade modal" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px">
     <div class="modal-dialog modal-dialog-centered modal-med">
         <div class="modal-content">
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-            </div>
-            <div class="modal-header">
-                <header>
-                    <h3 id="title" style="color:#2E3842">Upload A File to the Gallery</h5>
-                </header>
-                <button id="closeModal" class="close" data-dismiss="modal" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="alert alert-light" role="alert" hidden>
-                <button id="dismiss-alert" class="close" data-dismiss="alert" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="splash" class="modal-body wrapper style5 inner" style="padding:1em 1em 1em 1em">
-                <p style="color:#2E3842; text-align: center;">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
-                <form id="upload" class="row gtr-uniform aln-center">
-                    <div class="col-10">
-                        <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="1"></textarea>
+            <form id="upload"> 
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                </div>
+                <div class="modal-header">
+                    <header>
+                        <h3 id="title" style="color:#2E3842">Upload A File to the Gallery</h3>
+                    </header>
+                    <button id="closeModal" class="close" data-dismiss="modal" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="alert alert-light" role="alert" hidden>
+                        <button id="dismiss-alert" class="close" data-dismiss="alert" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="col-10">
-                        <input required id="uploader" type="text" placeholder="Enter your name"></input>
-                    </div>
-                    <!-- <div> 
-                    <div class="col-6 col-12-small">
-                        <input type="checkbox" id="specify-time" name="specify-time" checked="">
-                        <label for="specify-time">Specify a Time for Upload</label>
-                    </div>
-                        <select name="timeline_category" class="disabled">
-                        {% for event in events %}
-                            <option value="{{ event.heading }}">{{ event.heading }}</option>
-                        {% endfor %}
-                    </select></div> -->
-                    <div class="col-10">
-                        <div id="filesubmit" type="submit">
+                </div>
+                <div class="modal-body wrapper style5 inner" style="padding:1em 1em 1em 1em">
+                    <p style="color:#2E3842; text-align: center;">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
+                    <div class="row gtr-uniform aln-center">
+                        <div class="col-10">
+                            <textarea id="fileCaption" placeholder="Send us a caption for your file!" rows="1"></textarea>
+                        </div>
+                        <div class="col-10">
+                            <input required id="uploader" type="text" placeholder="Enter your name"></input>
+                        </div>
+                        <div class="col-10">
                             <input type="file" class="file-select" accept="image/*,video/*" style="color:#2E3842" multiple="multiple"/>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="alt button" data-dismiss="modal">Close</button>
-                <button type="button" type="file" value="Submit" class="file-submit primary button">Submit</button>
-            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <ul class="actions">
+                        <li><input type="reset" class="alt button" value="Reset"/></li>
+                        <li><input type="button" type="file" value="Submit" class="file-submit primary button"/></li>
+                    </ul>
+                </div>
+            </form>
         </div>
     </div>
 </div>
