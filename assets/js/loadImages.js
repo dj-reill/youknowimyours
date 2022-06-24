@@ -1,5 +1,4 @@
 const ref = firebase.database().ref('shared');
-const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
 const gallery = document.querySelector('[role=root]');
 const carousel = document.querySelector('#weddingCarousel');
@@ -32,8 +31,21 @@ function makeTimelineBucket(image, imageId){
                 </div>
             </div>
         </div>`);
-      gallery.appendChild(timelineEntry[0]);
-      gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
+    gallery.appendChild(timelineEntry[0]);
+    gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
+}
+
+function addToGallery(image, imageId) {
+    const dt = new Date(image.lastModified);
+    const item = $(`<div class="col-4" role="click">
+                        <span class="image fit" id="${imageId}">
+                            <a href="${image.url}" alt="${image.fileName}" role="click"> 
+                                <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
+                            </a>
+                        </span>
+                    </div>`);
+    gallery.appendChild(item[0]);
+    timelineArea.querySelector('[role=click]').addEventListener('click', launchCarousel);
 }
 
 function addToCarousel(image, imageId) {
@@ -56,7 +68,11 @@ function addToCarousel(image, imageId) {
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
-    makeTimelineBucket(snapshot.val(), snapshot.key );
+    if (type !== 'box') {
+        makeTimelineBucket(snapshot.val(), snapshot.key );
+    } else {
+        addToGallery(snapshot.val(), snapshot.key );
+    }
     addToCarousel(snapshot.val(), snapshot.key)
 });
 
