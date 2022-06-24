@@ -5,6 +5,7 @@ const fileSubmit = document.querySelector('.file-submit');
 const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
+const form = document.querySelector("#upload");
 var msg;
 var icon;
 
@@ -37,23 +38,8 @@ function handleFileUploadChange(event){
 }
 
 function handleFileUploadSubmit(event){
-    const fileSubmit = document.querySelector('.file-submit');
-    const progressBar = document.querySelector('[role*=progressbar]');
-    const alertBar = document.querySelector('[role*=alert]');
-    const icon = document.createElement('i');
     var uploadedBy = document.querySelector('#uploader');
     let uploadedBytes;
-    // set up dismiss button as element
-    const dismiss = document.createElement('button');
-    dismiss.setAttribute('data-dismiss', 'alert');
-    dismiss.setAttribute('aria-label', 'Close');
-    dismiss.type = 'button';
-    dismiss.className = 'close';
-    dismiss.id = 'dismiss-alert';
-    const span = document.createElement('span');
-    span.setAttribute('aria-hidden', "true");
-    span.innerText = '\u00D7';
-    dismiss.appendChild(span);
 
     const uploader = uploadedBy.value;
     if (uploader.length > 0){
@@ -88,20 +74,23 @@ function handleFileUploadSubmit(event){
           fileSubmit.setAttribute('disabled', '');
         });
     }
-    event.preventDefault();
-    $('#upload :input:visible[required="required"]').each(function()
-        {
-            if(!this.validity.valid)
-            {
-                icon.className = 'fa fa-triangle-exclamation'
-                alertBar.classList.remove('alert-light');
-                alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
-                alertBar.innerText = 'Please type your name.' // $(this)[0].validationMessage;
-                alertBar.removeAttribute('hidden');
-                // break
-                return false;
-            }
-        });
+    // event.preventDefault();
+    // $('#upload :input:visible[required="required"]').each(function()
+    //     {
+    //         if(!this.validity.valid)
+    //         {
+    //             const alert = $(`<div class="alert alert-warning" role="alert">
+    //                                 <i class="'fa fa-triangle-exclamation"/>Please type your name.
+    //                             </div>`)
+    //             icon.className = 'fa fa-triangle-exclamation'
+    //             alertBar.classList.remove('alert-light');
+    //             alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
+    //             alertBar.innerText = 'Please type your name.' // $(this)[0].validationMessage;
+    //             alertBar.removeAttribute('hidden');
+    //             // break
+    //             return false;
+    //         }
+    //     });
 }
 
 //Handle waiting to upload each file using promise
@@ -155,6 +144,6 @@ function showModal(event) {
 }
 
 fileSelect.addEventListener('change', handleFileUploadChange);
-fileSubmit.addEventListener('click', handleFileUploadSubmit);
+fileSubmit.addEventListener('click', handleFileUploadSubmit);            
 menuFileUpload.forEach((el) => el.addEventListener('click', showModal));
 dismiss.forEach((el) => el.addEventListener('click', dismissMessage));
