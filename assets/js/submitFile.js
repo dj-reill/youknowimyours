@@ -38,6 +38,24 @@ function handleFileUploadChange(event){
     event.preventDefault();
 }
 
+function authenticateUser(name) {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+            var uid = user.uid;
+            var userRef = firebase.auth().ref().child(uid);
+            if(firebase.auth().currentUser.displayName){
+                userRef.updateProfile({displayName: name});
+            }
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+}
+
 function handleFileUploadSubmit(event){
     let uploadedBytes;
     uploader = uploadedBy.value.trim();
@@ -72,6 +90,7 @@ function handleFileUploadSubmit(event){
             alertBar.removeAttribute('hidden');
           fileSubmit.setAttribute('disabled', '');
         });
+        authenticateUser(uploader);
     }
     event.preventDefault();
 }
@@ -125,6 +144,7 @@ function showModal(event) {
     $('#submitModal').modal('show');
     event.preventDefault();
 }
+
 
 fileSelect.addEventListener('change', handleFileUploadChange);
 fileSubmit.addEventListener('click', handleFileUploadSubmit);            
