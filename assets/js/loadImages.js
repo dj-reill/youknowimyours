@@ -37,15 +37,15 @@ function makeTimelineBucket(image, imageId){
 
 function addToGallery(image, imageId) {
     const dt = new Date(image.lastModified);
-    const item = $(`<div class="col-4" role="click">
+    const item = $(`<div class="col-4">
                         <span class="image fit" id="${imageId}">
-                            <a href="${image.url}" alt="${image.fileName}" role="click"> 
-                                <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
+                            <a href="${image.url}" alt="${image.fileName}" role="click" className="img-fluid"> 
+                                <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}"/>
                             </a>
                         </span>
                     </div>`);
     gallery.appendChild(item[0]);
-    timelineArea.querySelector('[role=click]').addEventListener('click', launchCarousel);
+    gallery.querySelector('[role=click]').addEventListener('click', launchCarousel);
 }
 
 function addToCarousel(image, imageId) {
