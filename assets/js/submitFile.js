@@ -7,9 +7,14 @@ const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
 const form = document.querySelector("#upload");
 const uploadedBy = document.querySelector('#uploader');
+const user = firebase.auth().currentUser;
 var uploader;
 var msg;
 var icon;
+
+if (user.displayName){
+    document.querySelector('#uploader').remove();
+}
 
 function dismissMessage(event){
     // locals
@@ -39,27 +44,22 @@ function handleFileUploadChange(event){
 }
 
 function authenticateUser(name) {
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-            var uid = user.uid;
-            var userRef = firebase.auth().ref().child(uid);
-            if(firebase.auth().currentUser.displayName){
-                userRef.updateProfile({displayName: name});
-            }
-          // ...
-        } else {
-          // User is signed out
-          // ...
-        }
-      });
+    if(!user.displayName){
+        user.updateProfile({displayName: name});
+    }
 }
 
 function handleFileUploadSubmit(event){
     let uploadedBytes;
     uploader = uploadedBy.value.trim();
+    if (!user.displayName) {
+        var uploadedBy = document.querySelector('#uploader');
+        uploader = uploadedBy.value;
+    } else {
+        uploader = user.displayName;
+    }
     if (uploader.length > 0){
+        authenticateUser(uploader);
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
         const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
