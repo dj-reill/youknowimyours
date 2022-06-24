@@ -3405,6 +3405,12 @@ input, select, textarea {
 
 		}
 
+		@media screen and (max-width: 600px) {
+			.wrapper {
+				padding: 2.5em 1.75em 1em 1.5em;
+			}
+		}
+
 /* Page Wrapper + Menu */
 
 	#page-wrapper {
