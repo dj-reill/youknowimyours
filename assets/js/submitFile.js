@@ -7,14 +7,22 @@ const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
 const form = document.querySelector("#upload");
 const uploadedBy = document.querySelector('#uploader');
-const user = firebase.auth().currentUser;
 var uploader;
+var user;
 var msg;
 var icon;
 
-if (user.displayName){
-    document.querySelector('#uploader').remove();
-}
+firebase.auth().onAuthStateChanged(function(authUser) {
+    if (authUser) {
+        // User is signed in.
+        user = authUser;
+        if (authUser.displayName) {
+            document.querySelector('#uploader').remove();
+        } 
+      } else {
+        // No user is signed in.
+      }
+});
 
 function dismissMessage(event){
     // locals
