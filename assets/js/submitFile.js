@@ -74,23 +74,23 @@ function handleFileUploadSubmit(event){
           fileSubmit.setAttribute('disabled', '');
         });
     }
-    // event.preventDefault();
-    // $('#upload :input:visible[required="required"]').each(function()
-    //     {
-    //         if(!this.validity.valid)
-    //         {
-    //             const alert = $(`<div class="alert alert-warning" role="alert">
-    //                                 <i class="'fa fa-triangle-exclamation"/>Please type your name.
-    //                             </div>`)
-    //             icon.className = 'fa fa-triangle-exclamation'
-    //             alertBar.classList.remove('alert-light');
-    //             alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
-    //             alertBar.innerText = 'Please type your name.' // $(this)[0].validationMessage;
-    //             alertBar.removeAttribute('hidden');
-    //             // break
-    //             return false;
-    //         }
-    //     });
+    event.preventDefault();
+    $('#upload :input:visible[required="required"]').each(function()
+        {
+            if(!this.validity.valid)
+            {
+                const alert = $(`<div class="alert alert-warning" role="alert">
+                                    <i class="'fa fa-triangle-exclamation"/>Please type your name.
+                                </div>`)
+                icon.className = 'fa fa-triangle-exclamation'
+                alertBar.classList.remove('alert-light');
+                alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
+                alertBar.innerText = 'Please type your name.' // $(this)[0].validationMessage;
+                alertBar.removeAttribute('hidden');
+                // break
+                return false;
+            }
+        });
 }
 
 //Handle waiting to upload each file using promise
