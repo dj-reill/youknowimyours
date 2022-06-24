@@ -28,13 +28,15 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
-  firebase.auth().signInAnonymously()
-  .then(() => {
-    console.log('authenticated');
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
-  });
+  if (!firebase.auth().currentUser){
+    firebase.auth().signInAnonymously()
+    .then(() => {
+      console.log('authenticated');
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+  }
 </script>
