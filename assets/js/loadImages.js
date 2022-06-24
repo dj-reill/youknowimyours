@@ -1,33 +1,43 @@
 const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
+const timelineArea = document.querySelector('#timelineArea');
 const type = 'box';
 
+
+function makeTimelineBucket(image, imageId){
+    const dt = new Date(image.lastModified);
+    const timelineEntry = $(`
+        <div class="single-timeline-area">
+            <div class="timeline-date">
+                <h6 id="">${dt.toLocaleTimeString('en-US')}</p>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-timeline-content">
+                        <h6>${image.caption}</h6>
+                        <!-- Gallery/Box implementation -->
+                        <div id="gallery${imageId}" class="box alt">
+                            <div class="row gtr-50 gtr-uniform" role="root">
+                                <div class="col-12" role="click">
+                                    <span class="image fit" id="${imageId}">
+                                        <a href="${image.url}" alt="${image.fileName}"> 
+                                            <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`);
+    timelineArea.appendChild(timelineEntry[0]);
+    timelineArea.querySelector('[role=click]').addEventListener('click', launchCarousel);
+}
+
 ref.on('child_added', (snapshot, prevChildKey) => {
-    const image = snapshot.val();
-    let beforeImage; 
-    beforeImage = Array.from(slices).filter(function(d) {
-        return (Number.parseInt(d.getAttribute('epoch')) * 1000) - image.lastModified < 0;
-    });
-    if (beforeImage.length === 0) {
-        beforeImage = [slices[0]];
-    }
-    let parentDiv;
-    let carousel;
-    let carouselInner;
-    if (type === 'box') {
-        parentDiv = $(beforeImage[beforeImage.length - 1]);
-        carousel = parentDiv.find('.box.alt')[0];
-        carouselInner = parentDiv.find('[role="root"]')[0];
-        appendImage(carouselInner, image, type);
-    } else if (type==='carousel'){
-        carousel = parentDiv.find('.carousel')[0];
-        carouselInner = parentDiv.find('.carousel-inner')[0];
-        appendImage(carouselInner, image, type);
-        setActiveItem(carouselInner);
-        carousel.closest('.single-timeline-area').removeAttribute('hidden');
-        carousel.removeAttribute("hidden");
-    }
+    makeTimelineBucket(snapshot.val(), snapshot.key );
 });
 
 function setActiveItem(group){
@@ -56,27 +66,31 @@ function isVideo(filename) {
     return false;
   }
 
+function makeCarouselItems() {
+
+}
+
 function launchCarousel(event){
-    const inner = $(event.target).closest('[role=root]');
-    const carousel = document.createElement('div');
+    // const inner = $(event.target).closest('[role=root]');
+    // const carousel = document.createElement('div');
     
-    div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
-                                                        <div class="carousel-inner" id="gallery{{ forloop.index }}">    
-    const anchors = inner.querySelectorAll('a');
-    anchors.forEach((a) => {
-        const img = $(a).find('img');
-        const item = document.createElement('div');
-        item.className = 'carousel-item active';
-        const caption = document.createElement('div');
-        caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
-        caption.style = "position: relative; left: 0; top: 0;"
-        const h= document.createElement('h5');
-        h.innerText = img.caption;
-        const p = document.createElement('p');
-        p.innerText = `Uploaded by: ${img.uploadedBy}`;
-    });
-    const root = $('[role=root]');
-    root.appendChild()
+    // div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
+    //                                                     <div class="carousel-inner" id="gallery{{ forloop.index }}">    
+    // const anchors = inner.querySelectorAll('img');
+    // anchors.forEach((a) => {
+    //     const img = $(a).find('img');
+    //     const item = document.createElement('div');
+    //     item.className = 'carousel-item active';
+    //     const caption = document.createElement('div');
+    //     caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
+    //     caption.style = "position: relative; left: 0; top: 0;"
+    //     const h= document.createElement('h5');
+    //     h.innerText = img.caption;
+    //     const p = document.createElement('p');
+    //     p.innerText = `Uploaded by: ${img.uploadedBy}`;
+    // });
+    // const root = $('[role=root]');
+    // root.appendChild()
 }
 
 function appendImage(target, imageData, type='carousel'){
