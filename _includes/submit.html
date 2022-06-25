@@ -5,23 +5,23 @@
 <div class="modal fade modal" id="submitModal" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px">
     <div class="modal-dialog modal-dialog-centered modal-med">
         <div class="modal-content">
-            <form id="upload">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-                </div>
-                <div class="modal-header">
-                    <header>
-                        <h3 id="title" style="color:#2E3842;overflow-wrap:break-word;inline-size:75%;margin: 2px auto">Upload A File to the Gallery</h5>
-                    </header>
-                    <button id="closeModal" class="close" data-dismiss="modal" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="alert alert-light" role="alert" hidden>
-                    <button id="dismiss-alert" class="close" data-dismiss="alert" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+            <div class="modal-header">
+                <header>
+                    <h3 id="title" style="color:#2E3842;overflow-wrap:break-word;inline-size:75%;margin: 2px auto">Upload A File to the Gallery</h5>
+                </header>
+                <button id="closeModal" class="close" data-dismiss="modal" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="alert alert-light" role="alert" hidden>
+                <button id="dismiss-alert" class="close" data-dismiss="alert" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="upload" class="needs-validation">
                 <div class="modal-body wrapper style5 inner" style="padding:1em 1em 1em 1em">
                     <p style="color:#2E3842;text-align:center;overflow-wrap:break-word;margin:auto;inline-size:70%">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
                     <div class="row gtr-uniform aln-center">
@@ -41,11 +41,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <input type="button" class="alt button" data-dismiss="modal">Close</button>
+                    <button type="button"  onclick="submitform()" id="submit" class="primary button">Submit</button>
+                    <input type="submit" type="file" value="Submit" class="file-submit primary button" style="display: none"/>
+                </div>
             </form>
-            <div class="modal-footer">
-                <button type="button" class="alt button" data-dismiss="modal">Close</button>
-                <button type="button" type="file" value="Submit" class="file-submit primary button">Submit</button>
-            </div>
         </div>
     </div>
 </div>
+
+<script>
+    function submitform() {
+        var f = document.getElementsByTagName('form')[0];
+        if(f.reportValidity()) {
+            $('.file-submit').click();
+        }
+    }
+</script>
