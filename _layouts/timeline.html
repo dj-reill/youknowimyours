@@ -10,6 +10,8 @@ permalink: gallery.html
 
   {% assign detailedEvents = site.data.detailedEvents %}
 
+  <link rel="stylesheet" href={{ "/assets/css/fb.css" | relative_url }}>
+
   <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 		<div class="page-wrapper">
@@ -24,18 +26,11 @@ permalink: gallery.html
                         <li><a href="#" class="button alt" id="uploadForm">Upload to Our Gallery</a></li>
                     </ul>            
                 </header>
-                <section class="timeline_area section_padding_130">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Timeline Area-->
-                                <div class="apland-timeline-area" id="timelineArea">
-                                    
-                                </div>
-                            </div>
-                        </div>
+                <section>
+                    <div class="feed" id="gallery">
+
                     </div>
-                </section>     
+                </section>
             </article>
             
         {%- include footer.html -%}
