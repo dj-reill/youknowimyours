@@ -42,9 +42,8 @@ function handleFileUploadChange(event){
 
 function handleFileUploadSubmit(event){
     let uploadedBytes;
-
     uploader = `${firstName.value.trim()} ${lastName.value.trim()}`;
-    if (uploader.length > 0){
+    if (uploader.trim().length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
         const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
