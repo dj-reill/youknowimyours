@@ -8,8 +8,21 @@ const alertBar = document.querySelector('[role*=alert]');
 const form = document.querySelector("#upload");
 const uploadedBy = document.querySelector('#uploader');
 var uploader;
+var user;
 var msg;
-var icon;
+const icon = document.createElement('i');
+
+firebase.auth().onAuthStateChanged(function(authUser) {
+    if (authUser) {
+        // User is signed in.
+        user = authUser;
+        if (authUser.displayName) {
+           // document.querySelector('#uploader').parentElement.remove();
+        } 
+      } else {
+        // No user is signed in.
+      }
+});
 
 function dismissMessage(event){
     // locals
@@ -29,7 +42,6 @@ function dismissMessage(event){
 }
 
 function handleFileUploadChange(event){
-    const alertBar = document.querySelector('[role*=alert]');
     selectedFile = event.target.files;
     if (selectedFile.length>1){
         alertBar.removeAttribute('hidden');
@@ -38,9 +50,20 @@ function handleFileUploadChange(event){
     event.preventDefault();
 }
 
+async function updateDisplayName(name) {
+    await user.updateProfile({displayName: name});
+}
+
 function handleFileUploadSubmit(event){
     let uploadedBytes;
     uploader = uploadedBy.value.trim();
+    if (!user.displayName) {
+        updateDisplayName(uploader);
+    } else {
+        if (uploader !== user.displayName) {
+            updateDisplayName(uploader);
+        }
+    }
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
@@ -52,7 +75,7 @@ function handleFileUploadSubmit(event){
         })).catch((failure)=>{
             // add alert/warning
             alertBar.classList.remove('alert-light');
-            alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
+            alertBar.classList.add('alert-danger', 'fade',  'show');
             icon.className = 'fa fa-solid-xmark';
             alertBar.innerText = '\tOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
@@ -64,13 +87,12 @@ function handleFileUploadSubmit(event){
             progressBar.setAttribute('style',  `width: ${100}%`)
             progressBar.classList.remove('progress-bar-striped');
             alertBar.classList.remove('alert-light');
-            alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
+            alertBar.classList.add('alert-success', 'fade',  'show');
             // show success alert.
             icon.className = 'fa fa-check';
             alertBar.innerText = '\tUpload success! Thank you for sharing this wonderful day with us!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
-          fileSubmit.setAttribute('disabled', '');
         });
     }
     event.preventDefault();
@@ -82,7 +104,6 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
     const dbRef = firebase.database().ref('shared');
     return new Promise(function (resolve, reject) {
         var task = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-
         //Update progress bar
         task.on('state_changed',
             (snapshot)=> {
@@ -101,7 +122,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${100}%`);
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    const data = {url,'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
+                    const data = {url, uid:user.uid, 'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
                     dbRef.push()
                         .set(data)
                         .then(function(s) {
@@ -125,6 +146,7 @@ function showModal(event) {
     $('#submitModal').modal('show');
     event.preventDefault();
 }
+
 
 fileSelect.addEventListener('change', handleFileUploadChange);
 fileSubmit.addEventListener('click', handleFileUploadSubmit);            

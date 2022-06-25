@@ -10,7 +10,7 @@ function makeTimelineBucket(image, imageId){
     const timelineEntry = $(`
         <div class="single-timeline-area">
             <div class="timeline-date">
-                <h6 id="">${dt.toLocaleTimeString('en-US')}</p>
+                <h6 id="time${imageId}" style="font-size:xsmall">${dt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'})}</h6>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">

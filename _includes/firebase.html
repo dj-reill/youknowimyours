@@ -5,6 +5,7 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-analytics.js"></script>
 <!-- Required for pushes to db. -->
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-auth.js"></script>
 <!-- <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-auth.js"></script> -->
 <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-database.js"></script>
 <!-- firebase storage import-->
@@ -27,4 +28,15 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+  if (!firebase.auth().currentUser){
+    firebase.auth().signInAnonymously()
+    .then(() => {
+      console.log('authenticated');
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+  }
 </script>

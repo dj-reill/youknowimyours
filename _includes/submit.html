@@ -23,13 +23,13 @@
             </div>
             <form id="upload" class="needs-validation">
                 <div class="modal-body wrapper style5 inner" style="padding:1em 1em 1em 1em">
-                    <p style="color:#2E3842;text-align:center;overflow-wrap:break-word;inline-size:225px;margin:1em auto">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
+                    <p style="color:#2E3842;text-align:center;margin:1em auto">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
                     <div class="row gtr-uniform aln-center">
                         <div class="col-10">
                             <textarea id="fileCaption" placeholder="Caption your upload" rows="1"></textarea>
                         </div>
                         <div class="col-10">
-                            <input type="text" class="form-control" name="fullname" id="uploader" value="" required placeholder="Your Name"><br>
+                            <input type="text" pattern="^([a-zA-Z'-.]+ [a-zA-Z'-.]+)$" class="form-control" name="fullname" id="uploader" value="" required placeholder="Your Name"><br>
                         </div>
                         <div class="col-10">
                             <div id="filesubmit" type="submit">

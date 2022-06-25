@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
+  {%- include firebase.html -%}
+
   {%- include head.html -%}
   <body class="landing is-preload">
   		<!-- Page Wrapper -->
@@ -15,7 +17,6 @@
 
     {%- include scripts.html -%}
 
-    {%- include firebase.html -%}
   </body>
 
 </html>

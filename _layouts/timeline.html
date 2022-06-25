@@ -6,6 +6,8 @@ permalink: gallery.html
 
   {%- include head.html -%}
 
+  {%- include firebase.html -%}
+
   {% assign detailedEvents = site.data.detailedEvents %}
 
   <body class="landing is-preload"></body>
@@ -40,7 +42,7 @@ permalink: gallery.html
 
         {%- include scripts.html -%}    
 
-        {%- include firebase.html -%}
+
 
         <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
     </div>

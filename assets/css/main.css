@@ -4324,7 +4324,7 @@ input, select, textarea {
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
-    padding-right: 60px;
+    padding-right: 24px;
 }
 @media only screen and (max-width: 575px) {
     .single-timeline-area .timeline-date {
@@ -4333,23 +4333,23 @@ input, select, textarea {
 }
 .single-timeline-area .timeline-date::after {
     position: absolute;
-    width: 3px;
+    width: 2px;
     height: 100%;
     content: "";
-    background-color: #ebebeb;
+    background-color: #f5e625;
     top: 0;
-    right: 30px;
+    right: 20px;
     z-index: 1;
 }
 .single-timeline-area .timeline-date::before {
     position: absolute;
-    width: 11px;
+    width: 12px;
     height: 11px;
     border-radius: 50%;
-    background-color: #f1c40f;
+    background-color: #dfdfdf;
     content: "";
     top: 50%;
-    right: 26px;
+    right: 15px;
     z-index: 5;
     margin-top: -5.5px;
 }
@@ -4415,6 +4415,12 @@ input, select, textarea {
 	background-color: #21b2a6;
 }
 
+.alert {
+	position: relative;
+    border: 2px solid;
+    border-radius: 0.25rem;
+}
+
 .alert-success {
     color: #155724;
     background-color: #d4edda;
@@ -4446,3 +4452,7 @@ input, select, textarea {
 .progress-bar {
 	background-color: #edab17;
 }
+
+.initial {
+	all: initial;
+  }
