@@ -6,6 +6,9 @@ const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
 const form = document.querySelector("#upload");
+const firstName = document.querySelector('#firstName');
+const lastName = document.querySelector('#lastName');
+var uploader;
 var msg;
 var icon;
 
@@ -38,10 +41,9 @@ function handleFileUploadChange(event){
 }
 
 function handleFileUploadSubmit(event){
-    var uploadedBy = document.querySelector('#uploader');
     let uploadedBytes;
 
-    const uploader = uploadedBy.value;
+    uploader = `${firstName.value} ${lastName.value}`;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
@@ -118,7 +120,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${100}%`);
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    const data = {url,'fileName':selectedFile.name,'caption':caption,'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
+                    const data = {url,'fileName':selectedFile.name,'caption':caption, 'firstName': firstName.value, 'lastName': lastName.value, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
                     dbRef.push()
                         .set(data)
                         .then(function(s) {
