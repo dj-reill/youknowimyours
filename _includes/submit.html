@@ -23,7 +23,7 @@
             </div>
             <form id="upload" class="needs-validation">
                 <div class="modal-body wrapper style5 inner" style="padding:1em 1em 1em 1em">
-                    <p style="color:#2E3842;text-align:center;overflow-wrap:break-word;margin:auto;inline-size:70%">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
+                    <p style="color:#2E3842;text-align:center;overflow-wrap:break-word;margin:1em auto">Select a file to upload to the <a href="gallery.html" title="Photos/Videos will be visible in the gallery page.">gallery page</a>.</p>
                     <div class="row gtr-uniform aln-center">
                         <div class="col-10">
                             <textarea id="fileCaption" placeholder="Caption your upload" rows="1"></textarea>
@@ -34,17 +34,17 @@
                         <div class="col-10">
                                 <input type="text" class="form-control"  size=”19″ name="lastName" id="lastName" value="" required placeholder="Last Name*"><br>
                         </div>
-                        <div class="col-8">
+                        <div class="col-10">
                             <div id="filesubmit" type="submit">
                                 <input type="file" class="file-select" accept="image/*,video/*" style="color:#2E3842" multiple="multiple" required/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <input type="button" class="alt button" data-dismiss="modal">Close</button>
+                <div class="modal-footer" style="justify-content: center">
+                    <input type="submit" type="file" value="Submit" class="file-submit primary button" hidden style="display: none;"/>
+                    <button type="reset" class="button primary alt" data-dismiss="modal">Reset</button>
                     <button type="button"  onclick="submitform()" id="submit" class="primary button">Submit</button>
-                    <input type="submit" type="file" value="Submit" class="file-submit primary button" style="display: none"/>
                 </div>
             </form>
         </div>
