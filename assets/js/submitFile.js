@@ -17,7 +17,7 @@ firebase.auth().onAuthStateChanged(function(authUser) {
         // User is signed in.
         user = authUser;
         if (authUser.displayName) {
-            document.querySelector('#uploader').remove();
+            document.querySelector('#uploader').parentElement.remove();
         } 
       } else {
         // No user is signed in.
@@ -63,7 +63,6 @@ function handleFileUploadSubmit(event){
         uploader = user.displayName;
     }
     if (uploader.length > 0){
-        authenticateUser(uploader);
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
         const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
