@@ -11,7 +11,7 @@ function makePost(image, imageId) {
     <div class="post__top">
       <img
         class="user__avatar post__avatar"
-        src="${user.profile.photoURL}"
+        src="${user.photoURL}"
         alt=""
       />
       <div class="post__topInfo">
