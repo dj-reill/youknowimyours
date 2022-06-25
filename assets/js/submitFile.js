@@ -6,8 +6,7 @@ const menuFileUpload = document.querySelectorAll('a#uploadForm');
 const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
 const form = document.querySelector("#upload");
-const firstName = document.querySelector('#firstName');
-const lastName = document.querySelector('#lastName');
+const uploadedBy = document.querySelector('#uploader');
 var uploader;
 var msg;
 var icon;
@@ -17,7 +16,6 @@ function dismissMessage(event){
     const caption = document.querySelector('#fileCaption');
     const uploader = document.querySelector('#uploader');
     document.querySelector('#fileCaption').value='';
-    document.querySelector('#uploader').value='';
     fileSelect.value ='';
     progressBar.ariaValueNow=0;
     progressBar.setAttribute('style', 'width: 0%');
@@ -42,8 +40,8 @@ function handleFileUploadChange(event){
 
 function handleFileUploadSubmit(event){
     let uploadedBytes;
-    uploader = `${firstName.value.trim()} ${lastName.value.trim()}`;
-    if (uploader.trim().length > 0){
+    uploader = uploadedBy.value.trim();
+    if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
         const totalBytes = Array.from(selectedFile).map((a) => a.size).reduce((partialSum, a)=> partialSum+a, 0);
@@ -76,22 +74,6 @@ function handleFileUploadSubmit(event){
         });
     }
     event.preventDefault();
-    $('#upload :input:visible[required="required"]').each(function()
-        {
-            if(!this.validity.valid)
-            {
-                const alert = $(`<div class="alert alert-warning" role="alert">
-                                    <i class="'fa fa-triangle-exclamation"/>Please type your name.
-                                </div>`)
-                icon.className = 'fa fa-triangle-exclamation'
-                alertBar.classList.remove('alert-light');
-                alertBar.classList.add('alert-warning', 'alert-dismissible', 'fade', 'show');
-                alertBar.innerText = 'Please type your name.' // $(this)[0].validationMessage;
-                alertBar.removeAttribute('hidden');
-                // break
-                return false;
-            }
-        });
 }
 
 //Handle waiting to upload each file using promise
@@ -119,7 +101,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${100}%`);
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    const data = {url,'fileName':selectedFile.name,'caption':caption, 'firstName': firstName.value, 'lastName': lastName.value, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
+                    const data = {url,'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
                     dbRef.push()
                         .set(data)
                         .then(function(s) {
