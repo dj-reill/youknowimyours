@@ -29,7 +29,7 @@
                             <textarea id="fileCaption" placeholder="Caption your upload" rows="1"></textarea>
                         </div>
                         <div class="col-10">
-                            <input type="text" class="form-control" name="fullname" id="uploader" value="" required placeholder="Your Name"><br>
+                            <input type="text" pattern="^([a-zA-Z'-.]+ [a-zA-Z'-.]+)$" class="form-control" name="fullname" id="uploader" value="" required placeholder="Your Name"><br>
                         </div>
                         <div class="col-10">
                             <div id="filesubmit" type="submit">
