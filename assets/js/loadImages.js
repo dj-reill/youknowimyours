@@ -1,9 +1,52 @@
 const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
-const timelineArea = document.querySelector('#timelineArea');
+const gallery = document.querySelector('#gallery');
 const type = 'box';
 
+function makePost(image, imageId) {
+    const dt = new Date(image.lastModified);
+    return $(`<div class="post">
+    <div class="post__top">
+      <img
+        class="user__avatar post__avatar"
+        src="${user.profile.photoURL}"
+        alt=""
+      />
+      <div class="post__topInfo">
+        <h3>${image.uploader}</h3>
+        <p>${dt.toLocaleString('en-US', {month:'long', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric'})}</p>
+      </div>
+    </div>
+
+    <div class="post__bottom">
+      <p>${image.caption}</p>
+    </div>
+
+    <div class="post__image">
+        <span class="image fit" id="${imageId}">
+            <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
+        </span>
+    </div>
+
+    <div class="post__options">
+      <div class="post__option">
+        <span class="icon fa fa-thumbs-up"></span>
+        <p>Like</p>
+      </div>
+
+      <div class="post__option">
+        <span class="icon fa fa-comment"></span>
+        <p>Comment</p>
+      </div>
+
+      <div class="post__option">
+        <span class="icon fa fa-share-square"></span>
+        <p>Share</p>
+      </div>
+    </div>
+  </div>`);
+}
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.lastModified);
@@ -32,12 +75,13 @@ function makeTimelineBucket(image, imageId){
                 </div>
             </div>
         </div>`);
-    timelineArea.appendChild(timelineEntry[0]);
-    timelineArea.querySelector('[role=click]').addEventListener('click', launchCarousel);
+    return timelineEntry;
+    // timelineArea.querySelector('[role=click]').addEventListener('click', launchCarousel);
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
-    makeTimelineBucket(snapshot.val(), snapshot.key );
+    const imageDiv = makePost(snapshot.val(), snapshot.key );
+    gallery.appendChild(imageDiv[0]);
 });
 
 function setActiveItem(group){
@@ -94,61 +138,28 @@ function launchCarousel(event){
 }
 
 function appendImage(target, imageData, type='carousel'){
-    if (type==='carousel') {
-        // let div = document.createElement('div');
-        // div.className = 'carousel-item';
-        // div.innerHTML = `<img src=${imageData.url} className="img-fluid d-block w-100" alt=${imageData.fileName}><div class="carousel-caption d-none d-md-block"><h5>${imageData.caption}</h5><p>Uploaded By: ${imageData.uploadedBy}</p></div>`;
-        let item = document.createElement('div');
-        item.className = 'carousel-item active';
-        let a = document.createElement('a');
-        a.href = imageData.url;
-        // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
-        let img;
-        if(isVideo(imageData.fileName)){
-            img = document.createElement('video');
-        } else {
-            img = document.createElement('img');
-        }
-        img.src = imageData.url;
-        img.className = 'img-fluid d-block w-100';
-        img.alt = imageData.fileName;
-        a.appendChild(img);
-        let caption = document.createElement('div');
-        caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
-        caption.style = "position: relative; left: 0; top: 0;"
-        let h= document.createElement('h5');
-        h.innerText = imageData.caption;
-        let p = document.createElement('p');
-        p.innerText = `Uploaded by: ${imageData.uploadedBy}`;
-        caption.appendChild(h);
-        caption.appendChild(p)
-        item.appendChild(a);
-        item.appendChild(caption);
-        target.appendChild(item);
-    } else if (type==='box'){
-        let a = document.createElement('a');
-        a.href = imageData.url;
-        // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
-        let img;
-        if(isVideo(imageData.fileName)){
-            img = document.createElement('video');
-        } else {
-            img = document.createElement('img');
-        }
-        img.src = imageData.url;
-        img.className = 'img-fluid d-block w-100';
-        img.alt = imageData.fileName;
-        img.caption = imageData.caption;
-        img.uploadedBy = imageData.uploadedBy;
-        a.appendChild(img);
-        let span = document.createElement('span');
-        span.className = 'image fit';
-        span.id = `image${imageData.size}`;
-        span.appendChild(img);
-        let div = document.createElement('div');
-        div.className = 'col-3';
-        div.appendChild(span);
-        div.addEventListener('click', launchCarousel);
-        target.appendChild(div);
-    }    
+    let a = document.createElement('a');
+    a.href = imageData.url;
+    // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
+    let img;
+    if(isVideo(imageData.fileName)){
+        img = document.createElement('video');
+    } else {
+        img = document.createElement('img');
+    }
+    img.src = imageData.url;
+    img.className = 'img-fluid d-block w-100';
+    img.alt = imageData.fileName;
+    img.caption = imageData.caption;
+    img.uploadedBy = imageData.uploadedBy;
+    a.appendChild(img);
+    let span = document.createElement('span');
+    span.className = 'image fit';
+    span.id = `image${imageData.size}`;
+    span.appendChild(img);
+    let div = document.createElement('div');
+    div.className = 'col-3';
+    div.appendChild(span);
+    div.addEventListener('click', launchCarousel);
+    target.appendChild(div);
 }
