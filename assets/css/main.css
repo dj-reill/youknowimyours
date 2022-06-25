@@ -4415,6 +4415,12 @@ input, select, textarea {
 	background-color: #21b2a6;
 }
 
+.alert {
+	position: relative;
+    border: 2px solid;
+    border-radius: 0.25rem;
+}
+
 .alert-success {
     color: #155724;
     background-color: #d4edda;
@@ -4446,3 +4452,7 @@ input, select, textarea {
 .progress-bar {
 	background-color: #edab17;
 }
+
+.initial {
+	all: initial;
+  }

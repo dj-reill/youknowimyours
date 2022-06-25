@@ -11,7 +11,6 @@ var uploader;
 var user;
 var msg;
 const icon = document.createElement('i');
-const alertDismiss =  $(`<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="style="box-shadow:none;padding:1rem 1px"></button>`);
 
 firebase.auth().onAuthStateChanged(function(authUser) {
     if (authUser) {
@@ -76,12 +75,11 @@ function handleFileUploadSubmit(event){
         })).catch((failure)=>{
             // add alert/warning
             alertBar.classList.remove('alert-light');
-            alertBar.classList.add('alert-danger', 'alert-dismissible', 'fade',  'show');
+            alertBar.classList.add('alert-danger', 'fade',  'show');
             icon.className = 'fa fa-solid-xmark';
             alertBar.innerText = '\tOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
-            alertBar.append(alertDismiss[0]);
             alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
            console.log(failure);
         }).then((success)=>{      
@@ -89,12 +87,11 @@ function handleFileUploadSubmit(event){
             progressBar.setAttribute('style',  `width: ${100}%`)
             progressBar.classList.remove('progress-bar-striped');
             alertBar.classList.remove('alert-light');
-            alertBar.classList.add('alert-success', 'alert-dismissible', 'fade',  'show');
+            alertBar.classList.add('alert-success', 'fade',  'show');
             // show success alert.
             icon.className = 'fa fa-check';
             alertBar.innerText = '\tUpload success! Thank you for sharing this wonderful day with us!';
             alertBar.prepend(icon);
-            alertBar.append(alertDismiss[0]);
             alertBar.removeAttribute('hidden');
         });
     }
