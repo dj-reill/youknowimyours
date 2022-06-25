@@ -50,18 +50,18 @@ function handleFileUploadChange(event){
     event.preventDefault();
 }
 
-async function updateDisplayName(name) {
-    await user.updateProfile({displayName: name});
+async function updateProfile(name) {
+    await user.updateProfile({displayName: name, photoURL: `https://ui-avatars.com/api/?name=${name}`});
 }
 
 function handleFileUploadSubmit(event){
     let uploadedBytes;
     uploader = uploadedBy.value.trim();
     if (!user.displayName) {
-        updateDisplayName(uploader);
+        updateProfile(uploader);
     } else {
         if (uploader !== user.displayName) {
-            updateDisplayName(uploader);
+            updateProfile(uploader);
         }
     }
     if (uploader.length > 0){
