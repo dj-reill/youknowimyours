@@ -11,6 +11,7 @@ var uploader;
 var user;
 var msg;
 const icon = document.createElement('i');
+const alertDismiss =  $(`<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="style="box-shadow:none;padding:1rem 1px"></button>`);
 
 firebase.auth().onAuthStateChanged(function(authUser) {
     if (authUser) {
@@ -81,6 +82,7 @@ function handleFileUploadSubmit(event){
             alertBar.innerText = '\tOh no! Something went wrong! Abandon Ship!';
             alertBar.prepend(icon);
             alertBar.removeAttribute('hidden');
+            alertBar.append(alertDismiss[0]);
             alertBar.querySelector('#dismiss-alert').addEventListener('click', dismissMessage);
            console.log(failure);
         }).then((success)=>{      
@@ -93,8 +95,8 @@ function handleFileUploadSubmit(event){
             icon.className = 'fa fa-check';
             alertBar.innerText = '\tUpload success! Thank you for sharing this wonderful day with us!';
             alertBar.prepend(icon);
+            alertBar.append(alertDismiss[0]);
             alertBar.removeAttribute('hidden');
-          fileSubmit.setAttribute('disabled', '');
         });
     }
     event.preventDefault();
@@ -106,7 +108,6 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
     const dbRef = firebase.database().ref('shared');
     return new Promise(function (resolve, reject) {
         var task = storageBucket.child(`images/${selectedFile.name}`).put(selectedFile);
-
         //Update progress bar
         task.on('state_changed',
             (snapshot)=> {
@@ -125,7 +126,7 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${100}%`);
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    const data = {url,'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
+                    const data = {url, uid:user.uid, 'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
                     dbRef.push()
                         .set(data)
                         .then(function(s) {
