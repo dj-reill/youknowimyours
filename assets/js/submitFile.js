@@ -43,7 +43,7 @@ function handleFileUploadChange(event){
 function handleFileUploadSubmit(event){
     let uploadedBytes;
 
-    uploader = `${firstName.value} ${lastName.value}`;
+    uploader = `${firstName.value.trim()} ${lastName.value.trim()}`;
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
         // Array of "Promises"
