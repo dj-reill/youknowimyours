@@ -42,7 +42,6 @@ function dismissMessage(event){
 }
 
 function handleFileUploadChange(event){
-    const alertBar = document.querySelector('[role*=alert]');
     selectedFile = event.target.files;
     if (selectedFile.length>1){
         alertBar.removeAttribute('hidden');
@@ -51,18 +50,15 @@ function handleFileUploadChange(event){
     event.preventDefault();
 }
 
-function authenticateUser(name) {
-    if(!user.displayName){
-        user.updateProfile({displayName: name});
-    }
+async function updateDisplayName(name) {
+    await user.updateProfile({displayName: name});
 }
 
 function handleFileUploadSubmit(event){
     let uploadedBytes;
-    uploader = uploadedBy.value.trim();
     if (!user.displayName) {
-        var uploadedBy = document.querySelector('#uploader');
-        uploader = uploadedBy.value;
+        uploader = uploadedBy.value.trim();
+        updateDisplayName(uploader);
     } else {
         uploader = user.displayName;
     }
