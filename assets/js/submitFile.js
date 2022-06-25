@@ -10,7 +10,7 @@ const uploadedBy = document.querySelector('#uploader');
 var uploader;
 var user;
 var msg;
-var icon;
+const icon = document.createElement('i');
 
 firebase.auth().onAuthStateChanged(function(authUser) {
     if (authUser) {
@@ -36,6 +36,7 @@ function dismissMessage(event){
     alertBar.setAttribute('hidden', '');
     alertBar.className = 'alert alert-light';
     alertBar.innerText = '';
+    alertBar.removeChild(icon);
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
@@ -95,7 +96,6 @@ function handleFileUploadSubmit(event){
             alertBar.removeAttribute('hidden');
           fileSubmit.setAttribute('disabled', '');
         });
-        authenticateUser(uploader);
     }
     event.preventDefault();
 }
