@@ -37,7 +37,6 @@ function dismissMessage(event){
     alertBar.setAttribute('hidden', '');
     alertBar.className = 'alert alert-light';
     alertBar.innerText = '';
-    alertBar.removeChild(icon);
     fileSubmit.removeAttribute('disabled');
     $('#submitModal').modal('hide');
     event.preventDefault();
