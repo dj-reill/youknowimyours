@@ -17,7 +17,7 @@ firebase.auth().onAuthStateChanged(function(authUser) {
         // User is signed in.
         user = authUser;
         if (authUser.displayName) {
-            document.querySelector('#uploader').parentElement.remove();
+           // document.querySelector('#uploader').parentElement.remove();
         } 
       } else {
         // No user is signed in.
@@ -56,11 +56,13 @@ async function updateDisplayName(name) {
 
 function handleFileUploadSubmit(event){
     let uploadedBytes;
+    uploader = uploadedBy.value.trim();
     if (!user.displayName) {
-        uploader = uploadedBy.value.trim();
         updateDisplayName(uploader);
     } else {
-        uploader = user.displayName;
+        if (uploader !== user.displayName) {
+            updateDisplayName(uploader);
+        }
     }
     if (uploader.length > 0){
         var caption = document.querySelector('#fileCaption');
