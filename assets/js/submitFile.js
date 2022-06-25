@@ -7,22 +7,10 @@ const progressBar = document.querySelector('[role*=progressbar]');
 const alertBar = document.querySelector('[role*=alert]');
 const form = document.querySelector("#upload");
 const uploadedBy = document.querySelector('#uploader');
-var uploader;
-var user;
-var msg;
 const icon = document.createElement('i');
-
-firebase.auth().onAuthStateChanged(function(authUser) {
-    if (authUser) {
-        // User is signed in.
-        user = authUser;
-        if (authUser.displayName) {
-           // document.querySelector('#uploader').parentElement.remove();
-        } 
-      } else {
-        // No user is signed in.
-      }
-});
+var uploader;
+var msg;
+user = firebase.auth().currentUser;
 
 function dismissMessage(event){
     // locals

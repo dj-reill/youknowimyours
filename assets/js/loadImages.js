@@ -3,6 +3,7 @@ const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
 const gallery = document.querySelector('#gallery');
 const type = 'box';
+user = firebase.auth().currentUser;
 
 function makePost(image, imageId) {
     const dt = new Date(image.lastModified);
