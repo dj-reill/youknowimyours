@@ -6,7 +6,7 @@ const type = 'box';
 
 
 function makeTimelineBucket(image, imageId){
-    const dt = new Date(image.lastModified);
+    const dt = new Date(image.uploadTime);
     const timelineEntry = $(`
         <div class="single-timeline-area">
             <div class="timeline-date">
