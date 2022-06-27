@@ -57,7 +57,7 @@ ref.on('child_added', (snapshot, prevChildKey) => {
 });
 
 function deactivateItems(group){
-    const carouselItems = group.querySelectorAll('.carousel-item');
+    const carouselItems = document.querySelectorAll('.carousel-item');
     carouselItems.forEach((item) => {
         $(item).removeClass('active');
     })
@@ -88,32 +88,11 @@ function launchCarousel(event){
   const a =  $(event.target);
   const id = a[0].closest('span').id;
   const activeItem = $(document.querySelector(`.carousel-item[id=${id}]`));
-  deactivateOthers(activeItem)
+  deactivateItems(activeItem)
   activeItem.addClass('active');
 //   setActiveItem(carousel);
   $('#carouselModel').modal('show');
   $('#weddingCarousel').carousel({ interval: false});
-
-    // const inner = $(event.target).closest('[role=root]');
-    // const carousel = document.createElement('div');
-    
-    // div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
-    //                                                     <div class="carousel-inner" id="gallery{{ forloop.index }}">    
-    // const anchors = inner.querySelectorAll('img');
-    // anchors.forEach((a) => {
-    //     const img = $(a).find('img');
-    //     const item = document.createElement('div');
-    //     item.className = 'carousel-item active';
-    //     const caption = document.createElement('div');
-    //     caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
-    //     caption.style = "position: relative; left: 0; top: 0;"
-    //     const h= document.createElement('h5');
-    //     h.innerText = img.caption;
-    //     const p = document.createElement('p');
-    //     p.innerText = `Uploaded by: ${img.uploadedBy}`;
-    // });
-    // const root = $('[role=root]');
-    // root.appendChild()
 }
 
 function appendImage(target, imageData, type='carousel'){
