@@ -122,7 +122,8 @@ function uploadImageAsPromise (caption, uploader, selectedFile, fileNumber, tota
                 progressBar.setAttribute('style',  `width: ${100}%`);
                 firebase.storage().ref().child(`images/${selectedFile.name}`).getDownloadURL().then((url) =>{
                     console.log('file successfully uploaded')
-                    const data = {url, uid:user.uid, 'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
+                    const now = new Date();
+                    const data = {url, uid:user.uid, uploadTime:now.getTime(), 'fileName':selectedFile.name,'caption':caption, 'uploadedBy':uploader,'lastModified':selectedFile.lastModified,'size':selectedFile.size};
                     dbRef.push()
                         .set(data)
                         .then(function(s) {
