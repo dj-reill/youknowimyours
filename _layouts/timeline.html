@@ -4,8 +4,6 @@ permalink: gallery.html
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-
-
   {%- include head.html -%}
 
   {%- include firebase.html -%}
@@ -23,7 +21,13 @@ permalink: gallery.html
                     <div class="modal-content">
                         <div class="modal-body wrapper inner style5">
                             <!--begin modal window-->
-                            <div id="weddingCarousel" class="carousel slide" data-bs-interval="10000" data-bs-ride="carousel" pause="hover">
+                            <div id="weddingCarousel" class="carousel slide" data-bs-interval="15000" data-bs-ride="carousel" data-pause="hover">
+                                <div class="vote roundrect">
+                                    <div class="increment up"></div>
+                                    <div class="increment down"></div>
+                                    
+                                    <div class="count">4</div>
+                                </div>
                                 <div class="carousel-inner" role="listbox">
                                   
                                 </div>
@@ -71,6 +75,8 @@ permalink: gallery.html
         {%- include footer.html -%}
 
         {%- include scripts.html -%}    
+
+        <link rel="stylesheet" href={{ "/assets/css/voting.css" | relative_url }}>
 
         <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
     </div>
