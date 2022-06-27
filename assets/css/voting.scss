@@ -91,10 +91,3 @@ $red : #C15044;
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; }
-body { 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: $bg;
-}
