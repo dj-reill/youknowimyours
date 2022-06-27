@@ -40,8 +40,8 @@ function addToCarousel(image, imageId) {
   const item = $(`<div class="carousel-item" id="${imageId}">
                     <div class="row col-12">
                         <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100" style="height: calc( 100vh - 400px )"/>
-                        <div class="carousel-caption d-flex d-block p-2 text-white">
-                            <div class="inner" style="padding-top:10%">
+                        <div class="carousel-caption d-flex d-block p-2">
+                            <div class="wrapper" style="padding-top:10%">
                                 <h5 style="font-family:'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400">Uploaded by: ${image.uploadedBy}</h5>
                                 <p>${image.caption}</p>
                             </div>
@@ -56,12 +56,11 @@ ref.on('child_added', (snapshot, prevChildKey) => {
     addToCarousel(snapshot.val(), snapshot.key)
 });
 
-function setActiveItem(group){
+function deactivateItems(group){
     const carouselItems = group.querySelectorAll('.carousel-item');
     carouselItems.forEach((item) => {
         $(item).removeClass('active');
     })
-    $(carouselItems[carouselItems.length - 1]).addClass('active');
 }
 
 function getExtension(filename) {
@@ -89,6 +88,7 @@ function launchCarousel(event){
   const a =  $(event.target);
   const id = a[0].closest('span').id;
   const activeItem = $(document.querySelector(`.carousel-item[id=${id}]`));
+  deactivateOthers(activeItem)
   activeItem.addClass('active');
 //   setActiveItem(carousel);
   $('#carouselModel').modal('show');
