@@ -4,6 +4,8 @@ permalink: gallery.html
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
+
+
   {%- include head.html -%}
 
   {%- include firebase.html -%}
@@ -24,6 +26,21 @@ permalink: gallery.html
                         <li><a href="#" class="button alt" id="uploadForm">Upload to Our Gallery</a></li>
                     </ul>            
                 </header>
+                <section id="carouselSection" hidden>
+                    <div id="weddingCarousel" class="carousel slide" data-ride="carousel" data-interval="5000" pause="hover" style="position:relative">
+                        <div class="carousel-inner">
+
+                        </div>
+                        <a class="carousel-control-prev" href="#weddingCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#weddingCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </section>
                 <section class="timeline_area section_padding_130">
                     <div class="container">
                         <div class="row">
@@ -35,32 +52,13 @@ permalink: gallery.html
                             </div>
                         </div>
                     </div>
-                </section>     
+                </section>
             </article>
-            <div id="carousel" class="carousel slide" data-ride="carousel" style="position:fixed" hidden>
-                    <!-- <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li>
-                    </ol> -->
-                <div class="carousel-inner">
-
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            
 
         {%- include footer.html -%}
 
         {%- include scripts.html -%}    
-
-
 
         <script src={{ "/assets/js/loadImages.js" | relative_url }}></script>
     </div>

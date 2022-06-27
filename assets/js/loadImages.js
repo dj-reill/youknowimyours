@@ -2,7 +2,7 @@ const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
 const gallery = document.querySelector('[role=root]');
-const carousel = document.querySelector('#carousel');
+const carousel = document.querySelector('#weddingCarousel');
 const type = 'box';
 
 function makeTimelineBucket(image, imageId){
@@ -37,13 +37,12 @@ function makeTimelineBucket(image, imageId){
 }
 
 function addToCarousel(image, imageId) {
-  const item = $(`<div class="carousel-item" id="${imageId}>
-                    <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
-                  </div>
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5>Uploaded by: ${image.uploader}</h5>
-                    <p>${image.caption}</p>
-                  </div>
+  const item = $(`<div class="carousel-item" id="${imageId}">
+                    <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100" style="height: calc( 100vh - 400px )"/>
+                    <div class="carousel-caption">
+                      <h5>Uploaded by: ${image.uploadedBy}</h5>
+                      <p>${image.caption}</p>
+                    </div>
                 </div>`);
   carousel.querySelector('.carousel-inner').appendChild(item[0]);
 } 
@@ -82,7 +81,10 @@ function isVideo(filename) {
 
 function launchCarousel(event){
   event.preventDefault();
-  carousel.removeAttribute('hidden');
+  carousel.parentElement.removeAttribute('hidden');
+  document.querySelector('.timeline_area').setAttribute('hidden', '');
+  setActiveItem(carousel);
+  $('.carousel').carousel();
 
     // const inner = $(event.target).closest('[role=root]');
     // const carousel = document.createElement('div');
