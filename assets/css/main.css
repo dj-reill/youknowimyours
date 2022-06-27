@@ -4457,7 +4457,7 @@ input, select, textarea {
 	all: initial;
   }
 
-.carousel-item {
+.carousel-item.active{
 	display:flex;
 	justify-content: center;
 }

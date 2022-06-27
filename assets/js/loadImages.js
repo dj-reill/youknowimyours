@@ -19,7 +19,7 @@ function makeTimelineBucket(image, imageId){
                         <!-- Gallery/Box implementation -->
                         <div id="gallery${imageId}" class="box alt gallery">
                             <div class="row gtr-50 gtr-uniform">
-                                <div class="col-12" role="click">
+                                <div class="col-12" role="click" data-toggle="modal" data-target="#carouselModal">
                                     <span class="image fit" id="${imageId}">
                                         <a href="${image.url}" alt="${image.fileName}" caption="${image.caption}" uploadedBy="${image.uploader}"> 
                                             <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
@@ -39,8 +39,8 @@ function makeTimelineBucket(image, imageId){
 function addToCarousel(image, imageId) {
   const item = $(`<div class="carousel-item" id="${imageId}">
                     <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100" style="height: calc( 100vh - 400px )"/>
-                    <div class="carousel-caption">
-                      <h5>Uploaded by: ${image.uploadedBy}</h5>
+                    <div class="carousel-caption d-flex d-block p-2 text-white">
+                      <h5 style="font-family:'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400">Uploaded by: ${image.uploadedBy}</h5>
                       <p>${image.caption}</p>
                     </div>
                 </div>`);
@@ -82,9 +82,9 @@ function isVideo(filename) {
 function launchCarousel(event){
   event.preventDefault();
   carousel.parentElement.removeAttribute('hidden');
-  document.querySelector('.timeline_area').setAttribute('hidden', '');
   setActiveItem(carousel);
-  $('.carousel').carousel();
+  $('#carouselModel').modal('show');
+  $('#weddingCarousel').carousel({ interval: 10000});
 
     // const inner = $(event.target).closest('[role=root]');
     // const carousel = document.createElement('div');

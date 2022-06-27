@@ -16,6 +16,41 @@ permalink: gallery.html
   		<!-- Page Wrapper -->
 		<div class="page-wrapper">
             {%- include timeline_header.html -%}
+
+            <!-- Modal -->
+            <div class="modal fade modal" id="carouselModel" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px">
+                <div class="modal-dialog modal-dialog-centered modal-med">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <header class="col-12">
+                                <h2 id="title" style="color:#2E3842;overflow-wrap:break-word;margin: 2px auto;justify-content:center"></h5>
+                            </header>
+                            <button  class="close" data-dismiss="modal" aria-label="Close" style="box-shadow:none;padding:1rem 1px">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body wrapper inner style3">
+                            <!--begin modal window-->
+                            <div id="weddingCarousel" class="carousel slide" data-ride="carousel" pause="hover">
+                                <div class="carousel-inner">
+        
+                                </div>
+                                <a class="carousel-control-prev" href="#weddingCarousel" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#weddingCarousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center">
+                            <button type="close" class="button primary alt" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Main -->
             <article id="main">
                 <header class="timelineBanner">
@@ -26,21 +61,6 @@ permalink: gallery.html
                         <li><a href="#" class="button alt" id="uploadForm">Upload to Our Gallery</a></li>
                     </ul>            
                 </header>
-                <section id="carouselSection" hidden>
-                    <div id="weddingCarousel" class="carousel slide" data-ride="carousel" data-interval="5000" pause="hover" style="position:relative">
-                        <div class="carousel-inner">
-
-                        </div>
-                        <a class="carousel-control-prev" href="#weddingCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#weddingCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </section>
                 <section class="timeline_area section_padding_130">
                     <div class="container">
                         <div class="row">
