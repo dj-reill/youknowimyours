@@ -3423,7 +3423,14 @@ input, select, textarea {
 				padding: 2.5em 1.75em 1em 1.5em;
 			}
 		}
+	.wrapper.style6 {
+		background-color: #F6F3E4;
 
+	}
+
+	.wrapper.style6 h2, .wrapper.style6 h3, .wrapper.style6 h4, .wrapper.style6 h5, .wrapper.style6 h6 {
+		color: #674900;
+	}
 /* Page Wrapper + Menu */
 
 	#page-wrapper {
