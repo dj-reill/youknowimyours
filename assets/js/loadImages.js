@@ -1,9 +1,9 @@
 const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
-const timelineArea = document.querySelector('#timelineArea');
+const gallery = document.querySelector('[role=root]');
+const carousel = document.querySelector('#weddingCarousel');
 const type = 'box';
-
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
@@ -15,13 +15,13 @@ function makeTimelineBucket(image, imageId){
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-timeline-content">
-                        <h6>${image.caption}</h6>
+                        <h6 class="caption">${image.caption}</h6>
                         <!-- Gallery/Box implementation -->
-                        <div id="gallery${imageId}" class="box alt">
-                            <div class="row gtr-50 gtr-uniform" role="root">
-                                <div class="col-12" role="click">
+                        <div id="gallery${imageId}" class="box alt gallery">
+                            <div class="row gtr-50 gtr-uniform">
+                                <div class="col-12" role="click" data-toggle="modal" data-target="#carouselModal">
                                     <span class="image fit" id="${imageId}">
-                                        <a href="${image.url}" alt="${image.fileName}"> 
+                                        <a href="${image.url}" alt="${image.fileName}" caption="${image.caption}" uploadedBy="${image.uploader}">
                                             <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
                                         </a>
                                     </span>
@@ -32,20 +32,35 @@ function makeTimelineBucket(image, imageId){
                 </div>
             </div>
         </div>`);
-    timelineArea.appendChild(timelineEntry[0]);
-    timelineArea.querySelector('[role=click]').addEventListener('click', launchCarousel);
+      gallery.appendChild(timelineEntry[0]);
+      gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
 }
+
+function addToCarousel(image, imageId) {
+  const item = $(`<div class="carousel-item" id="${imageId}">
+                    <div class="row col-12">
+                        <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100" style="height: calc( 100vh - 400px )"/>
+                        <div class="carousel-caption d-flex d-block p-2">
+                            <div class="wrapper" style="padding-top:10%">
+                                <h5 style="font-family:'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400">Uploaded by: ${image.uploadedBy}</h5>
+                                <p>${image.caption}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+  carousel.querySelector('.carousel-inner').appendChild(item[0]);
+} 
 
 ref.on('child_added', (snapshot, prevChildKey) => {
     makeTimelineBucket(snapshot.val(), snapshot.key );
+    addToCarousel(snapshot.val(), snapshot.key)
 });
 
-function setActiveItem(group){
-    const carouselItems = group.querySelectorAll('.carousel-item');
+function deactivateItems(group){
+    const carouselItems = document.querySelectorAll('.carousel-item');
     carouselItems.forEach((item) => {
         $(item).removeClass('active');
     })
-    $(carouselItems[carouselItems.length - 1]).addClass('active');
 }
 
 function getExtension(filename) {
@@ -66,31 +81,18 @@ function isVideo(filename) {
     return false;
   }
 
-function makeCarouselItems() {
-
-}
 
 function launchCarousel(event){
-    // const inner = $(event.target).closest('[role=root]');
-    // const carousel = document.createElement('div');
-    
-    // div id="carousel{{ forloop.index  }}" class="carousel slide gallery" data-ride="carousel" aria-hidden="true" hidden>
-    //                                                     <div class="carousel-inner" id="gallery{{ forloop.index }}">    
-    // const anchors = inner.querySelectorAll('img');
-    // anchors.forEach((a) => {
-    //     const img = $(a).find('img');
-    //     const item = document.createElement('div');
-    //     item.className = 'carousel-item active';
-    //     const caption = document.createElement('div');
-    //     caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
-    //     caption.style = "position: relative; left: 0; top: 0;"
-    //     const h= document.createElement('h5');
-    //     h.innerText = img.caption;
-    //     const p = document.createElement('p');
-    //     p.innerText = `Uploaded by: ${img.uploadedBy}`;
-    // });
-    // const root = $('[role=root]');
-    // root.appendChild()
+  event.preventDefault();
+  carousel.parentElement.removeAttribute('hidden');
+  const a =  $(event.target);
+  const id = a[0].closest('span').id;
+  const activeItem = $(document.querySelector(`.carousel-item[id=${id}]`));
+  deactivateItems(activeItem)
+  activeItem.addClass('active');
+//   setActiveItem(carousel);
+  $('#carouselModel').modal('show');
+  $('#weddingCarousel').carousel({ interval: false});
 }
 
 function appendImage(target, imageData, type='carousel'){

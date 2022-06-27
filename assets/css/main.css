@@ -4456,3 +4456,17 @@ input, select, textarea {
 .initial {
 	all: initial;
   }
+
+.carousel-item.active{
+	display:block;
+	justify-content: center;
+}
+
+.carousel-caption {
+	position: relative;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #1d242a;
+    text-align: center;
+}
