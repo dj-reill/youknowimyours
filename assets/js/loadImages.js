@@ -7,7 +7,7 @@ const type = 'box';
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
-    const gallery = $(`
+    const timelineEntry = $(`
         <div class="single-timeline-area">
             <div class="timeline-date">
                 <h6 id="time${imageId}" style="font-size:xsmall">${dt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'})}</h6>
