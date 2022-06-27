@@ -2,8 +2,8 @@ const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
 const gallery = document.querySelector('[role=root]');
+const carousel = document.querySelector('#carousel');
 const type = 'box';
-
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
@@ -15,13 +15,13 @@ function makeTimelineBucket(image, imageId){
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-timeline-content">
-                        <h6>${image.caption}</h6>
+                        <h6 class="caption">${image.caption}</h6>
                         <!-- Gallery/Box implementation -->
-                        <div id="gallery${imageId}" class="box alt">
-                            <div class="row gtr-50 gtr-uniform" role="root">
+                        <div id="gallery${imageId}" class="box alt gallery">
+                            <div class="row gtr-50 gtr-uniform">
                                 <div class="col-12" role="click">
                                     <span class="image fit" id="${imageId}">
-                                        <a href="${image.url}" alt="${image.fileName}"> 
+                                        <a href="${image.url}" alt="${image.fileName}" caption="${image.caption}" uploadedBy="${image.uploader}"> 
                                             <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
                                         </a>
                                     </span>
@@ -36,8 +36,21 @@ function makeTimelineBucket(image, imageId){
       gallery.querySelector('[role=click]').addEventListener('click', launchCarousel);
 }
 
+function addToCarousel(image, imageId) {
+  const item = $(`<div class="carousel-item" id="${imageId}>
+                    <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
+                  </div>
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>Uploaded by: ${image.uploader}</h5>
+                    <p>${image.caption}</p>
+                  </div>
+                </div>`);
+  carousel.querySelector('.carousel-inner').appendChild(item[0]);
+} 
+
 ref.on('child_added', (snapshot, prevChildKey) => {
     makeTimelineBucket(snapshot.val(), snapshot.key );
+    addToCarousel(snapshot.val(), snapshot.key)
 });
 
 function setActiveItem(group){
@@ -66,49 +79,11 @@ function isVideo(filename) {
     return false;
   }
 
-function makeCarouselItems() {
-
-}
 
 function launchCarousel(event){
-  const carousel = $(`
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=777&amp;fg=555&amp;text=First slide" alt="First slide [800x400]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_181a2e7b41d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_181a2e7b41d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9140625%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=666&amp;fg=444&amp;text=Second slide" alt="Second slide [800x400]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_181a2e7b41d%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_181a2e7b41d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3125%22%20y%3D%22217.7%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="${image.url}" data-holder-rendered="true">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </div>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>`
-  )
+  event.preventDefault();
+  carousel.removeAttribute('hidden');
+
     // const inner = $(event.target).closest('[role=root]');
     // const carousel = document.createElement('div');
     
