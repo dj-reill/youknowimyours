@@ -37,7 +37,7 @@ function makeTimelineBucket(image, imageId){
 
 function addToGallery(image, imageId) {
     const dt = new Date(image.lastModified);
-    const item = $(`<div class="col-4">
+    const item = $(`<div class="col-2">
                         <span class="image fit" id="${imageId}">
                             <a href="${image.url}" alt="${image.fileName}" role="click" className="img-fluid"> 
                                 <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}"/>
