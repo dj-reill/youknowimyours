@@ -21,7 +21,7 @@ function makeTimelineBucket(image, imageId){
                             <div class="row gtr-50 gtr-uniform">
                                 <div class="col-12" role="click" data-toggle="modal" data-target="#carouselModal">
                                     <span class="image fit" id="${imageId}">
-                                        <a href="${image.url}" alt="${image.fileName}" caption="${image.caption}" uploadedBy="${image.uploader}"> 
+                                        <a href="${image.url}" alt="${image.fileName}" caption="${image.caption}" uploadedBy="${image.uploader}">
                                             <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
                                         </a>
                                     </span>
@@ -33,7 +33,7 @@ function makeTimelineBucket(image, imageId){
             </div>
         </div>`);
       gallery.appendChild(timelineEntry[0]);
-      gallery.querySelector('[role=click]').addEventListener('click', launchCarousel);
+      gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
 }
 
 function addToCarousel(image, imageId) {
@@ -86,7 +86,11 @@ function isVideo(filename) {
 function launchCarousel(event){
   event.preventDefault();
   carousel.parentElement.removeAttribute('hidden');
-  setActiveItem(carousel);
+  const a =  $(event.target);
+  const id = a[0].closest('span').id;
+  const activeItem = $(document.querySelector(`.carousel-item[id=${id}]`));
+  activeItem.addClass('active');
+//   setActiveItem(carousel);
   $('#carouselModel').modal('show');
   $('#weddingCarousel').carousel({ interval: false});
 
