@@ -55,17 +55,24 @@ function addToCarousel(image, imageId) {
     carousel.querySelector('.carousel-inner').appendChild(item[0]);
 }
 
-ref.on('child_added', (snapshot, prevChildKey) => {
-    makeTimelineBucket(snapshot.val(), snapshot.key );
-    addToCarousel(snapshot.val(), snapshot.key)
-});
-
-function deactivateItems(group){
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    carouselItems.forEach((item) => {
-        $(item).removeClass('active');
-    })
+function makeLightGalleryImg(image, imageId) {
+    const dt = new Date(image.uploadTime);
+    const stamp = dt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
+    return $(`<li id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
+    data-sub-html="<h4>${image.uploadedBy}</h4><p>${image.caption} at ${stamp}</p>">
+    <a href="#">
+        <img class="image fit" src=${image.url}>
+    </a>`);
 }
+
+ref.on('child_added', (snapshot, prevChildKey) => {
+    // makeTimelineBucket(snapshot.val(), snapshot.key );
+    const galleryImage = makeLightGalleryImg(snapshot.val(), snapshot.key);
+    gallery.appendChild(galleryImage[0]);
+    galleryImage[0].addEventListener('click', launch);
+    //addToGallery(galleryImage)
+    
+});
 
 function getExtension(filename) {
     var parts = filename.split('.');
@@ -86,17 +93,11 @@ function isVideo(filename) {
   }
 
 
-function launchCarousel(event){
-  event.preventDefault();
-  carousel.parentElement.removeAttribute('hidden');
-  const a =  $(event.target);
-  const id = a[0].closest('span').id;
-  const activeItem = $(document.querySelector(`.carousel-item[id=${id}]`));
-  deactivateItems(activeItem)
-  activeItem.addClass('active');
-//   setActiveItem(carousel);
-  $('#carouselModel').modal('show');
-  $('#weddingCarousel').carousel({ interval: false});
+function launch(event){
+    const header = document.querySelector('#header'); 
+    header.setAttribute('z-index', 0);
+    $('#lightgallery').lightGallery();
+    $('.lg-close')[0].addEventListener('click', (e) =>  header.setAttribute('z-index', 10000));
 }
 
 function appendImage(target, imageData, type='carousel'){
