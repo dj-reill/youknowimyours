@@ -3942,7 +3942,7 @@ input, select, textarea {
 	}
 
 	#main > header.timelineBanner {
-		padding: 15em 0 5em;
+		padding: 4.5em 0 0em;
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.webp");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.webp");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.webp");
@@ -3953,7 +3953,7 @@ input, select, textarea {
 		background-size: cover;
 		text-align: left;
 		vertical-align: middle;
-		height:500px
+		height:340px
 	}
 
 
@@ -4301,16 +4301,15 @@ input, select, textarea {
 .single-timeline-area {
     position: relative;
     z-index: 1;
-    padding-left: 180px;
+    padding-left: 4.5em;
 }
 @media only screen and (max-width: 575px) {
     .single-timeline-area {
-        padding-left: 100px;
+        padding-left: 2em;
     }
 }
 .single-timeline-area .timeline-date {
     position: absolute;
-    width: 180px;
     height: 100%;
     top: 0;
     left: 0;
@@ -4356,7 +4355,7 @@ input, select, textarea {
 }
 .single-timeline-area .timeline-date p {
     margin-bottom: 0;
-    color: #020710;
+    color: #eee;
     font-size: 13px;
     text-transform: uppercase;
     font-weight: 500;
@@ -4374,7 +4373,7 @@ input, select, textarea {
 }
 @media only screen and (max-width: 575px) {
     .single-timeline-area .single-timeline-content {
-        padding: 20px;
+        padding: 18px;
     }
 }
 .single-timeline-area .single-timeline-content .timeline-icon {

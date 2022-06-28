@@ -24,7 +24,7 @@ permalink: gallery.html
                         <div class="modal-body wrapper inner style5">
                             <!--begin modal window-->
                             <div id="weddingCarousel" class="carousel slide" data-bs-interval="10000" data-bs-ride="carousel" pause="hover">
-                                <div class="carousel-inner" role="listbox">
+                                <div class="carousel-inner align-self-center" role="listbox">
                                   
                                 </div>
                                 <a class="carousel-control-prev" data-bs-target="#weddingCarousel" role="button" data-bs-slide="prev">
@@ -53,20 +53,38 @@ permalink: gallery.html
                         <li><a href="#" class="button alt" id="uploadForm">Upload to Our Gallery</a></li>
                     </ul>            
                 </header>
-                <!-- <section class="timeline_area section_padding_130">
+                <section class="timeline_area wrapper">
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <-- Timeline Area-->
-                                <!-- <div class="apland-timeline-area" id="timelineArea" role="root">
-                                    
-                                </div>
-                            </div> --> 
-                <section class="wrapper">
-                <section>
-                    <div class="box alt">
-                        <div id="gallery" class="row gtr-50 gtr-uniform" role="root">
+                                <!-- Timeline Area-->
+                                <div class="apland-timeline-area" id="timelineArea" role="root">
+                                    {% for event in detailedEvents %}
+                                    <div class="single-timeline-area" hidden>
+                                        <div class="timeline-date col-1">
+                                            <p>{{ event.eventTime | date: "%I:%M %P" }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-4">
+                                                <div class="single-timeline-content" epoch={{ event.eventTime | date: "%s" }}>
+                                                    <div id="gallery" class="row gtr-50 gtr-uniform" role="gallery">
                             
+                                                    </div>
+                                                        <!-- <h6>{{ event.eventName }}</h6> -->
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div> 
+                <!-- <section class="wrapper">
+                    <section>
+                        <div class="box alt">
+                            <div id="gallery" class="row gtr-50 gtr-uniform" role="root">
+                                
+                            </div> -->
                         </div>
                     </div>
                 </section>

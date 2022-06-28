@@ -4,6 +4,18 @@ const gallery = document.querySelector('[role=root]');
 const carousel = document.querySelector('#weddingCarousel');
 const type = 'box';
 
+
+function getBucket(lastModified){
+    let beforeImage; 
+    beforeImage = Array.from(slices).filter(function(d) {
+        return (Number.parseInt(d.getAttribute('epoch')) * 1000) - lastModified < 0;
+    });
+    if (beforeImage.length === 0) {
+        beforeImage = [slices[0]];
+    }
+    return $(beforeImage[beforeImage.length - 1]);
+}
+
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
     const timelineEntry = $(`
@@ -18,7 +30,7 @@ function makeTimelineBucket(image, imageId){
                         <!-- Gallery/Box implementation -->
                         <div id="gallery${imageId}" class="box alt gallery">
                             <div class="row gtr-50 gtr-uniform">
-                                <div class="col-12" role="click" data-toggle="modal" data-target="#carouselModal">
+                                <div class="col-12" role="click">
                                     <span class="image fit" id="${imageId}">
                                         <a href="${image.url}" alt="${image.fileName}" caption="${image.caption}" uploadedBy="${image.uploader}">
                                             <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" className="img-fluid d-block w-100"/>
@@ -35,29 +47,27 @@ function makeTimelineBucket(image, imageId){
     gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
 }
 
-function addToGallery(image, imageId) {
+function makeImage(image, imageId) {
     const dt = new Date(image.lastModified);
-    const item = $(`<div class="col-2">
+    return $(`<div class="col-3">
                         <span class="image fit zoom" id="${imageId}">
                             <a href="${image.url}" alt="${image.fileName}" role="click" className="img-fluid"> 
                                 <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}"/>
                             </a>
                         </span>
                     </div>`);
-    gallery.appendChild(item[0]);
-    gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
 }
 
 function addToCarousel(image, imageId) {
     const item = $(`<div class="carousel-item" id="${imageId}">
                       <div class="row col-12">
-                          <span class="image fit" id="${imageId}">
+                          <span class="image fit" id="${imageId}" style="max-height:300px;margin: auto;">
                               <a href="${image.url}" alt="${image.fileName}" role="click" className="img-fluid"> 
                                   <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}"/>
                               </a>
                           </span>
                           <div class="carousel-caption d-flex d-block p-2">
-                              <div class="wrapper" style="padding-top:10%">
+                              <div class="inner" style="padding-top:5%">
                                   <h5 style="font-family:'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400">Uploaded by: ${image.uploadedBy}</h5>
                                   <p>${image.caption}</p>
                               </div>
@@ -68,11 +78,17 @@ function addToCarousel(image, imageId) {
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
+    const upload = snapshot.val();
+    const bucket = getBucket(upload.lastModified)[0];
     if (type !== 'box') {
-        makeTimelineBucket(snapshot.val(), snapshot.key );
+        makeTimelineBucket(upload, snapshot.key );
     } else {
-        addToGallery(snapshot.val(), snapshot.key );
+        bucket.closest('.single-timeline-area').removeAttribute('hidden');
+        const img = makeImage(upload, snapshot.key );         
+        const thisGallery = bucket.querySelector('[role=gallery]');          
+        thisGallery.appendChild(img[0]);
     }
+    gallery.querySelector(`span[id=${snapshot.key}]`).addEventListener('click', launchCarousel);
     addToCarousel(snapshot.val(), snapshot.key)
 });
 
