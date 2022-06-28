@@ -3942,7 +3942,7 @@ input, select, textarea {
 	}
 
 	#main > header.timelineBanner {
-		padding: 25em 0 5em;
+		padding: 15em 0 5em;
 		background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.webp");
 		background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.webp");
 		background-image: -ms-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../images/hotel-banner.webp");
@@ -3953,6 +3953,7 @@ input, select, textarea {
 		background-size: cover;
 		text-align: left;
 		vertical-align: middle;
+		height:500px
 	}
 
 
