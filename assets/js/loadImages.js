@@ -4,6 +4,9 @@ const slices = document.querySelectorAll('[epoch]');
 const gallery = document.querySelector('[role=root]');
 const carousel = document.querySelector('#weddingCarousel');
 const type = 'box';
+const lgBar = document.querySelector('.lg-toolbar');
+const body = document.querySelector('body');
+const header = document.querySelector('#header');
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
@@ -57,12 +60,12 @@ function addToCarousel(image, imageId) {
 
 function makeLightGalleryImg(image, imageId) {
     const dt = new Date(image.uploadTime);
-    const stamp = dt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
+    const createDt = new Date(image.lastModified);
+    const uploadTimestamp = dt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
+    const createTimestamp = createDt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
     return $(`<li id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
-    data-sub-html="<h4>${image.uploadedBy}</h4><p>${image.caption} at ${stamp}</p>">
-    <a href="#">
-        <img class="image fit" src=${image.url}>
-    </a>`);
+    data-sub-html="<h4>${image.caption}</h4><p>Photo Snapped at ${createTimestamp} by ${image.uploadedBy}</p>">
+    <img class="image fit" src=${image.url}>`);
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
@@ -94,10 +97,9 @@ function isVideo(filename) {
 
 
 function launch(event){
-    const header = document.querySelector('#header'); 
-    header.setAttribute('z-index', 0);
     $('#lightgallery').lightGallery();
-    $('.lg-close')[0].addEventListener('click', (e) =>  header.setAttribute('z-index', 10000));
+    const ELS_test = document.querySelector("body");
+    ELS_test.forEach(el => attrObserver.observe(el, {attributes: true}));
 }
 
 function appendImage(target, imageData, type='carousel'){
@@ -159,3 +161,24 @@ function appendImage(target, imageData, type='carousel'){
         target.appendChild(div);
     }    
 }
+
+function onClassChange(element, callback) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'class'
+        ) {
+          callback(mutation.target);
+        }
+      });
+    });
+    observer.observe(element, { attributes: true });
+    return observer.disconnect;
+  }
+  
+onClassChange(body, (node) => {
+node.classList.contains('lg-on')
+    ? header.setAttribute('style','display:none')
+    : header.setAttribute('style','display:block');
+});
