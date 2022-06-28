@@ -45,7 +45,7 @@ function addToGallery(image, imageId) {
                         </span>
                     </div>`);
     gallery.appendChild(item[0]);
-    gallery.querySelector('[role=click]').addEventListener('click', launchCarousel);
+    gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
 }
 
 function addToCarousel(image, imageId) {
