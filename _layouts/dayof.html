@@ -5,6 +5,8 @@ permalink: dayof.html
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: " en " }}">
     {%- include head.html -%}
+    {%- include firebase.html -%} 
+    {%- include scripts.html -%} 
     <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 			<div id="page-wrapper">
@@ -15,6 +17,27 @@ permalink: dayof.html
             <h2>{{ page.title | escape }}</h1>
             <p>Please see our day of details below</p>
           </header>
+          <section id="details" class="wrapper style1">
+            <div class="inner">
+              <h3>Details table:</h4>
+              <table class="table table-sm" role="table" text-align="center" id="reservationTable">
+                <tbody class="col-12">
+                    <tr class="row" role="rowgroup">
+                      <td class="flex-row" role="columnheader"><strong>Location:</strong></td>
+                      <td class="flex-row" role="cell" style="word-wrap:break-word;min-width:180px;max-width:180px;">8001 Verree Rd, Philadelphia, PA 19111</td>
+                    </tr>
+                    <tr class="row" role="rowgroup">
+                      <td class="flex-row" role="columnheader"><strong>Guest Arrival Time:</strong></td>
+                      <td class="flex-row" role="cell">Before 4:30pm</td>
+                    </tr>
+                    <tr class="row" role="rowgroup">
+                      <td class="flex-row first" role="columnheader"><strong>Dress Code:</strong></td>
+                      <td class="flex-row" role="cell">Semi-Formal</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
           
           <section id="three" class="wrapper style3">
                 <div class="inner">
@@ -31,11 +54,10 @@ permalink: dayof.html
         </article>
     </div>
     {%- include footer.html -%}
-    {%- include scripts.html -%} 
    
     <script src= {{ "/assets/js/simplyCountdown.js" | relative_url }}></script>
     <script>
-      var d=new Date(Date.UTC(2022,6,3,22,30,0,0));
+      var d=new Date("2022-07-03T20:30:00");
   
       // default example
       simplyCountdown('.simply-countdown-one', {
