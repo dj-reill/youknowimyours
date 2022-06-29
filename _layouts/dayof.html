@@ -6,7 +6,6 @@ permalink: dayof.html
 <html lang="{{ page.lang | default: site.lang | default: " en " }}">
     {%- include head.html -%}
     {%- include firebase.html -%} 
-    {%- include scripts.html -%} 
     <body class="landing is-preload"></body>
   		<!-- Page Wrapper -->
 			<div id="page-wrapper">
@@ -54,7 +53,7 @@ permalink: dayof.html
         </article>
     </div>
     {%- include footer.html -%}
-   
+    {%- include scripts.html -%} 
     <script src= {{ "/assets/js/simplyCountdown.js" | relative_url }}></script>
     <script>
       var d=new Date("2022-07-03T20:30:00");
