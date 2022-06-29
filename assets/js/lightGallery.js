@@ -1,6 +1,15 @@
 /*! lightgallery - v1.6.10 - 2018-05-01
  * http://sachinchoolur.github.io/lightGallery/
  * Copyright (c) 2018 Sachin N; Licensed GPLv3 */
+function isFullScreen() {
+    return (
+        document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
+    );
+}
+
 !function (a, b) {
     "function" == typeof define && define.amd ? define(["jquery"], function (a) {
         return b(a)
@@ -586,7 +595,9 @@
             a.requestFullscreen ? a.requestFullscreen() : a.msRequestFullscreen ? a.msRequestFullscreen() : a.mozRequestFullScreen ? a.mozRequestFullScreen() : a.webkitRequestFullscreen && a.webkitRequestFullscreen()
         },
         c.prototype.exitFullscreen = function () {
-            document.exitFullscreen ? document.exitFullscreen() : document.msExitFullscreen ? document.msExitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen()
+            if (isFullScreen()) {
+                document.exitFullscreen ? document.exitFullscreen() : document.msExitFullscreen ? document.msExitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen()
+            }
         },
         c.prototype.fullScreen = function () {
             var b = this;

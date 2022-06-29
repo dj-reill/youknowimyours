@@ -65,7 +65,7 @@ function makeLightGalleryImg(image, imageId) {
     const createTimestamp = createDt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
     return $(`<li id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
     data-sub-html="<h4>${image.caption}</h4><p>Photo Snapped at ${createTimestamp} by ${image.uploadedBy}</p>">
-    <img class="image fit" src=${image.url}>`);
+    <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" class="image fit"/>`);
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
@@ -97,9 +97,9 @@ function isVideo(filename) {
 
 
 function launch(event){
+    event.preventDefault();
     $('#lightgallery').lightGallery();
-    const ELS_test = document.querySelector("body");
-    ELS_test.forEach(el => attrObserver.observe(el, {attributes: true}));
+    $(event.target).trigger('click');
 }
 
 function appendImage(target, imageData, type='carousel'){
