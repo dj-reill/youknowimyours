@@ -7,6 +7,8 @@ const type = 'box';
 const lgBar = document.querySelector('.lg-toolbar');
 const body = document.querySelector('body');
 const header = document.querySelector('#header');
+const lightGallery = document.querySelector('#lightgallery');
+let lg;
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
@@ -63,18 +65,18 @@ function makeLightGalleryImg(image, imageId) {
     const createDt = new Date(image.lastModified);
     const uploadTimestamp = dt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
     const createTimestamp = createDt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
-    return $(`<li id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
+    return $(`<li epoch=${image.lastModified} id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
     data-sub-html="<h4>${image.caption}</h4><p>Photo Snapped at ${createTimestamp} by ${image.uploadedBy}</p>">
     <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" class="image fit"/>`);
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
-    // makeTimelineBucket(snapshot.val(), snapshot.key );
     const galleryImage = makeLightGalleryImg(snapshot.val(), snapshot.key);
     gallery.appendChild(galleryImage[0]);
-    galleryImage[0].addEventListener('click', launch);
-    //addToGallery(galleryImage)
-    
+    if (lg) {
+        $.data(lg[0]).lightGallery.$items.push(galleryImage[0]);
+    }
+    galleryImage[0].addEventListener('click', launch);    
 });
 
 function getExtension(filename) {
@@ -98,7 +100,7 @@ function isVideo(filename) {
 
 function launch(event){
     event.preventDefault();
-    $('#lightgallery').lightGallery();
+    lg = $(lightGallery).lightGallery();
     $(event.target).trigger('click');
 }
 
