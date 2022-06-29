@@ -98,8 +98,8 @@ function isVideo(filename) {
 
 function launch(event){
     $('#lightgallery').lightGallery();
-    const ELS_test = document.querySelector("body");
-    ELS_test.forEach(el => attrObserver.observe(el, {attributes: true}));
+    const body = document.querySelector("body");
+    attrObserver.observe(body, {attributes: true});
 }
 
 function appendImage(target, imageData, type='carousel'){
