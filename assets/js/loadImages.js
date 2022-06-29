@@ -97,9 +97,9 @@ function isVideo(filename) {
 
 
 function launch(event){
+    event.preventDefault();
     $('#lightgallery').lightGallery();
-    const body = document.querySelector("body");
-    attrObserver.observe(body, {attributes: true});
+    $(event.target).trigger('click');
 }
 
 function appendImage(target, imageData, type='carousel'){
