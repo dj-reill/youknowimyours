@@ -37,25 +37,6 @@ function makeTimelineBucket(image, imageId){
       gallery.querySelector(`span[id=${imageId}]`).addEventListener('click', launchCarousel);
 }
 
-function addToCarousel(image, imageId) {
-    const item = $(`<div class="carousel-item" id="${imageId}">
-                      <div class="row col-12">
-                          <span class="image fit" id="${imageId}">
-                              <a href="${image.url}" alt="${image.fileName}" role="click" className="img-fluid"> 
-                                  <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}"/>
-                              </a>
-                          </span>
-                          <div class="carousel-caption d-flex d-block p-2">
-                              <div class="wrapper" style="padding-top:10%">
-                                  <h5 style="font-family:'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400">Uploaded by: ${image.uploadedBy}</h5>
-                                  <p>${image.caption}</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>`);
-    carousel.querySelector('.carousel-inner').appendChild(item[0]);
-}
-
 function makeLightGalleryImg(image, imageId) {
     const dt = new Date(image.uploadTime);
     const createDt = new Date(image.lastModified);
@@ -63,7 +44,9 @@ function makeLightGalleryImg(image, imageId) {
     const createTimestamp = createDt.toLocaleString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'});
     return $(`<li epoch=${image.lastModified} id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
     data-sub-html="<h4>${image.caption}</h4><p>Photo Snapped at ${createTimestamp} by ${image.uploadedBy}</p>">
-    <${isVideo(image.fileName) ? 'video': 'img'} src="${image.url}" alt="${image.fileName}" class="image fit"/>`);
+    <${isVideo(image.fileName) ? 'video': 'img'} 
+    ${isVideo(image.fileName) ? `data-video=\"{\"source\": [{\"src\":${image.url}, \"type\":\"type/${getExtension(image.fileName)}\"]}\"` : `src=${image.url}`}  
+    alt="${image.fileName}" class="image fit"/>`);
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
