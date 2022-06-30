@@ -100,7 +100,7 @@ function isVideo(filename) {
 
 function launch(event){
     event.preventDefault();
-    lg = $(lightGallery).lightGallery();
+    lg = $(lightGallery).lightGallery({licenseKey: '0428AA09-D8CE4ED8-B194A172-4FF223B6'});
     $(event.target).trigger('click');
 }
 
