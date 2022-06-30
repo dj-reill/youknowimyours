@@ -47,7 +47,7 @@ function makeLightGalleryImg(image, imageId) {
         id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" 
         data-responsive="${image.url}" 
         ${isVideo(image.fileName) ? 
-            `data-video='{"source": [{\"src\":"${image.url}", 
+            `data-video='{"source": [{\"src\":"${image.url+getExtension(image.fileName)}", 
             "type":"type/${getExtension(image.fileName)}"}], 
             "attributes": {"preload": false, "playsinline": true, "controls": true}}'`: `data-src="${image.url}"`}   
         data-sub-html="<h4>${image.caption}</h4><p>Photo Snapped at ${createTimestamp} by ${image.uploadedBy}</p>"
