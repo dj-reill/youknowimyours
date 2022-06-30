@@ -45,7 +45,7 @@ function makeLightGalleryImg(image, imageId) {
     return $(`<li epoch=${image.lastModified} id="${imageId}" class="col-xs-6 col-sm-4 col-md-2 col-lg-2" data-responsive="${image.url}" data-src="${image.url}" 
     data-sub-html="<h4>${image.caption}</h4><p>Photo Snapped at ${createTimestamp} by ${image.uploadedBy}</p>">
     <${isVideo(image.fileName) ? 'video': 'img'} 
-    ${isVideo(image.fileName) ? `data-video=\"{\"source\": [{\"src\":${image.url}, \"type\":\"type/${getExtension(image.fileName)}\"]}\"` : `src=${image.url}`}  
+    ${isVideo(image.fileName) ? `data-video='{"source": [{\"src\":"${image.url}", "type":"type/${getExtension(image.fileName)}"]}'` : `src=${image.url}`}  
     alt="${image.fileName}" class="image fit"/>`);
 }
 
