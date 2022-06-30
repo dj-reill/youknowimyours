@@ -84,8 +84,10 @@ function launch(event){
     event.preventDefault();
     lightGallery(gallery, {
         licenseKey: '0428AA09-D8CE4ED8-B194A172-4FF223B6', 
-        plugins: [lgZoom, lgThumbnail, lgHash, lgFullscreen, lgAutoplay, lgShare, lgVideo],
-        videojs:true
+        plugins: [lgZoom, lgThumbnail, lgHash, lgFullscreen, lgAutoplay, lgShare, lgVideo, lgMediumZoom],
+        videojs:true,
+        controls:true,
+        download:true
         });
     $(event.target).trigger('click');
 }
