@@ -5,6 +5,7 @@ const body = document.querySelector('body');
 const header = document.querySelector('#header');
 const gallery = document.querySelector('[role=root]');
 const lgContainer = document.querySelector('#lg-container-1');
+let pluginInstance;
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
@@ -58,7 +59,10 @@ function makeLightGalleryImg(image, imageId) {
 ref.on('child_added', (snapshot, prevChildKey) => {
     const galleryImage = makeLightGalleryImg(snapshot.val(), snapshot.key);
     gallery.appendChild(galleryImage[0]);
-    galleryImage[0].addEventListener('click', launch);    
+    galleryImage[0].addEventListener('click', launch);
+    if (pluginInstance) {
+        pluginInstance.refresh();
+    } 
 });
 
 function getExtension(filename) {
@@ -99,3 +103,7 @@ gallery.addEventListener('lgBeforeOpen', () => {
 gallery.addEventListener('lgBeforeClose', () => {
     header.setAttribute('style','display:block')
 });
+
+gallery.addEventListener('lgInit', (event) => {
+    pluginInstance = event.detail.instance;
+ });
