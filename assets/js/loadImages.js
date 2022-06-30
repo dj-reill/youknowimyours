@@ -50,7 +50,9 @@ function makeLightGalleryImg(image, imageId) {
         ${isVideo(image.fileName) ? 
             `data-video='{"source": [{\"src\":"${image.url+getExtension(image.fileName)}", 
             "type":"type/${getExtension(image.fileName)}"}], 
-            "attributes": {"preload": false, "playsinline": true, "controls": true}}'`: `data-src="${image.url}"`}   
+            "attributes": {"preload": false, "playsinline": true, "controls": true}}'`: `data-src="${image.url}"`}
+        data-download-url="${image.url}"
+        data-download="${image.fileName}"
         data-sub-html="<h4>${image.caption}</h4><p>Snapped at ${createTimestamp} by ${image.uploadedBy}</p>"
         >
             <${isVideo(image.fileName) ? 'video': 'img'} src=${image.url}} alt="${image.fileName}" class="image fit"/>`);
@@ -106,4 +108,7 @@ gallery.addEventListener('lgBeforeClose', () => {
 
 gallery.addEventListener('lgInit', (event) => {
     pluginInstance = event.detail.instance;
+    pluginInstance.settings.download = true;
+    pluginInstance.settings.controls = true;
  });
+
