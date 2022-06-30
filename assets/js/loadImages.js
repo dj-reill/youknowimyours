@@ -1,14 +1,10 @@
 const ref = firebase.database().ref('shared');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
-const gallery = document.querySelector('[role=root]');
-const carousel = document.querySelector('#weddingCarousel');
-const type = 'box';
-const lgBar = document.querySelector('.lg-toolbar');
 const body = document.querySelector('body');
 const header = document.querySelector('#header');
-const lightGallery = document.querySelector('#lightgallery');
-let lg;
+const gallery = document.querySelector('[role=root]');
+const lgContainer = document.querySelector('#lg-container-1');
 
 function makeTimelineBucket(image, imageId){
     const dt = new Date(image.uploadTime);
@@ -73,9 +69,6 @@ function makeLightGalleryImg(image, imageId) {
 ref.on('child_added', (snapshot, prevChildKey) => {
     const galleryImage = makeLightGalleryImg(snapshot.val(), snapshot.key);
     gallery.appendChild(galleryImage[0]);
-    if (lg) {
-        $.data(lg[0]).lightGallery.$items.push(galleryImage[0]);
-    }
     galleryImage[0].addEventListener('click', launch);    
 });
 
@@ -100,87 +93,17 @@ function isVideo(filename) {
 
 function launch(event){
     event.preventDefault();
-    lg = $(lightGallery).lightGallery({licenseKey: '0428AA09-D8CE4ED8-B194A172-4FF223B6'});
+    lightGallery(gallery, {
+        licenseKey: '0428AA09-D8CE4ED8-B194A172-4FF223B6', 
+        plugins: [lgZoom, lgThumbnail, lgHash, lgFullscreen, lgAutoplay, lgShare, lgVideo]
+        });
     $(event.target).trigger('click');
 }
 
-function appendImage(target, imageData, type='carousel'){
-    if (type==='carousel') {
-        // let div = document.createElement('div');
-        // div.className = 'carousel-item';
-        // div.innerHTML = `<img src=${imageData.url} className="img-fluid d-block w-100" alt=${imageData.fileName}><div class="carousel-caption d-none d-md-block"><h5>${imageData.caption}</h5><p>Uploaded By: ${imageData.uploadedBy}</p></div>`;
-        let item = document.createElement('div');
-        item.className = 'carousel-item active';
-        let a = document.createElement('a');
-        a.href = imageData.url;
-        // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
-        let img;
-        if(isVideo(imageData.fileName)){
-            img = document.createElement('video');
-        } else {
-            img = document.createElement('img');
-        }
-        img.src = imageData.url;
-        img.className = 'img-fluid d-block w-100';
-        img.alt = imageData.fileName;
-        a.appendChild(img);
-        let caption = document.createElement('div');
-        caption.className = "carousel-caption d-none d-md-block bg-dark mb-4";
-        caption.style = "position: relative; left: 0; top: 0;"
-        let h= document.createElement('h5');
-        h.innerText = imageData.caption;
-        let p = document.createElement('p');
-        p.innerText = `Uploaded by: ${imageData.uploadedBy}`;
-        caption.appendChild(h);
-        caption.appendChild(p)
-        item.appendChild(a);
-        item.appendChild(caption);
-        target.appendChild(item);
-    } else if (type==='box'){
-        let a = document.createElement('a');
-        a.href = imageData.url;
-        // a.className = `data-toggle="lightbox" data-gallery="${target.id}" data-type="image"`;
-        let img;
-        if(isVideo(imageData.fileName)){
-            img = document.createElement('video');
-        } else {
-            img = document.createElement('img');
-        }
-        img.src = imageData.url;
-        img.className = 'img-fluid d-block w-100';
-        img.alt = imageData.fileName;
-        img.caption = imageData.caption;
-        img.uploadedBy = imageData.uploadedBy;
-        a.appendChild(img);
-        let span = document.createElement('span');
-        span.className = 'image fit';
-        span.id = `image${imageData.size}`;
-        span.appendChild(img);
-        let div = document.createElement('div');
-        div.className = 'col-3';
-        div.appendChild(span);
-        div.addEventListener('click', launchCarousel);
-        target.appendChild(div);
-    }    
-}
+gallery.addEventListener('lgBeforeOpen', () => {
+    header.setAttribute('style','display:none');
+});
 
-function onClassChange(element, callback) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === 'attributes' &&
-          mutation.attributeName === 'class'
-        ) {
-          callback(mutation.target);
-        }
-      });
-    });
-    observer.observe(element, { attributes: true });
-    return observer.disconnect;
-  }
-  
-onClassChange(body, (node) => {
-node.classList.contains('lg-on')
-    ? header.setAttribute('style','display:none')
-    : header.setAttribute('style','display:block');
+gallery.addEventListener('lgBeforeClose', () => {
+    header.setAttribute('style','display:block')
 });
