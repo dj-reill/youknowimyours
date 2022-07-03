@@ -59,12 +59,17 @@ function makeLightGalleryImg(image, imageId) {
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
-    const galleryImage = makeLightGalleryImg(snapshot.val(), snapshot.key);
-    gallery.appendChild(galleryImage[0]);
-    galleryImage[0].addEventListener('click', launch);
-    if (pluginInstance) {
-        pluginInstance.refresh();
-    } 
+    const upload = snapshot.val();
+    const ext = getExtension(upload.fileName);
+    const ignore = ['m4v', 'mp4', 'mov'];
+    if (!ignore.contains(upload.fileName)) {
+        const galleryImage = makeLightGalleryImg(snapshot.val(), snapshot.key);
+        gallery.appendChild(galleryImage[0]);
+        galleryImage[0].addEventListener('click', launch);
+        if (pluginInstance) {
+            pluginInstance.refresh();
+        } 
+    }
 });
 
 function getExtension(filename) {
