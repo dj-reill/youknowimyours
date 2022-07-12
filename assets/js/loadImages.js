@@ -55,7 +55,7 @@ function makeLightGalleryImg(image, imageId) {
         data-download="${image.fileName}"
         data-sub-html="<h4>${image.caption}</h4><p>Snapped at ${createTimestamp} by ${image.uploadedBy}</p>"
         >
-            <${isVideo(image.fileName) ? 'video': 'img'} src=${image.url}} alt="${image.fileName}" class="image fit"/>`);
+            <${isVideo(image.fileName) ? 'video': 'img'} src=${image.url} alt="${image.fileName}" class="image fit"/>`);
 }
 
 ref.on('child_added', (snapshot, prevChildKey) => {
