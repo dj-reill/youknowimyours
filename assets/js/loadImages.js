@@ -1,4 +1,4 @@
-const ref = firebase.database().ref('shared');
+const ref = firebase.database().ref('shared').orderByChild('lastModified');
 const timeline = document.querySelector('#gallery');
 const slices = document.querySelectorAll('[epoch]');
 const body = document.querySelector('body');
